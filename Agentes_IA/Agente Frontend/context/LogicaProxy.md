@@ -24,4 +24,22 @@ Por fuera parece lógica local; por dentro hace las llamadas HTTP.
 - El código debe coincidir con este diseño.
 
 ## Diseño
-(Completar aquí métodos y firmas de la proxy.)
+
+Subconjunto de `Autenticacion` que usan las pantallas de H10, H12 y H25.
+Mismos nombres, parámetros y retornos que la lógica del backend. Por dentro llama a
+`POST /api/registro`, `POST /api/login`, `POST /api/logout` y `GET /api/sesion`.
+La GUI no ve URLs ni `fetch`.
+
+```text
+nombre: Text, apellidos: Text, email: Text, password: Text --> registrar() --> ResultadoAuth
+email: Text, password: Text --> iniciarSesion() --> ResultadoAuth
+token: Text --> cerrarSesion() --> B
+token: Text --> comprobarSesion() --> ResultadoAuth
+nombre: Text, apellidos: Text, email: Text, password: Text, foto_base64: Text --> actualizarPerfil() --> ResultadoAuth
+```
+
+`iniciarSesion` guarda en el almacenamiento de la pestaña el token y el `UsuarioPublico`.
+`cerrarSesion` borra esa credencial antes de avisar al servidor, y devuelve verdadero
+cuando la credencial local ha quedado eliminada.
+`actualizarPerfil` llama a `PUT /api/perfil` y, si acierta, actualiza el usuario guardado en la sesión local.
+Si otra llamada de autenticación termina después, su respuesta se descarta y no pisa la sesión.

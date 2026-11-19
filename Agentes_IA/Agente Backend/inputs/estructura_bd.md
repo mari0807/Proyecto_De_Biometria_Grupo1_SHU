@@ -20,7 +20,7 @@ Define los perfiles de permisos y acceso dentro de la plataforma.
 | Columna | Tipo de Dato | Restricción | Descripción |
 | :--- | :--- | :--- | :--- |
 | `id_rol` | `INT` | **PK**, Auto-increment | Identificador único del rol. |
-| `nombre` | `STRING` (VARCHAR) | NOT NULL, UNIQUE | Nombre técnico o visible del rol (ej. `admin`, `usuario`, `tecnico`). |
+| `nombre` | `STRING` (VARCHAR) | NOT NULL, UNIQUE | Nombre técnico o visible del rol (ej. `admin`, `cliente`). |
 | `descripcion` | `STRING` (TEXT/VARCHAR) | NULLABLE | Descripción detallada de los permisos asociados al rol. |
 
 ---

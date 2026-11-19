@@ -1,0 +1,13 @@
+Para: cliente@email.com
+Asunto: Recupera tu contraseña de QuéAire
+
+Hola Andreu,
+
+Has solicitado restablecer tu contraseña en QuéAire.
+Abre este enlace (válido 1 hora):
+
+http://127.0.0.1:5500/restablecer.html?token=ba65e86119f984da3441c7352fa2e9f186ca44eff74b59eca3da584e2a80385e
+
+Si no has sido tú, ignora este mensaje.
+
+— QuéAire · SHU

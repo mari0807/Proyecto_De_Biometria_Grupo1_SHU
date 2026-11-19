@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Perfil de usuario en QuéAire.">
+    <title>Perfil | QuéAire</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="perfil.css">
+    <link rel="stylesheet" href="interaccion.css">
+  </head>
+  <body hidden>
+    <header class="topbar">
+      <a class="brand" id="volver-inicio" href="landing.html" aria-label="QuéAire">
+        <img src="logo.png" alt="QuéAire">
+      </a>
+      <a class="btn-volver" id="volver-origen" href="user.html">← Volver</a>
+    </header>
+
+    <main class="page">
+      <header class="page-hero">
+        <p class="kicker">CUENTA</p>
+        <h1>Perfil</h1>
+        <p class="sub">Consulta tus datos. Para cambiarlos, pulsa Editar junto al campo y confirma con tu contraseña.</p>
+      </header>
+
+      <div class="page-body">
+        <aside class="photo-panel">
+          <span class="avatar photo-preview" id="perfil-preview">QA</span>
+          <button type="button" class="btn-edit" data-campo="foto">Editar</button>
+        </aside>
+
+        <section class="block">
+          <h2>Datos personales</h2>
+
+          <div class="dato-fila">
+            <div>
+              <p class="dato-label">Nombre</p>
+              <p class="dato-valor" id="valor-nombre">—</p>
+            </div>
+            <button type="button" class="btn-edit" data-campo="nombre">Editar</button>
+          </div>
+
+          <div class="dato-fila">
+            <div>
+              <p class="dato-label">Apellidos</p>
+              <p class="dato-valor" id="valor-apellidos">—</p>
+            </div>
+            <button type="button" class="btn-edit" data-campo="apellidos">Editar</button>
+          </div>
+
+          <div class="dato-fila">
+            <div>
+              <p class="dato-label">Correo electrónico</p>
+              <p class="dato-valor" id="valor-email">—</p>
+            </div>
+            <button type="button" class="btn-edit" data-campo="email">Editar</button>
+          </div>
+
+          <div class="dato-fila">
+            <div>
+              <p class="dato-label">Contraseña</p>
+              <p class="dato-valor">••••••••</p>
+            </div>
+            <button type="button" class="btn-edit" data-campo="password">Editar</button>
+          </div>
+
+          <p class="form-message" id="perfil-message" hidden></p>
+        </section>
+
+        <section class="block cuenta-acciones">
+          <h2>Cuenta</h2>
+          <p class="cuenta-ayuda">Vuelve atrás o gestiona tu sesión.</p>
+          <div class="cuenta-botones">
+            <a class="btn primary" id="btn-volver-cuenta" href="user.html">← Volver</a>
+            <button type="button" class="btn ghost" id="btn-cerrar-sesion">Cerrar sesión</button>
+            <button type="button" class="btn danger" id="btn-borrar-cuenta">Borrar cuenta</button>
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <div class="modal" id="modal-editar" hidden>
+      <div class="modal-backdrop" data-cerrar></div>
+      <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="modal-titulo">
+        <button type="button" class="modal-close" data-cerrar aria-label="Cerrar">×</button>
+        <p class="kicker">CONFIRMAR CAMBIO</p>
+        <h2 id="modal-titulo">Editar</h2>
+        <p class="modal-sub" id="modal-sub">Introduce el nuevo valor y confirma con tu contraseña.</p>
+
+        <form id="form-modal">
+          <div id="modal-campo"></div>
+
+          <label for="modal-password">Por favor, introduzca su contraseña para confirmar</label>
+          <input id="modal-password" name="password" type="password" autocomplete="current-password" required placeholder="Contraseña">
+
+          <p class="form-message" id="modal-message" hidden></p>
+
+          <div class="modal-actions">
+            <button type="button" class="btn ghost" data-cerrar>Cancelar</button>
+            <button type="submit" class="btn primary">Guardar</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <script type="module" src="js/perfilPagina.js"></script>
+  </body>
+</html>

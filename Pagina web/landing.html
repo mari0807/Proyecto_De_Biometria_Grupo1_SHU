@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="QuéAire: conoce el aire que respiras. Sensor portátil, mapa en tiempo real y cuidado de tu salud.">
+    <title>QuéAire | Conoce el aire que respiras</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="landing.css">
+    <link rel="stylesheet" href="interaccion.css">
+  </head>
+  <body>
+    <header class="top">
+      <a class="brand" href="landing.html" aria-label="QuéAire">
+        <img src="logo.png" alt="QuéAire">
+      </a>
+      <nav class="top-nav" aria-label="Secciones">
+        <a href="#producto">Producto</a>
+        <a href="#por-que">Por qué QuéAire</a>
+        <a href="#empieza">Empieza</a>
+      </nav>
+      <div class="top-actions">
+        <a class="btn ghost" href="user.html#login">Iniciar sesión</a>
+        <a class="btn primary" href="user.html#registro">Registrarme</a>
+      </div>
+    </header>
+
+    <section class="hero" aria-label="Anuncio QuéAire">
+      <div class="hero-visual" aria-hidden="true">
+        <div class="orb orb-a"></div>
+        <div class="orb orb-b"></div>
+        <div class="grid-fade"></div>
+        <svg class="hero-map" viewBox="0 0 900 520" preserveAspectRatio="xMidYMid slice">
+          <rect width="900" height="520" fill="#dceee8"/>
+          <path d="M730 0c-24 92-2 142-24 221s-8 166 18 299h176V0Z" fill="#b9dde8"/>
+          <path d="M0 92c164 25 305 10 460 31s285 34 440 10M0 385c160-31 301-23 445 0s280 28 455-2M124 0c25 102 11 189 20 279s11 159 1 241M489 0c-18 88 2 179-4 263s-11 170 12 257" fill="none" stroke="#fff" stroke-width="16"/>
+          <path d="M0 207c160-17 286-9 417 12s287 14 450-4M286 0c-11 94 4 166 0 255s-3 179 16 265" fill="none" stroke="#fff" stroke-width="10"/>
+          <g transform="translate(410 250)">
+            <circle r="54" fill="#198db133"/>
+            <circle r="28" fill="#198db155"/>
+            <circle r="10" fill="#155b91"/>
+          </g>
+        </svg>
+      </div>
+
+      <div class="hero-copy">
+        <img class="hero-logo" src="logo.png" alt="QuéAire">
+        <h1>Conoce el aire que respiras</h1>
+        <p>El monitor personal de calidad del aire para tus trayectos. Sensor portátil, mapa en vivo y recomendaciones para proteger tu salud.</p>
+        <div class="hero-cta">
+          <a class="btn primary lg" href="user.html#login">Iniciar sesión</a>
+          <a class="btn ghost lg" href="user.html#registro">Registrarme</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="producto">
+      <div class="wrap announce">
+        <p class="eyebrow">PRODUCTO</p>
+        <h2>QuéAire llega para medir el aire donde las estaciones oficiales no llegan</h2>
+        <p class="lead">Las redes oficiales dejan huecos en calles, rutas en bici y zonas de tráfico. Nosotros los cubrimos con nodos móviles que miden ozono mientras te mueves, allá donde estés.</p>
+      </div>
+    </section>
+
+    <section class="section alt" id="por-que">
+      <div class="wrap">
+        <p class="eyebrow">POR QUÉ QUÉAIRE</p>
+        <h2>Una solución completa, no solo un gadget</h2>
+        <ul class="pillars">
+          <li>
+            <strong>Hardware + nube</strong>
+            <span>Sensor portátil con SparkFun nRF52840 y SPEC de ozono, más plataforma web y app Android.</span>
+          </li>
+          <li>
+            <strong>Hecho para moverte</strong>
+            <span>Carcasa ligera e impermeable: llévalo en bici, andando o en tu día a día.</span>
+          </li>
+          <li>
+            <strong>Privacidad y salud</strong>
+            <span>Acceso seguro (también biométrico) y valor real: saber a qué aire te expones.</span>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="section" id="empieza">
+      <div class="wrap offer">
+        <p class="eyebrow">EMPIEZA</p>
+        <h2>Empieza gratis y únete a la red</h2>
+        <p class="lead">Con el dispositivo tienes <strong>2 meses gratis</strong> de suscripción. Después, mantén el servicio y sigue sumando mediciones a un mapa que mejora con cada portador.</p>
+        <div class="hero-cta offer-cta">
+          <a class="btn primary lg" href="user.html#registro">Registrarme ahora</a>
+          <a class="btn ghost lg" href="user.html#login">Ya tengo cuenta</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="cta-band">
+      <div class="wrap cta-inner">
+        <div>
+          <p class="eyebrow light">ÚNETE A QUÉAIRE</p>
+          <h2>Tu próximo trayecto puede ser más informado</h2>
+        </div>
+        <div class="hero-cta">
+          <a class="btn primary lg" href="user.html#login">Iniciar sesión</a>
+          <a class="btn ghost lg light" href="user.html#registro">Registrarme</a>
+        </div>
+      </div>
+    </section>
+
+    <footer class="foot">
+      <div class="wrap foot-inner">
+        <img src="logo.png" alt="QuéAire">
+        <p>QuéAire · Un producto de SHU</p>
+      </div>
+    </footer>
+    <script type="module" src="js/landing.js"></script>
+  </body>
+</html>

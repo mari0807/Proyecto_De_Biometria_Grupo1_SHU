@@ -9,20 +9,27 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="admin.css">
+    <link rel="stylesheet" href="interaccion.css">
   </head>
-  <body>
+  <body hidden>
     <!-- ===== CABECERA ===== -->
     <header class="topbar">
-      <a class="brand" href="index.html" aria-label="QuéAire, volver a la página ciudadana">
+      <a class="brand" href="landing.html" aria-label="QuéAire, volver a la landing">
         <img src="logo.png" alt="QuéAire">
       </a>
       <div class="topbar-right">
-        <span class="environment">Panel de administración</span>
-        <a class="return-link" href="index.html">← Ver página ciudadana</a>
-        <div class="profile" aria-label="Administradora conectada">
-          <span class="avatar">AM</span>
-          <span class="profile-copy"><b>Admin</b><small>Administración</small></span>
-          <span class="chevron">⌄</span>
+        <a class="nav-switch" href="user.html">← Ver página ciudadana</a>
+        <div class="profile-menu" id="profile-menu">
+          <button type="button" class="profile" id="profile-toggle" aria-haspopup="menu" aria-expanded="false">
+            <span class="avatar" id="profile-avatar">AQ</span>
+            <span class="profile-copy"><b id="profile-name">Admin</b></span>
+          </button>
+          <div class="profile-dropdown" id="profile-dropdown" role="menu" hidden>
+            <button type="button" class="profile-item" data-accion="perfil" role="menuitem">Perfil</button>
+            <button type="button" class="profile-item" data-accion="notificaciones" role="menuitem" disabled>Mis notificaciones</button>
+            <hr class="profile-separator" aria-hidden="true">
+            <button type="button" class="profile-item danger" data-accion="cerrar-sesion" role="menuitem">Cerrar sesión</button>
+          </div>
         </div>
       </div>
     </header>
@@ -74,7 +81,7 @@
           <section class="panel management-card" id="usuarios">
             <div class="panel-heading"><div><p class="section-kicker">CUENTAS</p><h2>Gestión de usuarios</h2></div><span class="stat-icon blue">♙</span></div>
             <p class="management-copy">Da de alta o de baja usuarios de la plataforma.</p>
-            <a class="button button-outline full-button" href="#usuarios">Gestionar usuarios <span>→</span></a>
+            <button type="button" class="button button-outline full-button" id="btn-gestionar-usuarios">Gestionar usuarios <span>→</span></button>
           </section>
           <section class="panel management-card" id="comunicaciones">
             <div class="panel-heading"><div><p class="section-kicker">COMUNICACIONES</p><h2>Enviar comunicaciones</h2></div><span class="stat-icon amber">✉</span></div>
@@ -96,5 +103,134 @@
         <footer class="admin-footer"><span>QuéAire · Panel de administración</span><span>Prototipo visual · Datos de demostración</span></footer>
       </main>
     </div>
+
+    <div class="admin-modal" id="modal-usuarios" hidden>
+      <div class="admin-modal-backdrop" data-cerrar-usuarios></div>
+      <div class="admin-modal-panel" role="dialog" aria-modal="true" aria-labelledby="usuarios-titulo">
+        <header class="admin-modal-head">
+          <div>
+            <p class="section-kicker">CUENTAS</p>
+            <h2 id="usuarios-titulo">Gestión de usuarios</h2>
+            <p class="panel-subtitle">Usuarios registrados. Edita y confirma antes de aplicar.</p>
+          </div>
+          <div class="admin-modal-head-actions">
+            <button type="button" class="button button-primary" id="btn-alta-usuario">+ Dar de alta</button>
+            <button type="button" class="admin-modal-close" data-cerrar-usuarios aria-label="Cerrar">×</button>
+          </div>
+        </header>
+        <p class="form-message" id="usuarios-mensaje" hidden></p>
+        <div class="table-scroll admin-users-scroll">
+          <table class="admin-users-table">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>NOMBRE</th>
+                <th>APELLIDOS</th>
+                <th>CORREO</th>
+                <th>ROL</th>
+                <th>ESTADO</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody id="usuarios-tbody">
+              <tr><td colspan="7">Cargando…</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div class="admin-modal" id="modal-alta-usuario" hidden>
+      <div class="admin-modal-backdrop" data-cerrar-alta></div>
+      <div class="admin-modal-card" role="dialog" aria-modal="true" aria-labelledby="alta-usuario-titulo">
+        <button type="button" class="admin-modal-close" data-cerrar-alta aria-label="Cerrar">×</button>
+        <p class="section-kicker">ALTA</p>
+        <h2 id="alta-usuario-titulo">Dar de alta usuario</h2>
+        <p class="panel-subtitle">Se creará la cuenta y se generará una contraseña temporal para enviársela.</p>
+        <form id="form-alta-usuario">
+          <label for="alta-nombre">Nombre</label>
+          <input id="alta-nombre" type="text" required>
+          <label for="alta-apellidos">Apellidos</label>
+          <input id="alta-apellidos" type="text" required>
+          <label for="alta-email">Correo electrónico</label>
+          <input id="alta-email" type="email" required>
+          <label for="alta-rol">Rol</label>
+          <select id="alta-rol" required>
+            <option value="cliente">cliente</option>
+            <option value="admin">admin</option>
+          </select>
+          <p class="form-message" id="alta-usuario-mensaje" hidden></p>
+          <div class="admin-modal-actions">
+            <button type="button" class="button button-outline" data-cerrar-alta>Cancelar</button>
+            <button type="submit" class="button button-primary">Crear usuario</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <div class="admin-modal" id="modal-editar-usuario" hidden>
+      <div class="admin-modal-backdrop" data-cerrar-editar></div>
+      <div class="admin-modal-card" role="dialog" aria-modal="true" aria-labelledby="editar-usuario-titulo">
+        <button type="button" class="admin-modal-close" data-cerrar-editar aria-label="Cerrar">×</button>
+        <p class="section-kicker">EDITAR</p>
+        <h2 id="editar-usuario-titulo">Editar usuario</h2>
+        <p class="panel-subtitle" id="editar-usuario-sub">Modifica los datos y confirma para aplicar.</p>
+        <form id="form-editar-usuario">
+          <input type="hidden" id="edit-id">
+          <label for="edit-nombre">Nombre</label>
+          <input id="edit-nombre" type="text" required>
+          <label for="edit-apellidos">Apellidos</label>
+          <input id="edit-apellidos" type="text" required>
+          <label for="edit-email">Correo electrónico</label>
+          <input id="edit-email" type="email" required>
+          <label for="edit-rol">Rol</label>
+          <select id="edit-rol" required>
+            <option value="cliente">cliente</option>
+            <option value="admin">admin</option>
+          </select>
+          <label class="check-row" for="edit-activo">
+            <input id="edit-activo" type="checkbox">
+            Cuenta activa
+          </label>
+          <p class="form-message" id="editar-usuario-mensaje" hidden></p>
+          <div class="admin-modal-actions wrap-actions">
+            <button type="button" class="button button-outline" id="btn-gen-password">Generar contraseña</button>
+            <button type="button" class="button button-danger" id="btn-borrar-usuario">Borrar cuenta</button>
+          </div>
+          <div class="admin-modal-actions">
+            <button type="button" class="button button-outline" data-cerrar-editar>Cancelar</button>
+            <button type="submit" class="button button-primary">Guardar cambios</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <div class="admin-modal" id="modal-confirmar-usuario" hidden>
+      <div class="admin-modal-backdrop" data-cerrar-confirmar></div>
+      <div class="admin-modal-card narrow" role="dialog" aria-modal="true" aria-labelledby="confirmar-usuario-titulo">
+        <h2 id="confirmar-usuario-titulo">¿Estás seguro?</h2>
+        <p class="panel-subtitle" id="confirmar-usuario-texto">¿Estás seguro de que quieres aplicar estos cambios?</p>
+        <div class="admin-modal-actions">
+          <button type="button" class="button button-outline" data-cerrar-confirmar>Cancelar</button>
+          <button type="button" class="button button-primary" id="btn-confirmar-usuario">Confirmar</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="admin-modal" id="modal-password-temp" hidden>
+      <div class="admin-modal-backdrop" data-cerrar-password-temp></div>
+      <div class="admin-modal-card" role="dialog" aria-modal="true" aria-labelledby="password-temp-titulo">
+        <h2 id="password-temp-titulo">Contraseña temporal</h2>
+        <p class="panel-subtitle">Cópiala y envíasela al usuario (p. ej. por correo). La anterior no se puede ver: solo había un hash.</p>
+        <p class="password-temp-box" id="password-temp-valor"></p>
+        <p class="form-message ok" id="password-temp-aviso">Esta contraseña no se volverá a mostrar.</p>
+        <div class="admin-modal-actions">
+          <button type="button" class="button button-outline" id="btn-copiar-password">Copiar</button>
+          <button type="button" class="button button-primary" data-cerrar-password-temp>Hecho</button>
+        </div>
+      </div>
+    </div>
+
+    <script type="module" src="js/adminAcceso.js"></script>
   </body>
 </html>

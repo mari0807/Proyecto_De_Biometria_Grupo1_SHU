@@ -1,0 +1,13 @@
+Para: mrosdap@epsg.upv.es
+Asunto: Recupera tu contraseña de QuéAire
+
+Hola Mari,
+
+Has solicitado restablecer tu contraseña en QuéAire.
+Abre este enlace (válido 1 hora):
+
+http://127.0.0.1:5500/restablecer.html?token=3e5f21513142420535b449d065cafa45d03c5b72a7713ab16555600fe908c9b7
+
+Si no has sido tú, ignora este mensaje.
+
+— QuéAire · SHU

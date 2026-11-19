@@ -25,4 +25,57 @@ Flujo: `communication` → `business_logic` → `database`.
 - El código debe coincidir con este diseño (mismas rutas, bodies y respuestas).
 
 ## Diseño
-(Completar aquí el contrato real de la API del proyecto.)
+
+Contrato de H10, H12, H25 y edición de perfil. La capa traduce `CodigoAuth` a HTTP y no escribe SQL.
+El cuerpo de error y de acierto es JSON. `usuario` nunca incluye `password_hash` ni la columna `foto_perfil`; sí puede incluir `foto` (URL pública).
+
+| CodigoAuth | HTTP |
+| :--- | :--- |
+| `OK` | 200 |
+| `DATOS_INVALIDOS` | 400 |
+| `CORREO_REGISTRADO` | 409 |
+| `CREDENCIALES_INVALIDAS`, `CUENTA_INACTIVA`, `SESION_INVALIDA` | 401 |
+
+### POST `/api/registro`
+
+Body: `{ "nombre": Text, "apellidos": Text, "email": Text, "password": Text }`
+
+Acierto 200: `{ "ok": true, "mensaje": "Cuenta creada correctamente.", "usuario": UsuarioPublico }`
+
+Errores: 400 si faltan campos, el email no tiene formato o la contraseña no es válida; 409 si el correo ya está registrado. `ok` es `false` y `mensaje` explica el motivo.
+
+### POST `/api/login`
+
+Body: `{ "email": Text, "password": Text }`
+
+Acierto 200: `{ "ok": true, "mensaje": Text, "token": Text, "usuario": UsuarioPublico }`
+
+Error 401: `{ "ok": false, "mensaje": Text }` (credenciales incorrectas o cuenta inactiva).
+
+### POST `/api/logout`
+
+Cabecera opcional: `Authorization: Bearer <token>`
+
+Acierto 200: `{ "ok": true, "mensaje": "Sesión cerrada." }`
+
+El cliente borra la credencial guardada aunque la respuesta tarde. El servidor no almacena la sesión.
+
+### GET `/api/sesion`
+
+Cabecera: `Authorization: Bearer <token>`
+
+Acierto 200: `{ "ok": true, "usuario": UsuarioPublico }`
+
+Error 401 si no hay token, está caducado o la cuenta ya no está activa. Sirve para no abrir páginas privadas sin autenticación (H25).
+
+### PUT `/api/perfil`
+
+Cabecera: `Authorization: Bearer <token>`
+
+Body: `{ "nombre": Text, "apellidos": Text, "email": Text, "password": Text, "foto_base64": Text }`
+
+`foto_base64` es opcional. Si viene, es un `data:image/png|jpeg|webp;base64,...`. La comunicación guarda el fichero en `public/perfiles/` y pasa la ruta relativa a la lógica.
+
+Acierto 200: `{ "ok": true, "mensaje": "Perfil actualizado correctamente.", "usuario": UsuarioPublico }`
+
+Errores: 400 datos inválidos; 401 sesión inválida o contraseña incorrecta; 409 correo ya registrado.
