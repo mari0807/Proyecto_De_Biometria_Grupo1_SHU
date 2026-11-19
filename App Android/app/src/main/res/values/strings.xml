@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">QuéAire · Mapa</string>
+    <string name="login_titulo">QuéAire</string>
+    <string name="login_subtitulo">Calidad del aire en Gandía</string>
+    <string name="login_email">Correo electrónico</string>
+    <string name="login_password">Contraseña</string>
+    <string name="login_servidor">Servidor (API)</string>
+    <string name="login_entrar">Entrar</string>
+    <string name="mapa_titulo">Calidad del aire por zona</string>
+    <string name="mapa_subtitulo">Campus de Gandia · UPV</string>
+    <string name="mapa_reintentar">Reintentar</string>
+    <string name="detalle_cerrar">Cerrar</string>
+    <string name="detalle_sin_mediciones">No hay mediciones disponibles para esta zona.</string>
+    <string name="detalle_evolucion">Evolución</string>
+</resources>

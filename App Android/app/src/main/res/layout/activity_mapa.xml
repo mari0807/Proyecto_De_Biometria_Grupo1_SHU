@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <org.osmdroid.views.MapView
+        android:id="@+id/mapa"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top"
+        android:background="@color/primary_dark"
+        android:orientation="vertical"
+        android:paddingLeft="@dimen/espacio"
+        android:paddingTop="@dimen/espacio"
+        android:paddingRight="@dimen/espacio"
+        android:paddingBottom="@dimen/espacio">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/mapa_titulo"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/texto_titulo"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/mapa_subtitulo"
+            android:textColor="#D6EAF8"
+            android:textSize="@dimen/texto_pequeno" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/mapa_estado"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top|center_horizontal"
+        android:layout_marginTop="76dp"
+        android:layout_marginLeft="@dimen/espacio"
+        android:layout_marginRight="@dimen/espacio"
+        android:background="@drawable/panel_blanco"
+        android:gravity="center"
+        android:textColor="@color/ink"
+        android:textSize="@dimen/texto_pequeno"
+        android:visibility="gone" />
+
+    <com.queaire.app.ui.LeyendaView
+        android:id="@+id/mapa_leyenda"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|left"
+        android:layout_marginLeft="@dimen/espacio"
+        android:layout_marginBottom="@dimen/espacio"
+        android:background="@drawable/panel_blanco"
+        android:clickable="true"
+        android:focusable="true" />
+
+    <TextView
+        android:id="@+id/mapa_actualizacion"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|center_horizontal"
+        android:layout_marginBottom="@dimen/espacio"
+        android:background="@drawable/panel_blanco"
+        android:textColor="@color/ink"
+        android:textSize="@dimen/texto_pequeno" />
+
+    <ProgressBar
+        android:id="@+id/mapa_cargando"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:visibility="gone" />
+
+    <Button
+        android:id="@+id/mapa_reintentar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="@string/mapa_reintentar"
+        android:visibility="gone" />
+
+</FrameLayout>

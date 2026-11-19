@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="@dimen/espacio_grande">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/login_titulo"
+            android:textColor="@color/primary_dark"
+            android:textSize="30sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/espacio_pequeno"
+            android:text="@string/login_subtitulo"
+            android:textColor="@color/texto_suave"
+            android:textSize="@dimen/texto_normal" />
+
+        <EditText
+            android:id="@+id/login_email"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/espacio_grande"
+            android:autofillHints="emailAddress"
+            android:hint="@string/login_email"
+            android:inputType="textEmailAddress" />
+
+        <EditText
+            android:id="@+id/login_password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/espacio"
+            android:autofillHints="password"
+            android:hint="@string/login_password"
+            android:inputType="textPassword" />
+
+        <EditText
+            android:id="@+id/login_servidor"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/espacio"
+            android:hint="@string/login_servidor"
+            android:inputType="textUri"
+            android:text="http://10.0.2.2/api" />
+
+        <Button
+            android:id="@+id/login_entrar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/espacio_grande"
+            android:text="@string/login_entrar" />
+
+        <ProgressBar
+            android:id="@+id/login_cargando"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/espacio"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/login_mensaje"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/espacio"
+            android:textColor="#C0392B"
+            android:textSize="@dimen/texto_pequeno" />
+    </LinearLayout>
+
+</ScrollView>
