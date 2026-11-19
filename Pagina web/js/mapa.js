@@ -19,7 +19,27 @@ const ETIQUETA_CATEGORIA = {
   sin_datos: "Sin datos",
 };
 
-const INTENSIDAD = { buena: 0.25, moderada: 0.5, mala: 0.8, muy_mala: 1 };
+const SEVERIDAD = { buena: 0, moderada: 0.5, mala: 0.75, muy_mala: 1 };
+
+const ESCALA_CALOR = [
+  { s: 0, rgb: [112, 184, 62] },
+  { s: 0.5, rgb: [237, 174, 53] },
+  { s: 0.75, rgb: [230, 126, 34] },
+  { s: 1, rgb: [192, 57, 43] },
+];
+
+function colorSeveridad(severidad) {
+  const valor = Math.max(0, Math.min(1, severidad));
+  for (let i = 1; i < ESCALA_CALOR.length; i += 1) {
+    const desde = ESCALA_CALOR[i - 1];
+    const hasta = ESCALA_CALOR[i];
+    if (valor <= hasta.s) {
+      const t = (valor - desde.s) / (hasta.s - desde.s || 1);
+      return desde.rgb.map((c, k) => Math.round(c + (hasta.rgb[k] - c) * t));
+    }
+  }
+  return ESCALA_CALOR[ESCALA_CALOR.length - 1].rgb;
+}
 
 const contenedor = document.querySelector("#mapa-canvas");
 const estado = document.querySelector("#mapa-estado");
@@ -90,6 +110,83 @@ function pintarLeyenda(puntos) {
   leyenda.addTo(mapa);
 }
 
+const CapaCalor = globalThis.L
+  ? globalThis.L.Layer.extend({
+      options: { radio: 60, paso: 4, potencia: 2, opacidad: 0.85 },
+
+      initialize(opciones) {
+        globalThis.L.setOptions(this, opciones);
+        this._puntos = [];
+      },
+
+      onAdd(mapa) {
+        this._mapa = mapa;
+        if (!mapa.getPane("calor")) {
+          const pane = mapa.createPane("calor");
+          pane.style.zIndex = 350;
+          pane.style.pointerEvents = "none";
+        }
+        this._canvas = globalThis.L.DomUtil.create("canvas", "mapa-calor");
+        this._ctx = this._canvas.getContext("2d");
+        mapa.getPane("calor").appendChild(this._canvas);
+        mapa.on("moveend zoomend resize", this.redibujar, this);
+        this.redibujar();
+      },
+
+      onRemove(mapa) {
+        mapa.off("moveend zoomend resize", this.redibujar, this);
+        if (this._canvas) globalThis.L.DomUtil.remove(this._canvas);
+      },
+
+      setDatos(puntos) {
+        this._puntos = Array.isArray(puntos) ? puntos : [];
+        this.redibujar();
+      },
+
+      redibujar() {
+        const mapa = this._mapa;
+        if (!mapa || !this._canvas) return;
+
+        const tam = mapa.getSize();
+        const canvas = this._canvas;
+        if (canvas.width !== tam.x || canvas.height !== tam.y) {
+          canvas.width = tam.x;
+          canvas.height = tam.y;
+        }
+        globalThis.L.DomUtil.setPosition(canvas, mapa.containerPointToLayerPoint([0, 0]));
+
+        const ctx = this._ctx;
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        if (this._puntos.length === 0) return;
+
+        const proyeccion = this._puntos.map((p) => {
+          const pt = mapa.latLngToContainerPoint([Number(p.latitud), Number(p.longitud)]);
+          return { x: pt.x, y: pt.y, s: SEVERIDAD[p.categoria] ?? 0.5 };
+        });
+
+        const { radio, paso, potencia, opacidad } = this.options;
+        for (let y = 0; y < canvas.height; y += paso) {
+          for (let x = 0; x < canvas.width; x += paso) {
+            let sumaPeso = 0;
+            let sumaSev = 0;
+            for (const q of proyeccion) {
+              const distancia = Math.hypot(x - q.x, y - q.y);
+              if (distancia >= radio) continue;
+              const peso = (1 - distancia / radio) ** potencia;
+              sumaPeso += peso;
+              sumaSev += peso * q.s;
+            }
+            if (sumaPeso <= 0) continue;
+            const [r, g, b] = colorSeveridad(sumaSev / sumaPeso);
+            const alfa = Math.min(1, sumaPeso) * opacidad;
+            ctx.fillStyle = `rgba(${r},${g},${b},${alfa.toFixed(3)})`;
+            ctx.fillRect(x - paso / 2, y - paso / 2, paso + 1, paso + 1);
+          }
+        }
+      },
+    })
+  : null;
+
 function pintarPuntos(puntos) {
   if (!mapa) return;
   if (capaCalor) mapa.removeLayer(capaCalor);
@@ -97,12 +194,9 @@ function pintarPuntos(puntos) {
 
   if (puntos.length === 0) return;
 
-  const calor = puntos.map((p) => [
-    Number(p.latitud),
-    Number(p.longitud),
-    INTENSIDAD[p.categoria] ?? 0.3,
-  ]);
-  capaCalor = globalThis.L.heatLayer(calor, { radius: 38, blur: 26, maxZoom: 15 }).addTo(mapa);
+  capaCalor = new CapaCalor();
+  capaCalor.addTo(mapa);
+  capaCalor.setDatos(puntos);
 
   capaMarcadores = globalThis.L.layerGroup().addTo(mapa);
   for (const punto of puntos) {
