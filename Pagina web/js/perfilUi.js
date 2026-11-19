@@ -5,7 +5,7 @@ const API_BASE = "http://127.0.0.1:8080";
 /**
  * Logo QuéAire:
  * - sin sesión → landing
- * - cliente → user
+ * - usuario → user
  * - admin → admin (su panel)
  */
 export function actualizarLogoInicio(usuarioOAutenticado) {

@@ -94,7 +94,7 @@ function abrirEdicion(usuario) {
   editNombre.value = usuario.nombre;
   editApellidos.value = usuario.apellidos;
   editEmail.value = usuario.email;
-  editRol.value = usuario.rol === "admin" ? "admin" : "cliente";
+  editRol.value = usuario.rol === "admin" ? "admin" : "usuario";
   editActivo.checked = Boolean(usuario.activo);
   mostrar(mensajeEditar, "", false);
   document.querySelector("#editar-usuario-sub").textContent =

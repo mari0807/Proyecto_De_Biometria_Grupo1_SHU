@@ -2,7 +2,7 @@
 -- QueAire_Biometria - Test de datos iniciales y demo
 -- ----------------------------------------------------------------------------
 -- Solo lectura. Comprueba usuarios de prueba, catalogos y datos del mapa.
--- Uso:  mysql -u root < database/tests/check_seed.sql
+-- Uso:  mysql -u root < bd/tests/check_seed.sql
 -- ============================================================================
 
 USE QueAire_Biometria;

@@ -3,7 +3,7 @@
 -- ----------------------------------------------------------------------------
 -- Comprueba que la base de datos real coincide con el diseno de BBDD.md.
 -- Solo lectura: no modifica datos (usa una tabla temporal para acumular fallos).
--- Uso:  mysql -u root < database/tests/check_schema.sql
+-- Uso:  mysql -u root < bd/tests/check_schema.sql
 -- Interpretacion: total_problemas = 0 significa esquema correcto.
 -- ============================================================================
 

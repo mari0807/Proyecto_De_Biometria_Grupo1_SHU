@@ -92,7 +92,7 @@ ESTACION_OFICIAL (1) ─< (N) MEDICION_OFICIAL
 ====================================================================================
 TABLE: ROLES
 
-DESCRIPTION: Catálogo de perfiles de permisos de la plataforma (admin, cliente).
+DESCRIPTION: Catálogo de perfiles de permisos de la plataforma (admin, usuario).
 
 COLUMNS:
 
@@ -324,7 +324,7 @@ Las FK de InnoDB crean su índice automáticamente; los siguientes se añaden ex
 ### Reglas de negocio que la lógica debe garantizar
 
 1. **Registro**: `email` único (sin distinguir mayúsculas), `password_hash` con `password_hash()`
-   de PHP (bcrypt) y tamaño ≤ 255. Rol por defecto: `cliente`.
+   de PHP (bcrypt) y tamaño ≤ 255. Rol por defecto: `usuario`.
 2. **Login**: solo usuarios con `activo = TRUE`. Al entrar se actualiza `ultimo_acceso`.
    `password_hash` y `foto_perfil` nunca viajan en las respuestas.
 3. **Alta de nodo (auto-registro)**: el usuario autenticado registra `uuid` + `major` y el nombre
@@ -359,7 +359,7 @@ Las FK de InnoDB crean su índice automáticamente; los siguientes se añaden ex
 Script idempotente (`INSERT ... ON DUPLICATE KEY UPDATE` o `WHERE NOT EXISTS`), con IDs fijos
 para los catálogos:
 
-+ **ROLES**: `1 admin`, `3 cliente`. No hay rol `tecnico`.
++ **ROLES**: `1 admin`, `3 usuario`. El seed completo también puede incluir `2 tecnico` (demo).
 + **CONTAMINANTE** (IDs fijos):
 
 | id | nombre | unidad_medida | valor_min | valor_max |
@@ -378,7 +378,7 @@ para los catálogos:
 | O3 (ppb) | 0 – 50 | 50 – 100 | 100 – 150 | > 150 |
 
   Colores: `buena #2ECC71`, `moderada #F1C40F`, `mala #E67E22`, `muy_mala #E74C3C`.
-+ **USUARIO demo**: `cliente@email.com`, rol `cliente`, `activo = TRUE`.
++ **USUARIO demo**: `cliente@email.com`, rol `usuario`, `activo = TRUE`.
   El hash se genera con `php -r "echo password_hash('Demo1234!', PASSWORD_BCRYPT);"`
   y se pega en el script (nunca se guarda la contraseña en claro).
 + **ESTACION_OFICIAL**: 2 estaciones de Barcelona (IDs fijos, `id_externo` relleno).

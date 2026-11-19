@@ -29,20 +29,20 @@ La cabecera de `index.html` abre el acceso con el botón **Login**.
 
 Dos formularios:
 
-- **Iniciar sesión :** correo electrónico y contraseña. Al enviar, la GUI llama a `iniciarSesion`. Si falla, el mensaje de error queda en el formulario. Si acierta, redirige según el rol devuelto. Solo hay dos roles: `admin` y `cliente`.
+- **Iniciar sesión :** correo electrónico y contraseña. Al enviar, la GUI llama a `iniciarSesion`. Si falla, el mensaje de error queda en el formulario. Si acierta, redirige según el rol devuelto. Roles de producto: `admin` y `usuario`.
   - `admin` → `admin.html`
-  - `cliente` → `index.html`
+  - `usuario` → `user.html`
 - **Crear cuenta :** nombre, apellidos, correo y contraseña. La GUI avisa si falta un obligatorio o el correo no tiene forma de email, y enseña el mensaje del servidor si el correo ya existe o el registro se confirma. No inicia sesión sola.
 
 El botón de biometría del prototipo no forma parte de estas historias y no autentica.
 
 ### Sesión abierta 
 
-Con sesión, admin y cliente ven en la cabecera un **menú de perfil** (avatar y nombre, más grande y con borde azul; sin el rol). Al abrirlo aparecen:
+Con sesión, admin y usuario ven en la cabecera un **menú de perfil** (avatar y nombre, más grande y con borde azul; sin el rol). Al abrirlo aparecen:
 - **Editar perfil** (implementado): popup con foto, nombre, apellidos, correo y confirmación con contraseña actual.
 - **Mis notificaciones** (solo visible, aún no desarrollado).
 - **Cerrar sesión**.
 
 Si el rol es `admin`, en la vista ciudadana también aparece el botón **Volver al panel →**. En `admin.html` queda el botón **Ver página ciudadana →**. Ambos usan el azul de acento de la paleta (`#198db1`). No se muestra el texto «Panel de administración» en la cabecera.
 
-`admin.html` no se muestra si `comprobarSesion` falla o si el rol no es `admin`: se vuelve al inicio de sesión. Un `cliente` que abra esa URL vuelve a `index.html` sin perder su sesión.
+`admin.html` no se muestra si `comprobarSesion` falla o si el rol no es `admin`: se vuelve al inicio de sesión. Un `usuario` que abra esa URL vuelve a `user.html` sin perder su sesión.

@@ -76,7 +76,7 @@ CREATE TABLE `roles` (
 
 LOCK TABLES `roles` WRITE;
 /*!40000 ALTER TABLE `roles` DISABLE KEYS */;
-INSERT INTO `roles` VALUES (1,'admin','Acceso total: gestion de usuarios, nodos y catalogo'),(3,'cliente','Cliente: registra sus nodos y consulta mediciones');
+INSERT INTO `roles` VALUES (1,'admin','Acceso total: gestion de usuarios, nodos y catalogo'),(3,'usuario','Usuario: registra sus nodos y consulta mediciones');
 /*!40000 ALTER TABLE `roles` ENABLE KEYS */;
 UNLOCK TABLES;
 

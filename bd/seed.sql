@@ -5,7 +5,8 @@
 -- 2) Catalogo de contaminantes y umbrales de calidad
 -- 3) Nodos y 48 mediciones de demo en el Grao de Gandia (mapa)
 -- ----------------------------------------------------------------------------
--- Orden de ejecucion: 1) schema.sql  2) seed.sql
+-- Orden de ejecucion: 1) bd/schema.sql  2) bd/seed.sql
+-- Rol de producto para cuentas normales: usuario (id_rol = 3).
 -- Idempotente: reejecutar no duplica. El bloque de demo borra solo los nodos
 -- con uuid 00000000-0000-0000-0000-00000000000X y sus mediciones.
 -- ============================================================================
@@ -19,7 +20,7 @@ SET time_zone = '+00:00';
 INSERT INTO ROLES (id_rol, nombre, descripcion) VALUES
   (1, 'admin',   'Acceso total: gestion de usuarios, nodos y catalogo'),
   (2, 'tecnico', 'Mantenimiento de nodos y estaciones oficiales'),
-  (3, 'usuario', 'Usuario estandar: registra sus nodos y consulta mediciones')
+  (3, 'usuario', 'Usuario: registra sus nodos y consulta mediciones')
 ON DUPLICATE KEY UPDATE
   nombre      = VALUES(nombre),
   descripcion = VALUES(descripcion);

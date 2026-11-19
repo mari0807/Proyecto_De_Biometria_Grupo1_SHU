@@ -7,7 +7,7 @@ Android, backend con API y web con mapa.
 
 | Carpeta | Contenido |
 |---|---|
-| `database/` | Esquema SQL, datos de demo y tests de la base de datos |
+| `bd/` | Esquema SQL, datos de demo y tests de la base de datos |
 | `backend/` | API, lógica de negocio y acceso a datos |
 | `frontend/` | Web (interfaz y `LogicaProxy`) |
 | `android/` | Aplicación móvil: BLE, `ClienteREST` y pantallas |
@@ -20,15 +20,15 @@ con el código de cada parte.
 ## Base de datos
 
 MariaDB 10.4+ (XAMPP). Instrucciones de instalación, credenciales de prueba y datos
-de demo en [`database/README.md`](database/README.md).
+de demo en [`bd/README.md`](bd/README.md).
 
-Resumen: importar `database/schema.sql` y después `database/seed.sql`.
+Resumen: importar `bd/schema.sql` y después `bd/seed.sql`.
 
 | Usuario | Contraseña | Rol |
 |---|---|---|
 | `admin@email.com` | `1234` | admin |
-| `tecnico@email.com` | `1234` | tecnico |
 | `cliente@email.com` | `1234` | usuario |
+| `tecnico@email.com` | `1234` | tecnico (demo) |
 
 ## Flujo del sistema
 

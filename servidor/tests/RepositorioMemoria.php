@@ -11,7 +11,7 @@ final class RepositorioMemoria implements RepositorioUsuarios
     public array $usuarios = [];
 
     /** @var array<string, int> */
-    public array $roles = ['admin' => 1, 'cliente' => 3];
+    public array $roles = ['admin' => 1, 'usuario' => 3];
 
     private int $siguiente = 1;
 
@@ -144,7 +144,7 @@ final class RepositorioMemoria implements RepositorioUsuarios
                 throw new CorreoYaRegistrado();
             }
         }
-        $rol = 'cliente';
+        $rol = 'usuario';
         foreach ($this->roles as $nombreRol => $id) {
             if ($id === $idRol) {
                 $rol = $nombreRol;

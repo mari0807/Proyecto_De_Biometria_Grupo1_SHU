@@ -4,7 +4,7 @@
 -- Motor:   MariaDB 10.4+ (XAMPP) / InnoDB
 -- Charset: utf8mb4 / utf8mb4_unicode_ci
 -- Fechas:  UTC (tipo DATETIME)
--- Orden de ejecucion: 1) schema.sql  2) seed.sql
+-- Orden de ejecucion: 1) bd/schema.sql  2) bd/seed.sql
 -- Idempotente: se puede ejecutar varias veces sin efectos secundarios.
 -- Diseno de referencia: Agentes_IA/Agente Backend/context/BBDD.md
 -- ============================================================================

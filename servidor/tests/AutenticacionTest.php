@@ -53,7 +53,7 @@ afirmar($emailMalo->mensaje === 'El correo electrónico no tiene un formato corr
 
 $creada = $servicio->registrar('Ana', 'Pérez', 'Ana@Correo.com', CLAVE_OK);
 afirmar($creada->ok && $creada->mensaje === 'Cuenta creada correctamente.', 'H10 confirma el registro');
-afirmar($creada->usuario['rol'] === 'cliente' && $creada->usuario['email'] === 'ana@correo.com', 'H10 asigna rol cliente y normaliza el email');
+afirmar($creada->usuario['rol'] === 'usuario' && $creada->usuario['email'] === 'ana@correo.com', 'H10 asigna rol usuario y normaliza el email');
 afirmar(!array_key_exists('password_hash', $creada->usuario), 'H10 no devuelve password_hash');
 
 $duplicado = $servicio->registrar('Ana', 'Pérez', 'ana@correo.com', CLAVE_OK);
@@ -110,7 +110,7 @@ afirmar($estadoLogin === 401, 'API login incorrecto 401');
 afirmar($estadoOk === 200 && is_string($cuerpoOk['token'] ?? null) && $cuerpoOk['token'] !== '', 'API login correcto devuelve token');
 
 [$estadoSesion, $cuerpoSesion] = $api->manejar('GET', '/api/sesion', null, 'Bearer ' . $cuerpoOk['token']);
-afirmar($estadoSesion === 200 && ($cuerpoSesion['usuario']['rol'] ?? '') === 'cliente', 'API sesión válida');
+afirmar($estadoSesion === 200 && ($cuerpoSesion['usuario']['rol'] ?? '') === 'usuario', 'API sesión válida');
 
 [$estadoLogout, $cuerpoLogout] = $api->manejar('POST', '/api/logout', null, 'Bearer ' . $cuerpoOk['token']);
 afirmar($estadoLogout === 200 && ($cuerpoLogout['mensaje'] ?? '') === 'Sesión cerrada.', 'API logout 200');
@@ -142,11 +142,11 @@ $listaCliente = $servicio->listarUsuarios($tokenPerfil);
 afirmar($listaCliente['codigo'] === 'sin_permiso', 'listar usuarios exige admin');
 $listaAdmin = $authAdmin->listarUsuarios($tokenAdmin);
 afirmar($listaAdmin['ok'] && count($listaAdmin['usuarios']) >= 2, 'admin lista usuarios');
-$editAdmin = $authAdmin->actualizarUsuarioAdmin($tokenAdmin, $idCliente, 'User', 'Uno', 'u1@correo.com', false, 'cliente');
+$editAdmin = $authAdmin->actualizarUsuarioAdmin($tokenAdmin, $idCliente, 'User', 'Uno', 'u1@correo.com', false, 'usuario');
 afirmar($editAdmin->ok && $repoAdmin->usuarios[$idCliente]['activo'] === false, 'admin puede dar de baja');
 [$httpLista, $jsonLista] = (new ApiAuth($authAdmin))->manejar('GET', '/api/usuarios', null, 'Bearer ' . $tokenAdmin);
 afirmar($httpLista === 200 && ($jsonLista['ok'] ?? false), 'API listar usuarios 200');
-$alta = $authAdmin->crearUsuarioAdmin($tokenAdmin, 'Nueva', 'Cuenta', 'nueva@correo.com', 'cliente');
+$alta = $authAdmin->crearUsuarioAdmin($tokenAdmin, 'Nueva', 'Cuenta', 'nueva@correo.com', 'usuario');
 afirmar($alta['ok'] && strlen($alta['password_temporal']) >= 8, 'admin puede dar de alta usuarios');
 $genPass = $authAdmin->generarPasswordAdmin($tokenAdmin, $idCliente);
 afirmar($genPass['ok'] && strlen($genPass['password_temporal']) >= 8, 'admin genera contraseña temporal');

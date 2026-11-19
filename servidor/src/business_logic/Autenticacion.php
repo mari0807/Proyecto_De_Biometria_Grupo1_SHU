@@ -9,7 +9,7 @@ use QueAire\Database\RepositorioUsuarios;
 
 final class Autenticacion
 {
-    private const ROL_POR_DEFECTO = 'cliente';
+    private const ROL_POR_DEFECTO = 'usuario';
     private const MIN_PASSWORD = 8;
     private const MAX_PASSWORD = 72;
 
@@ -30,7 +30,7 @@ final class Autenticacion
      * nombre: Text, apellidos: Text, email: Text, password: Text --> registrar() --> ResultadoAuth
      * --------------------
      * Campos obligatorios completos, email con formato del CHECK de USUARIO,
-     * hash bcrypt y rol cliente. Si el correo ya existe, no crea otra cuenta.
+     * hash bcrypt y rol usuario. Si el correo ya existe, no crea otra cuenta.
      */
     public function registrar(string $nombre, string $apellidos, string $email, string $password): ResultadoAuth
     {
@@ -57,7 +57,7 @@ final class Autenticacion
 
         $idRol = $this->repositorio->idRolPorNombre(self::ROL_POR_DEFECTO);
         if ($idRol === null) {
-            return ResultadoAuth::fallo('datos_invalidos', 'No se puede registrar: falta el rol cliente.');
+            return ResultadoAuth::fallo('datos_invalidos', 'No se puede registrar: falta el rol usuario.');
         }
 
         $hash = password_hash($password, PASSWORD_BCRYPT);
@@ -291,7 +291,7 @@ final class Autenticacion
      * token: Text, id_usuario: N, nombre: Text, apellidos: Text,
      * email: Text, activo: B, rol: Text --> actualizarUsuarioAdmin() --> ResultadoAuth
      * --------------------
-     * Solo admin. Puede cambiar datos, rol (admin|cliente) y alta/baja lógica.
+     * Solo admin. Puede cambiar datos, rol (admin|usuario) y alta/baja lógica.
      */
     public function actualizarUsuarioAdmin(
         string $token,
@@ -329,8 +329,8 @@ final class Autenticacion
         if ($email === '' || !$this->emailValido($email)) {
             return ResultadoAuth::fallo('datos_invalidos', 'El correo electrónico no tiene un formato correcto.');
         }
-        if ($rol !== 'admin' && $rol !== 'cliente') {
-            return ResultadoAuth::fallo('datos_invalidos', 'El rol debe ser admin o cliente.');
+        if ($rol !== 'admin' && $rol !== 'usuario') {
+            return ResultadoAuth::fallo('datos_invalidos', 'El rol debe ser admin o usuario.');
         }
         if ($idUsuario === $idAdmin && !$activo) {
             return ResultadoAuth::fallo('datos_invalidos', 'No puedes darte de baja a ti mismo.');
@@ -410,8 +410,8 @@ final class Autenticacion
 
             return $vacio;
         }
-        if ($rol !== 'admin' && $rol !== 'cliente') {
-            $vacio['mensaje'] = 'El rol debe ser admin o cliente.';
+        if ($rol !== 'admin' && $rol !== 'usuario') {
+            $vacio['mensaje'] = 'El rol debe ser admin o usuario.';
 
             return $vacio;
         }
