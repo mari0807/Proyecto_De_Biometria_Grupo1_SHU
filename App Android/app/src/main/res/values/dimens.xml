@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="espacio_pequeno">8dp</dimen>
+    <dimen name="espacio">16dp</dimen>
+    <dimen name="espacio_grande">24dp</dimen>
+    <dimen name="texto_titulo">20sp</dimen>
+    <dimen name="texto_normal">15sp</dimen>
+    <dimen name="texto_pequeno">12sp</dimen>
+</resources>

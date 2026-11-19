@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:paddingLeft="@dimen/espacio"
+    android:paddingTop="@dimen/espacio_pequeno"
+    android:paddingRight="@dimen/espacio"
+    android:paddingBottom="@dimen/espacio_grande">
+
+    <View
+        android:layout_width="40dp"
+        android:layout_height="4dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="@dimen/espacio"
+        android:background="@color/linea" />
+
+    <TextView
+        android:id="@+id/detalle_nombre"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/ink"
+        android:textSize="@dimen/texto_titulo"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/detalle_categoria"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/espacio_pequeno"
+        android:paddingLeft="@dimen/espacio_pequeno"
+        android:paddingTop="4dp"
+        android:paddingRight="@dimen/espacio_pequeno"
+        android:paddingBottom="4dp"
+        android:textColor="@android:color/white"
+        android:textSize="@dimen/texto_pequeno"
+        android:textStyle="bold" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="@dimen/espacio"
+        android:layout_marginBottom="@dimen/espacio"
+        android:background="@color/linea" />
+
+    <TextView
+        android:id="@+id/detalle_contaminante"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/texto_suave"
+        android:textSize="@dimen/texto_pequeno" />
+
+    <TextView
+        android:id="@+id/detalle_valor"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:textColor="@color/primary"
+        android:textSize="28sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/detalle_ubicacion"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/espacio_pequeno"
+        android:textColor="@color/texto_suave"
+        android:textSize="@dimen/texto_pequeno" />
+
+    <TextView
+        android:id="@+id/detalle_fecha"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:textColor="@color/texto_suave"
+        android:textSize="@dimen/texto_pequeno" />
+
+    <TextView
+        android:id="@+id/detalle_grafica_titulo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/espacio"
+        android:text="@string/detalle_evolucion"
+        android:textColor="@color/ink"
+        android:textSize="@dimen/texto_normal"
+        android:textStyle="bold" />
+
+    <com.queaire.app.ui.GraficaEvolucionView
+        android:id="@+id/detalle_grafica"
+        android:layout_width="match_parent"
+        android:layout_height="130dp"
+        android:layout_marginTop="@dimen/espacio_pequeno" />
+
+    <TextView
+        android:id="@+id/detalle_grafica_vacio"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/detalle_sin_mediciones"
+        android:textColor="@color/texto_suave"
+        android:textSize="@dimen/texto_pequeno"
+        android:visibility="gone" />
+
+    <Button
+        android:id="@+id/detalle_cerrar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/espacio"
+        android:text="@string/detalle_cerrar" />
+
+</LinearLayout>
