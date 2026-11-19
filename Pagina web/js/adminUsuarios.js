@@ -109,10 +109,13 @@ function pedirConfirmacion(accion, titulo, texto, datos) {
   abrir(modalConfirmar);
 }
 
-btnAbrir?.addEventListener("click", async () => {
+export async function abrirGestionUsuarios() {
+  if (!modalLista) return;
   abrir(modalLista);
   await cargarUsuarios();
-});
+}
+
+btnAbrir?.addEventListener("click", abrirGestionUsuarios);
 
 btnAlta?.addEventListener("click", () => {
   formAlta?.reset();
