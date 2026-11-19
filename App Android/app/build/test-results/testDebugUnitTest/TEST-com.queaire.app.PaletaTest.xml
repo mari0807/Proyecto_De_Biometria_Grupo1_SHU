@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.queaire.app.PaletaTest" tests="3" skipped="0" failures="0" errors="0" timestamp="2026-11-19T19:09:00" hostname="LAMAKINITA" time="0.001">
+  <properties/>
+  <testcase name="colorDeLaApiPrevaleceSobreElFallback" classname="com.queaire.app.PaletaTest" time="0.0"/>
+  <testcase name="intensidadesYEtiquetasCoincidenConLaWeb" classname="com.queaire.app.PaletaTest" time="0.0"/>
+  <testcase name="fallbackUsaLosColoresDeUmbral" classname="com.queaire.app.PaletaTest" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

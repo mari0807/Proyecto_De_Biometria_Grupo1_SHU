@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.queaire.app.FormatoTest" tests="3" skipped="0" failures="0" errors="0" timestamp="2026-11-19T19:09:00" hostname="LAMAKINITA" time="0.021">
+  <properties/>
+  <testcase name="fechaSeMuestraEnUtcComoEnLaWeb" classname="com.queaire.app.FormatoTest" time="0.016"/>
+  <testcase name="valorRespetaDecimales" classname="com.queaire.app.FormatoTest" time="0.001"/>
+  <testcase name="maximaFechaSeleccionaLaUltimaMedicion" classname="com.queaire.app.FormatoTest" time="0.002"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
