@@ -38,16 +38,16 @@
       <!-- ===== NAVEGACIÓN DE ADMINISTRACIÓN ===== -->
       <aside class="sidebar" aria-label="Navegación de administración">
         <p class="sidebar-label">GESTIÓN</p>
-        <a class="side-link active" href="#resumen"><span class="side-icon">⌂</span>Resumen</a>
-        <a class="side-link" href="#sensores"><span class="side-icon">⌁</span>Sensores</a>
-        <a class="side-link" href="#usuarios"><span class="side-icon">♙</span>Usuarios</a>
-        <a class="side-link" href="#historial"><span class="side-icon">◷</span>Histórico de mapas</a>
-        <a class="side-link" href="#comunicaciones"><span class="side-icon">✉</span>Comunicaciones</a>
-        <a class="side-link" href="#recompensas"><span class="side-icon">◇</span>Recompensas</a>
+        <button type="button" class="side-link active" data-seccion="resumen" aria-current="page"><span class="side-icon">⌂</span>Resumen</button>
+        <button type="button" class="side-link" data-seccion="sensores"><span class="side-icon">⌁</span>Sensores</button>
+        <button type="button" class="side-link" data-seccion="usuarios"><span class="side-icon">♙</span>Usuarios</button>
+        <button type="button" class="side-link" data-seccion="historial"><span class="side-icon">◷</span>Histórico de mapas</button>
+        <button type="button" class="side-link" data-seccion="comunicaciones"><span class="side-icon">✉</span>Comunicaciones</button>
+        <button type="button" class="side-link" data-seccion="recompensas"><span class="side-icon">◇</span>Recompensas</button>
       </aside>
 
       <!-- ===== CONTENIDO PRINCIPAL ===== -->
-      <main class="content" id="resumen">
+      <main class="content" id="resumen" data-vista="resumen">
         <div class="page-heading">
           <div>
             <p class="eyebrow">QUÉAIRE <span>/</span> ADMINISTRACIÓN</p>
@@ -86,17 +86,17 @@
           <section class="panel management-card" id="comunicaciones">
             <div class="panel-heading"><div><p class="section-kicker">COMUNICACIONES</p><h2>Enviar comunicaciones</h2></div><span class="stat-icon amber">✉</span></div>
             <p class="management-copy">Prepara comunicaciones dirigidas a los usuarios de la plataforma.</p>
-            <a class="button button-outline full-button" href="#comunicaciones">Gestionar comunicaciones <span>→</span></a>
+            <button type="button" class="button button-outline full-button" data-seccion="comunicaciones">Gestionar comunicaciones <span>→</span></button>
           </section>
           <section class="panel management-card" id="historial">
             <div class="panel-heading"><div><p class="section-kicker">DATOS HISTÓRICOS</p><h2>Histórico de mapas</h2></div><span class="stat-icon mint">◷</span></div>
             <p class="management-copy">Accede a mapas anteriores para informes, auditorías o seguimiento de medidas correctoras.</p>
-            <a class="button button-outline full-button" href="#historial">Consultar histórico <span>→</span></a>
+            <button type="button" class="button button-outline full-button" data-seccion="historial">Consultar histórico <span>→</span></button>
           </section>
           <section class="panel management-card" id="recompensas">
             <div class="panel-heading"><div><p class="section-kicker">GESTIÓN ECONÓMICA</p><h2>Cobros y recompensas</h2></div><span class="stat-icon pink">◇</span></div>
             <p class="management-copy">Gestiona los cobros y las recompensas de la plataforma.</p>
-            <a class="button button-outline full-button" href="#recompensas">Gestionar cobros y recompensas <span>→</span></a>
+            <button type="button" class="button button-outline full-button" data-seccion="recompensas">Gestionar cobros y recompensas <span>→</span></button>
           </section>
         </div>
 
@@ -227,6 +227,20 @@
         <div class="admin-modal-actions">
           <button type="button" class="button button-outline" id="btn-copiar-password">Copiar</button>
           <button type="button" class="button button-primary" data-cerrar-password-temp>Hecho</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="admin-modal" id="modal-seccion" hidden>
+      <div class="admin-modal-backdrop" data-cerrar-seccion></div>
+      <div class="admin-modal-card" role="dialog" aria-modal="true" aria-labelledby="seccion-titulo">
+        <button type="button" class="admin-modal-close" data-cerrar-seccion aria-label="Cerrar">×</button>
+        <p class="section-kicker" id="seccion-kicker"></p>
+        <h2 id="seccion-titulo"></h2>
+        <p class="panel-subtitle" id="seccion-texto"></p>
+        <p class="admin-note" id="seccion-aviso">Esta sección estará disponible próximamente en el prototipo.</p>
+        <div class="admin-modal-actions">
+          <button type="button" class="button button-primary" data-cerrar-seccion>Entendido</button>
         </div>
       </div>
     </div>
