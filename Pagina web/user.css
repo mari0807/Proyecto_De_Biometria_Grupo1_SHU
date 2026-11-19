@@ -1310,3 +1310,55 @@ a.carrier-submit {
   .carrier-forms { max-width: 450px; grid-template-columns: 1fr; gap: 12px; }
   .carrier-form-card { padding: 17px; }
 }
+
+
+/*------------------------------------------*/
+/* MAPA INTERACTIVO Y DETALLE DE ZONA */
+/*------------------------------------------*/
+.map-status {
+  margin: 10px 0 0;
+  padding: 8px 11px;
+  border-radius: 8px;
+  background: #fff6e8;
+  color: #8a6d1f;
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.map-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  padding: 8px 10px;
+  border: 1px solid #edf2f5;
+  border-radius: 8px;
+  background: #fff;
+  box-shadow: 0 5px 18px #164f7422;
+}
+
+.map-legend span {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: #4a6273;
+  font-size: 10px;
+  font-weight: 600;
+}
+
+.map-legend i {
+  width: 10px;
+  height: 10px;
+  display: inline-block;
+  border-radius: 50%;
+}
+
+.zone-hint {
+  margin: 10px 0 0;
+  color: var(--muted);
+  font-size: 11px;
+  line-height: 1.5;
+}
+
+.conditions .reading strong small {
+  margin-left: 4px;
+}

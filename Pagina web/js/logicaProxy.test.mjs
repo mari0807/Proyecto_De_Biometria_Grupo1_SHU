@@ -164,3 +164,92 @@ test("comprobarSesion inválida elimina la credencial", async () => {
   assert.equal(comprobacion.ok, false);
   assert.equal(proxy.sesionActual(), null);
 });
+
+test("obtenerPuntosMapa sin sesión no llama al servidor", async () => {
+  let llamadas = 0;
+  const proxy = crearLogicaProxy({
+    almacenamiento: almacenamiento(),
+    apiBase: "http://api",
+    fetchImpl: async () => {
+      llamadas += 1;
+      return jsonRespuesta({ ok: true, puntos: [] });
+    },
+  });
+
+  const resultado = await proxy.obtenerPuntosMapa();
+  assert.equal(resultado.ok, false);
+  assert.deepEqual(resultado.puntos, []);
+  assert.equal(llamadas, 0);
+});
+
+test("obtenerPuntosMapa envía el token y devuelve los puntos", async () => {
+  const llamadas = [];
+  const proxy = crearLogicaProxy({
+    almacenamiento: almacenamiento(),
+    apiBase: "http://api",
+    fetchImpl: async (url, opciones) => {
+      if (url.endsWith("/api/login")) {
+        return jsonRespuesta({
+          ok: true,
+          token: "token-vivo",
+          usuario: { nombre: "Ana", apellidos: "Pérez", email: "ana@correo.com", rol: "usuario", id_usuario: 3 },
+        });
+      }
+      llamadas.push({ url, opciones });
+      return jsonRespuesta({
+        ok: true,
+        mensaje: "Puntos del mapa cargados.",
+        puntos: [{ id_nodo: 1, nombre: "Campus", latitud: 38.99, longitud: -0.16, categoria: "buena", color: "#2ECC71" }],
+      });
+    },
+  });
+
+  await proxy.iniciarSesion("ana@correo.com", "1234");
+  const resultado = await proxy.obtenerPuntosMapa();
+  assert.equal(resultado.ok, true);
+  assert.equal(resultado.puntos.length, 1);
+  assert.equal(llamadas[0].url, "http://api/api/mapa");
+  assert.equal(llamadas[0].opciones.headers.Authorization, "Bearer token-vivo");
+});
+
+test("obtenerDetalleZona pide la zona con el token", async () => {
+  const llamadas = [];
+  const proxy = crearLogicaProxy({
+    almacenamiento: almacenamiento(),
+    apiBase: "http://api",
+    fetchImpl: async (url, opciones) => {
+      if (url.endsWith("/api/login")) {
+        return jsonRespuesta({
+          ok: true,
+          token: "token-vivo",
+          usuario: { nombre: "Ana", apellidos: "Pérez", email: "ana@correo.com", rol: "usuario", id_usuario: 3 },
+        });
+      }
+      llamadas.push({ url, opciones });
+      return jsonRespuesta({
+        ok: true,
+        mensaje: "Detalle de la zona cargado.",
+        zona: { id_nodo: 7, nombre: "Port", actual: null, historial: [] },
+      });
+    },
+  });
+
+  await proxy.iniciarSesion("ana@correo.com", "1234");
+  const resultado = await proxy.obtenerDetalleZona(7);
+  assert.equal(resultado.ok, true);
+  assert.equal(resultado.zona.id_nodo, 7);
+  assert.equal(llamadas[0].url, "http://api/api/mapa/zona/7");
+  assert.equal(llamadas[0].opciones.headers.Authorization, "Bearer token-vivo");
+});
+
+test("obtenerDetalleZona sin sesión devuelve zona nula", async () => {
+  const proxy = crearLogicaProxy({
+    almacenamiento: almacenamiento(),
+    apiBase: "http://api",
+    fetchImpl: async () => jsonRespuesta({ ok: true, zona: {} }),
+  });
+
+  const resultado = await proxy.obtenerDetalleZona(1);
+  assert.equal(resultado.ok, false);
+  assert.equal(resultado.zona, null);
+});

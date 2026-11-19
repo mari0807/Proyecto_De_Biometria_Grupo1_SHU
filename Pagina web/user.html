@@ -12,6 +12,9 @@
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&amp;family=Manrope:wght@600;700;800&amp;display=swap" rel="stylesheet">
     <link rel="stylesheet" href="user.css">
     <link rel="stylesheet" href="interaccion.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="">
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+    <script src="https://unpkg.com/leaflet.heat@0.2.0/dist/leaflet-heat.js"></script>
   </head>
   <body>
 
@@ -84,131 +87,28 @@
               </h2>
             </div>
             <span class="demo">
-              Datos de demostración
+              Capa de calor
             </span>
           </div>
-          <div class="map" role="img" aria-label="Mapa de la zona del Grao de Gandia con un punto de medición de ejemplo en el campus de la UPV">
-            <svg viewBox="0 0 900 520" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
-              <rect width="900" height="520" fill="#edf2e9" />
-              <path d="M0 0h900v520H0z" fill="#e9f0e3" />
-              <path d="M730 0c-24 92-2 142-24 221s-8 166 18 299h176V0Z" fill="#c6e6ed" />
-              <path d="M715 0c-24 92-2 142-24 221s-8 166 18 299" fill="none" stroke="#fff" stroke-width="9" />
-              <path d="M0 92c164 25 305 10 460 31s285 34 440 10M0 385c160-31 301-23 445 0s280 28 455-2M124 0c25 102 11 189 20 279s11 159 1 241M489 0c-18 88 2 179-4 263s-11 170 12 257" fill="none" stroke="#fff" stroke-width="17" />
-              <path d="M0 92c164 25 305 10 460 31s285 34 440 10M0 385c160-31 301-23 445 0s280 28 455-2M124 0c25 102 11 189 20 279s11 159 1 241M489 0c-18 88 2 179-4 263s-11 170 12 257" fill="none" stroke="#d6cfb9" stroke-width="2" />
-              <path d="M0 207c160-17 286-9 417 12s287 14 450-4M0 290c170 30 297 3 440-9s279-7 460 15M286 0c-11 94 4 166 0 255s-3 179 16 265M627 0c-16 103-6 174 5 262s1 167-8 258" fill="none" stroke="#fff" stroke-width="11" />
-              <path d="M20 24h146v48H20zM186 27h194v45H186zM406 25h171v49H406zM597 28h100v45H597zM38 124h105v61H38zM170 127h125v55H170zM322 130h128v53H322zM478 137h112v55H478zM610 141h102v55H610zM39 311h126v55H39zM184 306h124v57H184zM327 300h122v55H327zM488 305h119v52H488zM620 306h92v57H620zM178 410h128v76H178zM330 411h120v75H330zM491 407h143v78H491z" fill="#f6f3e9" stroke="#dfe3d8" stroke-width="2" />
-              <path d="M0 460c120-23 193-17 286-8 99 10 158 26 248 20" fill="none" stroke="#b8d2ab" stroke-width="28" opacity=".65" />
-              <g fill="#617366" font-family="Arial,sans-serif" font-size="18">
-                <text x="42" y="240">GRAO DE GANDIA</text>
-                <text x="728" y="405" fill="#35798c">Mediterráneo</text>
-              </g>
-              <g transform="translate(389 260)">
-                <path d="M0-32c-18 0-30 13-30 30 0 22 30 53 30 53S30 20 30-2C30-19 18-32 0-32Z" fill="#15966b" stroke="#fff" stroke-width="5" stroke-linejoin="round" />
-                <circle cy="-3" r="9" fill="#fff" />
-              </g>
-              <g transform="translate(420 246)">
-                <rect width="196" height="42" rx="9" fill="#fff" stroke="#dfe8e5" />
-                <text x="13" y="26" fill="#234b48" font-family="Arial,sans-serif" font-size="15" font-weight="700">Campus Gandia · UPV</text>
-              </g>
-            </svg>
-            <div class="search">
-              ⌕ Buscar una zona...
-            </div>
-            <div class="filters">
-              <i class="g">
-              </i>
-              Punto de ejemplo
-            </div>
-            <i class="mark g p1" title="Punto de medición cercano" aria-label="Punto de medición cercano"></i>
-            <i class="mark y p2" title="Punto de medición cercano" aria-label="Punto de medición cercano"></i>
-            <i class="mark r p3" title="Punto de medición cercano" aria-label="Punto de medición cercano"></i>
-            <i class="mark g p4" title="Punto de medición cercano" aria-label="Punto de medición cercano"></i>
-            <i class="mark y p5" title="Punto de medición cercano" aria-label="Punto de medición cercano"></i>
-            <div class="legend" aria-label="Leyenda de calidad del aire">
-              <span>
-                <i class="g"></i>
-                Buena
-              </span>
-              <span>
-                <i class="y"></i>
-                Moderada
-              </span>
-              <span>
-                <i class="r"></i>
-                Mala
-              </span>
-            </div>
-          </div>
+          <div class="map" id="mapa-canvas" role="region" aria-label="Mapa interactivo con la calidad del aire por zona"></div>
+          <p class="map-status" id="mapa-estado" role="status" aria-live="polite" hidden></p>
           <div class="map-foot">
-            <span>
-              ● Última actualización: hoy, 10:42
-            </span>
+            <span id="mapa-actualizacion">● Cargando datos…</span>
             <a href="#fuentes">
               Cómo se obtienen los datos ↗
             </a>
           </div>
         </article>
-        <aside class="conditions">
+        <aside class="conditions" id="zona-detalle" aria-live="polite">
           <small>
-            CAMPUS DE GANDIA · UPV
+            DETALLE DE LA ZONA
           </small>
           <h2>
-            Condiciones actuales
+            Selecciona una zona
           </h2>
-          <div class="quality">
-            <b>
-              ●
-            </b>
-            <span>
-              <strong>
-                Calidad moderada
-              </strong>
-              <small>
-                Aceptable; algunos grupos sensibles pueden notar efectos.
-              </small>
-            </span>
-          </div>
-          <p class="label">
-            Contaminante principal
+          <p class="zone-hint">
+            Pulsa un punto del mapa para ver sus valores y su evolución.
           </p>
-          <div class="reading">
-            <b>
-              Ozono (O₃)
-            </b>
-            <strong>
-              42
-              <small>
-                µg/m³
-              </small>
-            </strong>
-          </div>
-          <div class="trend">
-            Evolución de hoy
-            <small>
-              µg/m³
-            </small>
-          </div>
-          <div class="chart" role="img" aria-label="Tendencia ilustrativa del ozono">
-            <svg viewBox="0 0 360 100" preserveAspectRatio="none">
-              <path d="M0 80 30 72 57 76 82 64 110 70 136 52 162 58 188 37 213 42 241 22 267 34 292 17 319 27 340 12 360 20V100H0Z" fill="#f4dfa9">
-              </path>
-              <path d="M0 80 30 72 57 76 82 64 110 70 136 52 162 58 188 37 213 42 241 22 267 34 292 17 319 27 340 12 360 20" fill="none" stroke="#d69b32" stroke-width="3">
-              </path>
-            </svg>
-            <div>
-              00 h
-              <span>
-                06 h
-              </span>
-              <span>
-                12 h
-              </span>
-              <span>
-                18 h
-              </span>
-              24 h
-            </div>
-          </div>
         </aside>
       </section>
 
@@ -349,5 +249,6 @@
     <!-- ===== PIE DE PÁGINA VACÍO ===== -->
     <footer class="footer"></footer>
     <script type="module" src="js/acceso.js"></script>
+    <script type="module" src="js/mapa.js"></script>
   </body>
 </html>

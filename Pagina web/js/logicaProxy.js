@@ -372,6 +372,58 @@ export function crearLogicaProxy({ fetchImpl, almacenamiento, apiBase, ahora = (
       }
       return salida;
     },
+
+    /**
+     * --------------------
+     * obtenerPuntosMapa() --> { ok, mensaje, puntos }
+     * --------------------
+     * Puntos del mapa: exige sesión (Bearer). No lanza: informa con ok=false.
+     */
+    async obtenerPuntosMapa() {
+      const sesion = leer();
+      if (!sesion) {
+        return { ok: false, mensaje: "No hay sesión.", puntos: [] };
+      }
+      let datos;
+      try {
+        datos = await pedir("/api/mapa", {
+          headers: { Authorization: `Bearer ${sesion.token}` },
+        });
+      } catch {
+        return { ok: false, mensaje: "No se ha podido cargar el mapa.", puntos: [] };
+      }
+      return {
+        ok: Boolean(datos.ok),
+        mensaje: datos.mensaje || "",
+        puntos: Array.isArray(datos.puntos) ? datos.puntos : [],
+      };
+    },
+
+    /**
+     * --------------------
+     * id_nodo: N --> obtenerDetalleZona() --> { ok, mensaje, zona }
+     * --------------------
+     * Detalle de una zona (nodo): exige sesión (Bearer).
+     */
+    async obtenerDetalleZona(idNodo) {
+      const sesion = leer();
+      if (!sesion) {
+        return { ok: false, mensaje: "No hay sesión.", zona: null };
+      }
+      let datos;
+      try {
+        datos = await pedir(`/api/mapa/zona/${idNodo}`, {
+          headers: { Authorization: `Bearer ${sesion.token}` },
+        });
+      } catch {
+        return { ok: false, mensaje: "No se ha podido cargar la zona.", zona: null };
+      }
+      return {
+        ok: Boolean(datos.ok),
+        mensaje: datos.mensaje || "",
+        zona: datos.zona || null,
+      };
+    },
   };
 }
 

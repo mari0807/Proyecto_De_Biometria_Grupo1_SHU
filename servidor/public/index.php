@@ -3,18 +3,25 @@
 declare(strict_types=1);
 
 use QueAire\BusinessLogic\Autenticacion;
+use QueAire\BusinessLogic\Mapa;
 use QueAire\Communication\ApiAuth;
+use QueAire\Communication\ApiMapa;
 use QueAire\Database\Conexion;
+use QueAire\Database\MedicionRepositorio;
 use QueAire\Database\UsuarioRepositorio;
 
 require dirname(__DIR__) . '/src/database/CorreoYaRegistrado.php';
 require dirname(__DIR__) . '/src/database/RepositorioUsuarios.php';
+require dirname(__DIR__) . '/src/database/RepositorioMediciones.php';
 require dirname(__DIR__) . '/src/database/Conexion.php';
 require dirname(__DIR__) . '/src/database/UsuarioRepositorio.php';
+require dirname(__DIR__) . '/src/database/MedicionRepositorio.php';
 require dirname(__DIR__) . '/src/business_logic/ResultadoAuth.php';
 require dirname(__DIR__) . '/src/business_logic/Token.php';
 require dirname(__DIR__) . '/src/business_logic/Autenticacion.php';
+require dirname(__DIR__) . '/src/business_logic/Mapa.php';
 require dirname(__DIR__) . '/src/communication/ApiAuth.php';
+require dirname(__DIR__) . '/src/communication/ApiMapa.php';
 
 $rutaArchivo = parse_url($_SERVER['REQUEST_URI'] ?? '/', PHP_URL_PATH);
 $fichero = __DIR__ . (is_string($rutaArchivo) ? $rutaArchivo : '/');
@@ -50,23 +57,36 @@ try {
     exit;
 }
 
-$api = new ApiAuth(new Autenticacion(
+$autenticacion = new Autenticacion(
     new UsuarioRepositorio($pdo),
     $config['auth_secreto'],
     $config['token_ttl']
-));
+);
+$api = new ApiAuth($autenticacion);
+$apiMapa = new ApiMapa($autenticacion, new Mapa(new MedicionRepositorio($pdo)));
 
 
 $ruta = parse_url($_SERVER['REQUEST_URI'] ?? '/', PHP_URL_PATH);
+$ruta = is_string($ruta) ? $ruta : '/';
 $cuerpo = json_decode(file_get_contents('php://input') ?: '', true);
 $autorizacion = $_SERVER['HTTP_AUTHORIZATION'] ?? ($_SERVER['REDIRECT_HTTP_AUTHORIZATION'] ?? null);
+$autorizacion = is_string($autorizacion) ? $autorizacion : null;
 
-[$estado, $respuesta] = $api->manejar(
-    $metodo,
-    is_string($ruta) ? $ruta : '/',
-    is_array($cuerpo) ? $cuerpo : null,
-    is_string($autorizacion) ? $autorizacion : null
-);
+if (str_starts_with($ruta, '/api/mapa')) {
+    [$estado, $respuesta] = $apiMapa->manejar(
+        $metodo,
+        $ruta,
+        is_array($cuerpo) ? $cuerpo : null,
+        $autorizacion
+    );
+} else {
+    [$estado, $respuesta] = $api->manejar(
+        $metodo,
+        $ruta,
+        is_array($cuerpo) ? $cuerpo : null,
+        $autorizacion
+    );
+}
 
 http_response_code($estado);
 if ($respuesta !== null) {
