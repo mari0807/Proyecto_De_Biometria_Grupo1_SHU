@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Panel de administración de QuéAire para monitorizar sensores y usuarios.">
+    <title>Administración | QuéAire</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="admin.css">
+  </head>
+  <body>
+    <!-- ===== CABECERA ===== -->
+    <header class="topbar">
+      <a class="brand" href="index.html" aria-label="QuéAire, volver a la página ciudadana">
+        <img src="logo.png" alt="QuéAire">
+      </a>
+      <div class="topbar-right">
+        <span class="environment">Panel de administración</span>
+        <a class="return-link" href="index.html">← Ver página ciudadana</a>
+        <div class="profile" aria-label="Administradora conectada">
+          <span class="avatar">AM</span>
+          <span class="profile-copy"><b>Admin</b><small>Administración</small></span>
+          <span class="chevron">⌄</span>
+        </div>
+      </div>
+    </header>
+
+    <div class="admin-shell">
+      <!-- ===== NAVEGACIÓN DE ADMINISTRACIÓN ===== -->
+      <aside class="sidebar" aria-label="Navegación de administración">
+        <p class="sidebar-label">GESTIÓN</p>
+        <a class="side-link active" href="#resumen"><span class="side-icon">⌂</span>Resumen</a>
+        <a class="side-link" href="#sensores"><span class="side-icon">⌁</span>Sensores</a>
+        <a class="side-link" href="#usuarios"><span class="side-icon">♙</span>Usuarios</a>
+        <a class="side-link" href="#historial"><span class="side-icon">◷</span>Histórico de mapas</a>
+        <a class="side-link" href="#comunicaciones"><span class="side-icon">✉</span>Comunicaciones</a>
+        <a class="side-link" href="#recompensas"><span class="side-icon">◇</span>Recompensas</a>
+      </aside>
+
+      <!-- ===== CONTENIDO PRINCIPAL ===== -->
+      <main class="content" id="resumen">
+        <div class="page-heading">
+          <div>
+            <p class="eyebrow">QUÉAIRE <span>/</span> ADMINISTRACIÓN</p>
+            <h1>Panel de control</h1>
+            <p class="page-subtitle">Supervisa la red de sensores y gestiona la plataforma.</p>
+          </div>
+          <span class="demo-badge"><i></i> Datos de demostración</span>
+        </div>
+
+        <!-- ===== ESTADO DE NODOS ===== -->
+        <section class="panel table-panel" id="sensores">
+          <div class="panel-heading table-heading">
+            <div><p class="section-kicker">MONITORIZACIÓN</p><h2>Estado de los nodos</h2><p class="panel-subtitle">Información avanzada de la red. Los inactivos se ordenan por tiempo sin comunicar.</p></div>
+          </div>
+          <div class="table-scroll">
+            <table>
+              <thead><tr><th>NODO</th><th>UBICACIÓN</th><th>TIEMPO SIN COMUNICAR</th><th>ESTADO</th></tr></thead>
+              <tbody>
+                <tr><td><b class="node-id">QA-084</b></td><td>Grao · zona puerto</td><td class="danger-text">31 h</td><td><span class="pill offline"><i></i> Inactivo</span></td></tr>
+                <tr><td><b class="node-id">QA-031</b></td><td>Gandia · centro</td><td class="danger-text">27 h</td><td><span class="pill offline"><i></i> Inactivo</span></td></tr>
+                <tr><td><b class="node-id">QA-102</b></td><td>Grao · campus UPV</td><td>18 h</td><td><span class="pill offline"><i></i> Inactivo</span></td></tr>
+                <tr><td><b class="node-id">QA-117</b></td><td>Gandia · paseo</td><td>46 min</td><td><span class="pill active"><i></i> Activo</span></td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="table-footer"><span>Ejemplo visual de estados de nodo. Valores ilustrativos.</span></div>
+        </section>
+
+        <!-- ===== FUNCIONES EXPLÍCITAS PARA ADMINISTRACIÓN ===== -->
+        <div class="management-grid">
+          <section class="panel management-card" id="usuarios">
+            <div class="panel-heading"><div><p class="section-kicker">CUENTAS</p><h2>Gestión de usuarios</h2></div><span class="stat-icon blue">♙</span></div>
+            <p class="management-copy">Da de alta o de baja usuarios de la plataforma.</p>
+            <a class="button button-outline full-button" href="#usuarios">Gestionar usuarios <span>→</span></a>
+          </section>
+          <section class="panel management-card" id="comunicaciones">
+            <div class="panel-heading"><div><p class="section-kicker">COMUNICACIONES</p><h2>Enviar comunicaciones</h2></div><span class="stat-icon amber">✉</span></div>
+            <p class="management-copy">Prepara comunicaciones dirigidas a los usuarios de la plataforma.</p>
+            <a class="button button-outline full-button" href="#comunicaciones">Gestionar comunicaciones <span>→</span></a>
+          </section>
+          <section class="panel management-card" id="historial">
+            <div class="panel-heading"><div><p class="section-kicker">DATOS HISTÓRICOS</p><h2>Histórico de mapas</h2></div><span class="stat-icon mint">◷</span></div>
+            <p class="management-copy">Accede a mapas anteriores para informes, auditorías o seguimiento de medidas correctoras.</p>
+            <a class="button button-outline full-button" href="#historial">Consultar histórico <span>→</span></a>
+          </section>
+          <section class="panel management-card" id="recompensas">
+            <div class="panel-heading"><div><p class="section-kicker">GESTIÓN ECONÓMICA</p><h2>Cobros y recompensas</h2></div><span class="stat-icon pink">◇</span></div>
+            <p class="management-copy">Gestiona los cobros y las recompensas de la plataforma.</p>
+            <a class="button button-outline full-button" href="#recompensas">Gestionar cobros y recompensas <span>→</span></a>
+          </section>
+        </div>
+
+        <footer class="admin-footer"><span>QuéAire · Panel de administración</span><span>Prototipo visual · Datos de demostración</span></footer>
+      </main>
+    </div>
+  </body>
+</html>
