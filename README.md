@@ -3,32 +3,45 @@
 Sistema de monitorización de la calidad del aire: nodos sensores BLE, aplicación
 Android, backend con API y web con mapa.
 
-## Estructura del repositorio
+## Cómo arrancar (XAMPP — sin terminales)
 
-| Carpeta | Contenido |
+1. Instala [XAMPP](https://www.apachefriends.org/) en `C:\xampp` (Apache + MySQL).
+2. **Una sola vez** por clon del repo: clic derecho en `activar-xampp.bat` →
+   **Ejecutar como administrador** (enlaza el proyecto en `C:\xampp\htdocs`).
+   Si solo haces doble clic, Windows pedirá el permiso UAC igual.
+3. En el panel de XAMPP, **Start** en **Apache** y **MySQL**.
+4. Base de datos (solo la primera vez): ver [`bd/README.md`](bd/README.md)  
+   → phpMyAdmin e importar `schema.sql` + `seed.sql`.
+5. Abre la web: [http://localhost/queaire/landing.html](http://localhost/queaire/landing.html)
+
+| Qué | URL |
 |---|---|
-| `bd/` | Esquema SQL, datos de demo y tests de la base de datos |
-| `backend/` | API, lógica de negocio y acceso a datos |
-| `frontend/` | Web (interfaz y `LogicaProxy`) |
-| `android/` | Aplicación móvil: BLE, `ClienteREST` y pantallas |
-| `arduino/` | Firmware del nodo sensor (emisión BLE) |
-| `Agentes_IA/` | Contexto e instrucciones de los agentes de desarrollo |
+| Web | `http://localhost/queaire/landing.html` |
+| API | `http://localhost/api/` |
+| phpMyAdmin | `http://localhost/phpmyadmin` |
 
-Las carpetas de `backend/`, `frontend/`, `android/` y `arduino/` se irán añadiendo
-con el código de cada parte.
+No hace falta abrir terminales ni usar `php -S`.
 
-## Base de datos
-
-MariaDB 10.4+ (XAMPP). Instrucciones de instalación, credenciales de prueba y datos
-de demo en [`bd/README.md`](bd/README.md).
-
-Resumen: importar `bd/schema.sql` y después `bd/seed.sql`.
+### Usuarios de prueba
 
 | Usuario | Contraseña | Rol |
 |---|---|---|
 | `admin@email.com` | `1234` | admin |
 | `cliente@email.com` | `1234` | usuario |
 | `tecnico@email.com` | `1234` | tecnico (demo) |
+
+MySQL por defecto: usuario `root`, sin contraseña, BD `QueAire_Biometria` (ya configurado en `servidor/config.php`).
+
+## Estructura del repositorio
+
+| Carpeta | Contenido |
+|---|---|
+| `bd/` | Esquema SQL, datos de demo y tests de la base de datos |
+| `servidor/` | API PHP (Apache sirve `servidor/public` como `/api`) |
+| `Pagina web/` | Frontend (Apache la sirve como `/queaire`) |
+| `android/` | Aplicación móvil: BLE, `ClienteREST` y pantallas |
+| `arduino/` | Firmware del nodo sensor (emisión BLE) |
+| `Agentes_IA/` | Contexto e instrucciones de los agentes de desarrollo |
 
 ## Flujo del sistema
 

@@ -137,7 +137,7 @@ function abrirModal(campo) {
     const urlActual = usuario?.foto
       ? (usuario.foto.startsWith("http") || usuario.foto.startsWith("data:")
         ? usuario.foto
-        : `http://127.0.0.1:8080${usuario.foto}`)
+        : `http://localhost${usuario.foto}`)
       : "";
 
     pintarMiniPreview(mini, urlActual);

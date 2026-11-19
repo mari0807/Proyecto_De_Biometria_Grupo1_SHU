@@ -430,5 +430,5 @@ export function crearLogicaProxy({ fetchImpl, almacenamiento, apiBase, ahora = (
 export const logicaProxy = crearLogicaProxy({
   fetchImpl: (...args) => globalThis.fetch(...args),
   almacenamiento: globalThis.sessionStorage,
-  apiBase: "http://127.0.0.1:8080",
+  apiBase: "http://localhost",
 });
