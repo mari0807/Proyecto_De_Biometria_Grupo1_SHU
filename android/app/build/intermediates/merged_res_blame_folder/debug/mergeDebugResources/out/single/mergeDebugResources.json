@@ -1,50 +1,54 @@
 [
     {
-        "merged": "C:\\Users\\amand\\.gradle\\daemon\\8.13\\com.grupo1.biometria.app-debug-4:\\drawable_ic_candado.xml.flat",
-        "source": "C:\\Users\\amand\\.gradle\\daemon\\8.13\\com.grupo1.biometria.app-main-6:\\drawable\\ic_candado.xml"
+        "merged": "com.grupo1.biometria.app-debug-4:/drawable_ic_flecha_atras.xml.flat",
+        "source": "com.grupo1.biometria.app-main-6:/drawable/ic_flecha_atras.xml"
     },
     {
-        "merged": "C:\\Users\\amand\\.gradle\\daemon\\8.13\\com.grupo1.biometria.app-debug-4:\\layout_activity_main.xml.flat",
-        "source": "C:\\Users\\amand\\.gradle\\daemon\\8.13\\com.grupo1.biometria.app-main-6:\\layout\\activity_main.xml"
+        "merged": "com.grupo1.biometria.app-debug-4:/drawable_bg_tarjeta.xml.flat",
+        "source": "com.grupo1.biometria.app-main-6:/drawable/bg_tarjeta.xml"
     },
     {
-        "merged": "C:\\Users\\amand\\.gradle\\daemon\\8.13\\com.grupo1.biometria.app-debug-4:\\layout_activity_admin.xml.flat",
-        "source": "C:\\Users\\amand\\.gradle\\daemon\\8.13\\com.grupo1.biometria.app-main-6:\\layout\\activity_admin.xml"
+        "merged": "com.grupo1.biometria.app-debug-4:/drawable_bg_error.xml.flat",
+        "source": "com.grupo1.biometria.app-main-6:/drawable/bg_error.xml"
     },
     {
-        "merged": "C:\\Users\\amand\\.gradle\\daemon\\8.13\\com.grupo1.biometria.app-debug-4:\\layout_activity_login.xml.flat",
-        "source": "C:\\Users\\amand\\.gradle\\daemon\\8.13\\com.grupo1.biometria.app-main-6:\\layout\\activity_login.xml"
-    },
-    {
-        "merged": "C:\\Users\\amand\\.gradle\\daemon\\8.13\\com.grupo1.biometria.app-debug-4:\\drawable_bg_badge.xml.flat",
-        "source": "C:\\Users\\amand\\.gradle\\daemon\\8.13\\com.grupo1.biometria.app-main-6:\\drawable\\bg_badge.xml"
-    },
-    {
-        "merged": "C:\\Users\\amand\\.gradle\\daemon\\8.13\\com.grupo1.biometria.app-debug-4:\\mipmap-anydpi-v26_ic_launcher.xml.flat",
-        "source": "C:\\Users\\amand\\.gradle\\daemon\\8.13\\com.grupo1.biometria.app-main-6:\\mipmap-anydpi-v26\\ic_launcher.xml"
-    },
-    {
-        "merged": "C:\\Users\\amand\\.gradle\\daemon\\8.13\\com.grupo1.biometria.app-debug-4:\\drawable_bg_error.xml.flat",
-        "source": "C:\\Users\\amand\\.gradle\\daemon\\8.13\\com.grupo1.biometria.app-main-6:\\drawable\\bg_error.xml"
+        "merged": "com.grupo1.biometria.app-debug-4:/layout_activity_admin.xml.flat",
+        "source": "com.grupo1.biometria.app-main-6:/layout/activity_admin.xml"
     },
     {
         "merged": "com.grupo1.biometria.app-debug-4:/layout_activity_login.xml.flat",
         "source": "com.grupo1.biometria.app-main-6:/layout/activity_login.xml"
     },
     {
-        "merged": "C:\\Users\\amand\\.gradle\\daemon\\8.13\\com.grupo1.biometria.app-debug-4:\\layout_activity_register.xml.flat",
-        "source": "C:\\Users\\amand\\.gradle\\daemon\\8.13\\com.grupo1.biometria.app-main-6:\\layout\\activity_register.xml"
+        "merged": "com.grupo1.biometria.app-debug-4:/mipmap-anydpi-v26_ic_launcher.xml.flat",
+        "source": "com.grupo1.biometria.app-main-6:/mipmap-anydpi-v26/ic_launcher.xml"
     },
     {
-        "merged": "C:\\Users\\amand\\.gradle\\daemon\\8.13\\com.grupo1.biometria.app-debug-4:\\drawable_ic_flecha_atras.xml.flat",
-        "source": "C:\\Users\\amand\\.gradle\\daemon\\8.13\\com.grupo1.biometria.app-main-6:\\drawable\\ic_flecha_atras.xml"
+        "merged": "com.grupo1.biometria.app-debug-4:/drawable_panel_blanco.xml.flat",
+        "source": "com.grupo1.biometria.app-main-6:/drawable/panel_blanco.xml"
     },
     {
-        "merged": "C:\\Users\\amand\\.gradle\\daemon\\8.13\\com.grupo1.biometria.app-debug-4:\\drawable_ic_launcher_foreground.xml.flat",
-        "source": "C:\\Users\\amand\\.gradle\\daemon\\8.13\\com.grupo1.biometria.app-main-6:\\drawable\\ic_launcher_foreground.xml"
+        "merged": "com.grupo1.biometria.app-debug-4:/layout_activity_register.xml.flat",
+        "source": "com.grupo1.biometria.app-main-6:/layout/activity_register.xml"
     },
     {
-        "merged": "C:\\Users\\amand\\.gradle\\daemon\\8.13\\com.grupo1.biometria.app-debug-4:\\drawable_bg_tarjeta.xml.flat",
-        "source": "C:\\Users\\amand\\.gradle\\daemon\\8.13\\com.grupo1.biometria.app-main-6:\\drawable\\bg_tarjeta.xml"
+        "merged": "com.grupo1.biometria.app-debug-4:/layout_activity_main.xml.flat",
+        "source": "com.grupo1.biometria.app-main-6:/layout/activity_main.xml"
+    },
+    {
+        "merged": "com.grupo1.biometria.app-debug-4:/drawable_ic_candado.xml.flat",
+        "source": "com.grupo1.biometria.app-main-6:/drawable/ic_candado.xml"
+    },
+    {
+        "merged": "com.grupo1.biometria.app-debug-4:/drawable_bg_badge.xml.flat",
+        "source": "com.grupo1.biometria.app-main-6:/drawable/bg_badge.xml"
+    },
+    {
+        "merged": "com.grupo1.biometria.app-debug-4:/layout_fragment_detalle_zona.xml.flat",
+        "source": "com.grupo1.biometria.app-main-6:/layout/fragment_detalle_zona.xml"
+    },
+    {
+        "merged": "com.grupo1.biometria.app-debug-4:/drawable_ic_launcher_foreground.xml.flat",
+        "source": "com.grupo1.biometria.app-main-6:/drawable/ic_launcher_foreground.xml"
     }
 ]

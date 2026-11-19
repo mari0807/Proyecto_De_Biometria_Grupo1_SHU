@@ -1,90 +1,108 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/background"
-    android:fillViewport="true">
+    android:layout_height="match_parent">
 
+    <org.osmdroid.views.MapView
+        android:id="@+id/mapa"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <!-- Cabecera: título del mapa y cierre de sesión de la cuenta activa. -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:paddingStart="24dp"
-        android:paddingTop="16dp"
-        android:paddingEnd="24dp"
-        android:paddingBottom="32dp">
-
-        <ImageButton
-            android:id="@+id/btn_atras"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:background="?attr/selectableItemBackgroundBorderless"
-            android:contentDescription="@string/app_name"
-            android:src="@drawable/ic_flecha_atras" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:text="@string/login_title"
-            android:textColor="@color/ink"
-            android:textSize="26sp"
-            android:textStyle="bold" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="6dp"
-            android:text="@string/main_welcome"
-            android:textColor="@color/muted"
-            android:textSize="13sp" />
+        android:layout_gravity="top"
+        android:background="@color/primary_dark"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingStart="@dimen/espacio"
+        android:paddingTop="@dimen/espacio_pequeno"
+        android:paddingEnd="@dimen/espacio"
+        android:paddingBottom="@dimen/espacio_pequeno">
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="28dp"
-            android:background="@drawable/bg_tarjeta"
-            android:elevation="2dp"
-            android:orientation="vertical"
-            android:padding="20dp">
+            android:layout_weight="1"
+            android:orientation="vertical">
 
             <TextView
-                android:id="@+id/text_usuario"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/ink"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                tools:text="Ana García" />
+                android:text="@string/mapa_titulo"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/texto_titulo"
+                android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/text_email"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="2dp"
-                android:textColor="@color/muted"
-                android:textSize="13sp"
-                tools:text="ana@ejemplo.com" />
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btn_logout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:text="@string/btn_logout" />
+                android:text="@string/mapa_subtitulo"
+                android:textColor="#D6EAF8"
+                android:textSize="@dimen/texto_pequeno" />
         </LinearLayout>
 
-        <TextView
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_logout"
+            style="@style/Widget.Material3.Button.TextButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="24dp"
-            android:drawableStart="@drawable/ic_candado"
-            android:drawablePadding="6dp"
-            android:text="@string/pie_seguridad"
-            android:textColor="@color/muted"
+            android:minWidth="0dp"
+            android:text="@string/btn_logout"
+            android:textColor="@android:color/white"
             android:textSize="12sp" />
-
     </LinearLayout>
-</ScrollView>
+
+    <!-- Aviso de error (con botón de reintento debajo). -->
+    <TextView
+        android:id="@+id/mapa_estado"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top|center_horizontal"
+        android:layout_marginStart="@dimen/espacio"
+        android:layout_marginTop="84dp"
+        android:layout_marginEnd="@dimen/espacio"
+        android:background="@drawable/panel_blanco"
+        android:gravity="center"
+        android:textColor="@color/ink"
+        android:textSize="@dimen/texto_pequeno"
+        android:visibility="gone" />
+
+    <com.grupo1.biometria.mapa.LeyendaView
+        android:id="@+id/mapa_leyenda"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|start"
+        android:layout_marginStart="@dimen/espacio"
+        android:layout_marginBottom="@dimen/espacio"
+        android:background="@drawable/panel_blanco"
+        android:clickable="true"
+        android:focusable="true" />
+
+    <TextView
+        android:id="@+id/mapa_actualizacion"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|center_horizontal"
+        android:layout_marginBottom="@dimen/espacio"
+        android:background="@drawable/panel_blanco"
+        android:textColor="@color/ink"
+        android:textSize="@dimen/texto_pequeno" />
+
+    <ProgressBar
+        android:id="@+id/mapa_cargando"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:visibility="gone" />
+
+    <Button
+        android:id="@+id/mapa_reintentar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="@string/mapa_reintentar"
+        android:visibility="gone" />
+
+</FrameLayout>

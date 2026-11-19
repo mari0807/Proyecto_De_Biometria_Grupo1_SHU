@@ -16,6 +16,7 @@ public final class AuthRepositoryProvider {
 
     private static volatile AuthRepository instancia;
     private static volatile String instanciaUrl;
+    private static volatile SesionManager sesion;
 
     private AuthRepositoryProvider() {
     }
@@ -37,13 +38,26 @@ public final class AuthRepositoryProvider {
                 Handler hiloPrincipal = new Handler(Looper.getMainLooper());
                 ExecutorService hiloRed = Executors.newSingleThreadExecutor();
 
+                sesion = new SesionManager(new PreferenciasAlmacenSesion(app), System::currentTimeMillis);
                 instancia = new AuthRepositoryRemoto(
                         new HttpClienteRest(urlBase),
-                        new SesionManager(new PreferenciasAlmacenSesion(app), System::currentTimeMillis),
+                        sesion,
                         hiloRed,
                         hiloPrincipal::post);
             }
         }
         return instancia;
+    }
+
+    /**
+     * --------------------
+     * --> sesion() --> sesion: SesionManager | NULL
+     * --------------------
+     *
+     * La sesión compartida que usa el repositorio; el mapa la necesita para
+     * adjuntar el token del usuario a `GET /api/mapa`.
+     */
+    public static SesionManager sesion() {
+        return sesion;
     }
 }

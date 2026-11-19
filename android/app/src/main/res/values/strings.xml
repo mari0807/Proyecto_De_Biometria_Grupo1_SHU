@@ -78,4 +78,12 @@
     <string name="admin_title">Panel de administración</string>
     <string name="admin_subtitle">Acceso con permisos de administrador</string>
     <string name="admin_badge">Administrador</string>
+
+    <!-- Mapa de calidad del aire (H16, portado de la primera app) -->
+    <string name="mapa_titulo">Calidad del aire por zona</string>
+    <string name="mapa_subtitulo">Campus de Gandia · UPV</string>
+    <string name="mapa_reintentar">Reintentar</string>
+    <string name="detalle_cerrar">Cerrar</string>
+    <string name="detalle_sin_mediciones">No hay mediciones disponibles para esta zona.</string>
+    <string name="detalle_evolucion">Evolución</string>
 </resources>

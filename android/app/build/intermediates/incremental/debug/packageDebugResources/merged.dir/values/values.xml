@@ -15,6 +15,12 @@
     <color name="secondary">#198DB1</color>
     <color name="success">#1F6B32</color>
     <color name="surface">#FFFFFF</color>
+    <dimen name="espacio">16dp</dimen>
+    <dimen name="espacio_grande">24dp</dimen>
+    <dimen name="espacio_pequeno">8dp</dimen>
+    <dimen name="texto_normal">15sp</dimen>
+    <dimen name="texto_pequeno">12sp</dimen>
+    <dimen name="texto_titulo">20sp</dimen>
     <string name="admin_badge">Administrador</string>
     <string name="admin_subtitle">Acceso con permisos de administrador</string>
     <string name="admin_title">Panel de administración</string>
@@ -27,6 +33,9 @@
     <string name="check_mantener_sesion">Mantener sesión iniciada</string>
     <string name="check_terminos">He leído y acepto los términos de uso</string>
     <string name="comprobando_sesion">Comprobando sesión…</string>
+    <string name="detalle_cerrar">Cerrar</string>
+    <string name="detalle_evolucion">Evolución</string>
+    <string name="detalle_sin_mediciones">No hay mediciones disponibles para esta zona.</string>
     <string name="dialog_aceptar">Aceptar</string>
     <string name="dialog_cancelar">Cancelar</string>
     <string name="error_campo_obligatorio">Completa los campos obligatorios.</string>
@@ -49,6 +58,9 @@
     <string name="login_subtitle">Consulta tu actividad y conecta con tu sensor personal.</string>
     <string name="login_title">Te damos la bienvenida</string>
     <string name="main_welcome">Bienvenido/a</string>
+    <string name="mapa_reintentar">Reintentar</string>
+    <string name="mapa_subtitulo">Campus de Gandia · UPV</string>
+    <string name="mapa_titulo">Calidad del aire por zona</string>
     <string name="msg_recuperar">Envía un correo a shu@gmail.com indicando el email de tu cuenta. Un admin te ayudará a recuperar el acceso.</string>
     <string name="msg_registro_ok">Cuenta creada correctamente</string>
     <string name="password_requisitos">La contraseña debe tener:</string>

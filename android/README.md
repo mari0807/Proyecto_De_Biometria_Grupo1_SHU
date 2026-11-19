@@ -1,14 +1,15 @@
 # App Android — Proyecto de Biometría (Grupo 1)
 
-Aplicación móvil del proyecto **QueAire**. Esta primera entrega implementa el
-**inicio de sesión** y el **registro** conectados al backend real del repositorio
-(`servidor/`), más una pantalla principal con cierre de sesión.
+Aplicación móvil del proyecto **QueAire**: **inicio de sesión** y **registro**
+contra el backend real del repositorio (`servidor/`) y, tras autenticarse, el
+**mapa de calidad del aire** (H16, portado de la primera app del grupo), con
+cierre de sesión.
 
 | Tarjeta Trello | Pantalla | Fichero principal |
 |---|---|---|
 | **H11** — Iniciar sesión | `LoginActivity` | `app/src/main/java/com/grupo1/biometria/ui/LoginActivity.java` |
 | **H29** — Registro | `RegisterActivity` | `app/src/main/java/com/grupo1/biometria/ui/RegisterActivity.java` |
-| Panel del usuario | `MainActivity` | `app/src/main/java/com/grupo1/biometria/ui/MainActivity.java` |
+| **H16** — Mapa de calidad del aire | `MainActivity` + paquete `mapa/` | `app/src/main/java/com/grupo1/biometria/ui/MainActivity.java` |
 | Panel del administrador | `AdminActivity` | `app/src/main/java/com/grupo1/biometria/ui/AdminActivity.java` |
 
 ## Requisitos
@@ -92,6 +93,13 @@ app/src/main/java/com/grupo1/biometria/
 │   ├── RespuestaAuth.java / EstadoAuth.java   # Mapeo HTTP → estados de la app
 │   ├── RespuestaHttp.java / Usuario.java
 │   └── Reloj.java                  # Reloj inyectable (tests de caducidad)
+├── mapa/                   # H16: mapa de calidad del aire (portado de la 1ª app)
+│   ├── ClienteMapa.java            # GET /api/mapa y /api/mapa/zona/{id} con Bearer
+│   ├── MapaJson.java / Formato.java / Paleta.java
+│   ├── model/                      # PuntoMapa, ZonaDetalle, Medicion
+│   ├── CalorOverlay.java / PuntosOverlay.java   # Capas de osmdroid
+│   ├── LeyendaView.java / GraficaEvolucionView.java
+│   └── DetalleZonaBottomSheet.java # Panel inferior de zona (H18)
 └── util/
     ├── Validador.java    # Reglas de campos = reglas del backend
     ├── Rol.java          # usuario.rol == "admin" → panel de administración
@@ -169,7 +177,7 @@ tanto al entrar por login como al restaurar una sesión con «Mantener sesión
 iniciada». `MainActivity` y `AdminActivity` se protegen entre sí para que un
 usuario con el rol equivocado no pueda ver el panel ajeno.
 
-## Tests (56)
+## Tests (66)
 
 | Fichero | Cubre |
 |---|---|
@@ -179,6 +187,7 @@ usuario con el rol equivocado no pueda ver el panel ajeno.
 | `SesionManagerTest` (9) | Mantener sesión, restauración, caducidad, datos corruptos, cierre |
 | `AuthRepositoryRemotoTest` (11) | Rutas y cuerpos de la API, sesión, cierre sin red |
 | `RolTest` (4) | Enrutamiento `admin`/`usuario`, mayúsculas, espacios y valores ausentes |
+| `PaletaTest` (3), `FormatoTest` (3), `MapaJsonTest` (4) | Colores, formatos y parsing del mapa (portados con el H16) |
 
 ## Comprobación web ↔ app
 
@@ -202,6 +211,6 @@ También se comprobó el diálogo de recuperación de la app contra la sección
 
 ## Pendiente
 
-- **H16** (mapa), **H17** (perfil) y demás pantallas del tablero.
+- **H17** (perfil) y demás pantallas del tablero.
 - `servidor/src/business_logic/Token.php` emite tokens con TTL corto (600 s);
   si se amplía, solo hay que revalidar el comportamiento de `SesionManager`.

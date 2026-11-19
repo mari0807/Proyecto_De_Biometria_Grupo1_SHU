@@ -51,6 +51,9 @@ dependencies {
     implementation 'com.google.android.material:material:1.13.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.2.1'
 
+    // H16: mapa base OpenStreetMap (osmdroid) para la pantalla principal.
+    implementation 'org.osmdroid:osmdroid-android:6.1.20'
+
     // org.json real para los tests JVM (en el móvil lo aporta el framework).
     testImplementation 'junit:junit:4.13.2'
     testImplementation 'org.json:json:20240303'

@@ -11,6 +11,24 @@
     <!-- Necesaria para hablar con el backend por HTTP. -->
     <uses-permission android:name="android.permission.INTERNET" />
 
+    <supports-screens
+        android:anyDensity="true"
+        android:largeScreens="true"
+        android:normalScreens="true" />
+
+    <uses-feature
+        android:name="android.hardware.location.network"
+        android:required="false" />
+    <uses-feature
+        android:name="android.hardware.location.gps"
+        android:required="false" />
+    <uses-feature
+        android:name="android.hardware.telephony"
+        android:required="false" />
+    <uses-feature
+        android:name="android.hardware.wifi"
+        android:required="false" />
+
     <permission
         android:name="com.grupo1.biometria.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION"
         android:protectionLevel="signature" />
@@ -26,6 +44,7 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher"
         android:supportsRtl="true"
+        android:testOnly="true"
         android:theme="@style/Theme.Biometria"
         android:usesCleartextTraffic="true" >
         <activity
