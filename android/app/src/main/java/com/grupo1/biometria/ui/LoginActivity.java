@@ -22,6 +22,7 @@ import com.grupo1.biometria.data.AuthRepository;
 import com.grupo1.biometria.data.AuthRepositoryProvider;
 import com.grupo1.biometria.data.EstadoAuth;
 import com.grupo1.biometria.data.RespuestaAuth;
+import com.grupo1.biometria.data.UrlServidor;
 import com.grupo1.biometria.util.Rol;
 import com.grupo1.biometria.util.Validador;
 
@@ -41,8 +42,10 @@ public class LoginActivity extends AppCompatActivity {
 
     private TextInputLayout inputEmail;
     private TextInputLayout inputPassword;
+    private TextInputLayout inputServidor;
     private TextInputEditText campoEmail;
     private TextInputEditText campoPassword;
+    private TextInputEditText campoServidor;
     private CheckBox checkMantenerSesion;
     private TextView textoError;
     private MaterialButton botonLogin;
@@ -70,10 +73,14 @@ public class LoginActivity extends AppCompatActivity {
 
         repositorio = AuthRepositoryProvider.obtener(this);
         vincularVistas();
+        campoServidor.setText(UrlServidor.url(this));
 
         botonLogin.setOnClickListener(v -> intentarInicioSesion());
-        findViewById(R.id.link_registro).setOnClickListener(v ->
-                lanzadorRegistro.launch(new Intent(this, RegisterActivity.class)));
+        findViewById(R.id.link_registro).setOnClickListener(v -> {
+            // El registro usa la misma URL de servidor: se guarda antes de navegar.
+            UrlServidor.guardar(this, texto(campoServidor));
+            lanzadorRegistro.launch(new Intent(this, RegisterActivity.class));
+        });
         findViewById(R.id.link_olvidar).setOnClickListener(v -> mostrarRecuperacion());
 
         // Sesión ya iniciada (y no caducada): se valida con el servidor y se entra.
@@ -110,6 +117,8 @@ public class LoginActivity extends AppCompatActivity {
         inputPassword = findViewById(R.id.input_password);
         campoEmail = findViewById(R.id.campo_email);
         campoPassword = findViewById(R.id.campo_password);
+        inputServidor = findViewById(R.id.input_servidor);
+        campoServidor = findViewById(R.id.campo_servidor);
         checkMantenerSesion = findViewById(R.id.check_mantener_sesion);
         textoError = findViewById(R.id.text_error_login);
         botonLogin = findViewById(R.id.btn_login);
@@ -158,6 +167,11 @@ public class LoginActivity extends AppCompatActivity {
         if (hayErrorDeCampo) {
             return;
         }
+
+        // La URL del servidor escrita se guarda y se usa para esta petición
+        // (y para el registro y la sesión); si cambió, el repositorio se recrea.
+        UrlServidor.guardar(this, texto(campoServidor));
+        repositorio = AuthRepositoryProvider.obtener(this);
 
         // Mientras el servidor responde, el botón queda deshabilitado.
         botonLogin.setEnabled(false);

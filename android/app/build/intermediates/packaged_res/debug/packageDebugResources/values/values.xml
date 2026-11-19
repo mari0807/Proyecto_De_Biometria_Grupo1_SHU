@@ -40,6 +40,7 @@
     <string name="hint_email">Correo electrónico</string>
     <string name="hint_nombre">Nombre</string>
     <string name="hint_password">Contraseña</string>
+    <string name="hint_servidor">Servidor del backend</string>
     <string name="link_login">¿Ya tienes una cuenta? Inicia sesión</string>
     <string name="link_olvidar">¿Has olvidado tu contraseña?</string>
     <string name="link_registro">¿Aún no tienes cuenta? Regístrate</string>
@@ -57,6 +58,7 @@
     <string name="placeholder_nombre">Tu nombre</string>
     <string name="placeholder_password">Tu contraseña</string>
     <string name="placeholder_password_registro">Ej. QueAire1!</string>
+    <string name="placeholder_servidor">http://192.168.0.200</string>
     <string name="recuperar_subtitulo">Escríbenos y un administrador se pondrá en contacto contigo pronto.</string>
     <string name="register_subtitle">Participa y guarda las mediciones de tu sensor</string>
     <string name="register_title">Crea tu cuenta</string>

@@ -1,10 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "com.grupo1.biometria.app-mergeDebugResources-31:/values-v22/values-v22.xml",
+            "outputFile": "com.grupo1.biometria.app-mergeDebugResources-2:/values-v22/values-v22.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\david\\.gradle\\caches\\8.13\\transforms\\5fb030aafe02535a0827aa16b3bbe1b1\\transformed\\appcompat-1.7.1\\res\\values-v22\\values-v22.xml",
+                    "source": "C:\\Users\\amand\\.gradle\\caches\\8.13\\transforms\\5fb030aafe02535a0827aa16b3bbe1b1\\transformed\\appcompat-1.7.1\\res\\values-v22\\values-v22.xml",
                     "from": {
                         "startLines": "2,3,4,9",
                         "startColumns": "4,4,4,4",

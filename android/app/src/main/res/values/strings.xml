@@ -22,6 +22,10 @@
     <string name="placeholder_apellidos">Tus apellidos</string>
     <string name="placeholder_password_registro">Ej. QueAire1!</string>
 
+    <!-- Servidor del backend: cada miembro del equipo usa la IP de su PC -->
+    <string name="hint_servidor">Servidor del backend</string>
+    <string name="placeholder_servidor">http://192.168.0.200</string>
+
     <!-- Botones y enlaces -->
     <string name="btn_login">Iniciar sesión</string>
     <string name="btn_register">Registrarme</string>

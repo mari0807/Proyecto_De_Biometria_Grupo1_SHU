@@ -4,8 +4,6 @@ import android.content.Context;
 import android.os.Handler;
 import android.os.Looper;
 
-import com.grupo1.biometria.BuildConfig;
-
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -17,6 +15,7 @@ import java.util.concurrent.Executors;
 public final class AuthRepositoryProvider {
 
     private static volatile AuthRepository instancia;
+    private static volatile String instanciaUrl;
 
     private AuthRepositoryProvider() {
     }
@@ -27,19 +26,22 @@ public final class AuthRepositoryProvider {
      * --------------------
      */
     public static AuthRepository obtener(Context contexto) {
-        if (instancia == null) {
-            synchronized (AuthRepositoryProvider.class) {
-                if (instancia == null) {
-                    Context app = contexto.getApplicationContext();
-                    Handler hiloPrincipal = new Handler(Looper.getMainLooper());
-                    ExecutorService hiloRed = Executors.newSingleThreadExecutor();
+        // La URL base la decide el campo «Servidor» del login (UrlServidor):
+        // cada miembro del equipo apunta la app al backend de su propio PC
+        // sin recompilar. Si la URL cambia, se recrea el repositorio.
+        String urlBase = UrlServidor.url(contexto);
+        synchronized (AuthRepositoryProvider.class) {
+            if (instancia == null || !urlBase.equals(instanciaUrl)) {
+                instanciaUrl = urlBase;
+                Context app = contexto.getApplicationContext();
+                Handler hiloPrincipal = new Handler(Looper.getMainLooper());
+                ExecutorService hiloRed = Executors.newSingleThreadExecutor();
 
-                    instancia = new AuthRepositoryRemoto(
-                            new HttpClienteRest(BuildConfig.API_BASE),
-                            new SesionManager(new PreferenciasAlmacenSesion(app), System::currentTimeMillis),
-                            hiloRed,
-                            hiloPrincipal::post);
-                }
+                instancia = new AuthRepositoryRemoto(
+                        new HttpClienteRest(urlBase),
+                        new SesionManager(new PreferenciasAlmacenSesion(app), System::currentTimeMillis),
+                        hiloRed,
+                        hiloPrincipal::post);
             }
         }
         return instancia;

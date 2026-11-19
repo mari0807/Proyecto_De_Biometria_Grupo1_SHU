@@ -3786,6 +3786,7 @@ id campo_confirm_password
 id campo_email
 id campo_nombre
 id campo_password
+id campo_servidor
 id cancel_button
 id carryVelocity
 id center
@@ -3920,6 +3921,7 @@ id input_confirm_password
 id input_email
 id input_nombre
 id input_password
+id input_servidor
 id invisible
 id inward
 id italic
@@ -4498,6 +4500,7 @@ string hint_confirm_password
 string hint_email
 string hint_nombre
 string hint_password
+string hint_servidor
 string icon_content_description
 string item_view_role_description
 string link_login
@@ -4629,6 +4632,7 @@ string placeholder_email
 string placeholder_nombre
 string placeholder_password
 string placeholder_password_registro
+string placeholder_servidor
 string recuperar_subtitulo
 string register_subtitle
 string register_title

@@ -2,10 +2,12 @@ plugins {
     id 'com.android.application'
 }
 
-// URL base del backend (servidor/public/index.php).
-// Con el móvil físico en la misma WiFi se usa la IP local del PC.
-// Emulador: sustituir por http://10.0.2.2:8080
-def apiBase = "http://192.168.5.94:8080"
+// URL base por defecto del backend (servidor/public/index.php): vale para el
+// emulador con Apache en el puerto 80. Con un móvil físico cada uno escribe en
+// el campo "Servidor" del login la IP de SU PC (p. ej. http://192.168.0.200)
+// y la app la recuerda; no hace falta recompilar.
+// Con el servidor PHP integrado (php -S ...:8080) sería http://10.0.2.2:8080.
+def apiBase = "http://10.0.2.2"
 
 android {
     namespace 'com.grupo1.biometria'

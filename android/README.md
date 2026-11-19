@@ -34,27 +34,31 @@ adb install -r app\build\outputs\apk\debug\app-debug.apk
 
 ## Poner en marcha el backend
 
-1. Arrancar **XAMPP** con MySQL (puerto 3306) en marcha.
-2. Importar `bd/schema.sql` y `bd/seed.sql` si aún no lo está (ver `bd/README.md`).
-3. Lanzar el servidor PHP **escuchando en todas las interfaces** para que el móvil
-   pueda llegar desde la WiFi:
+1. Ejecutar como **administrador** `activar-xampp.bat` (raíz del repo): crea los
+   alias de Apache a través de un enlace ASCII (`C:\xampp\queaire_repo`, necesario
+   si la ruta del repo lleva acentos), los enlaces de `htdocs` y la regla de
+   firewall del puerto 80.
+2. En el panel de XAMPP: **Start Apache** y **Start MySQL**.
+3. Importar `bd/schema.sql` y `bd/seed.sql` si aún no lo está (ver `bd/README.md`).
+
+Con eso la API queda en `http://localhost/api` y, desde el móvil en la misma
+WiFi, en `http://TU_IP/api` (la IP del PC se ve con `ipconfig`).
+
+Alternativa sin Apache, con el servidor PHP integrado (puerto 8080):
 
 ```powershell
 C:\xampp\php\php.exe -S 0.0.0.0:8080 -t servidor\public
 ```
 
-4. Averiguar la IP del PC (`ipconfig` → IPv4, por ejemplo `192.168.5.94`).
+### Configurar el servidor en la app
 
-### Configurar la IP en la app
+La pantalla de inicio de sesión tiene un campo **Servidor**: cada miembro del
+equipo escribe la URL del backend de **su** PC y la app la recuerda (no hay que
+recompilar; el registro usa la misma URL):
 
-La URL base es `buildConfigField API_BASE` en `app/build.gradle`:
-
-```groovy
-def apiBase = "http://192.168.5.94:8080"   // ← cambiar por la IP de tu PC
-```
-
-- **Móvil físico (misma WiFi):** la IP del PC, p. ej. `http://192.168.5.94:8080`.
-- **Emulador:** `http://10.0.2.2:8080` (el localhost del anfitrión).
+- **Móvil físico (misma WiFi):** la IP del PC, p. ej. `http://192.168.0.200`.
+- **Emulador con Apache (puerto 80):** `http://10.0.2.2` (valor por defecto).
+- **Servidor PHP integrado (8080):** las mismas URLs terminadas en `:8080`.
 
 ## Usuarios de prueba
 

@@ -30,6 +30,7 @@ id campo_confirm_password
 id campo_email
 id campo_nombre
 id campo_password
+id campo_servidor
 id check_mantener_sesion
 id check_terminos
 id input_apellidos
@@ -37,6 +38,7 @@ id input_confirm_password
 id input_email
 id input_nombre
 id input_password
+id input_servidor
 id link_login
 id link_olvidar
 id link_registro
@@ -81,6 +83,7 @@ string hint_confirm_password
 string hint_email
 string hint_nombre
 string hint_password
+string hint_servidor
 string link_login
 string link_olvidar
 string link_registro
@@ -98,6 +101,7 @@ string placeholder_email
 string placeholder_nombre
 string placeholder_password
 string placeholder_password_registro
+string placeholder_servidor
 string recuperar_subtitulo
 string register_subtitle
 string register_title
