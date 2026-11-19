@@ -6,14 +6,14 @@ import { montarPanelAdmin } from "./adminPanel.js";
 const menuPerfil = montarMenuPerfil({
   onCerrarSesion: async () => {
     await logicaProxy.cerrarSesion();
-    location.replace("landing.html");
+    location.replace("user.html");
   },
 });
 
 const sesion = await logicaProxy.comprobarSesion();
 if (!sesion.ok) {
   await logicaProxy.cerrarSesion();
-  location.replace("landing.html");
+  location.replace("user.html#login");
 } else if (sesion.usuario.rol !== "admin") {
   location.replace("user.html");
 } else {

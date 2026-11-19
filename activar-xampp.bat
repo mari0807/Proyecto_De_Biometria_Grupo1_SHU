@@ -73,7 +73,7 @@ echo.
 echo Configurado: %CONF%
 echo.
 echo 1. En XAMPP: Stop Apache si estaba en marcha, luego Start Apache + MySQL
-echo 2. Web: http://localhost/queaire/landing.html
+echo 2. Web: http://localhost/queaire/user.html
 echo 3. API: http://localhost/api/
 echo 4. BD:  http://localhost/phpmyadmin
 echo.

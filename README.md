@@ -12,11 +12,11 @@ Android, backend con API y web con mapa.
 3. En el panel de XAMPP, **Start** en **Apache** y **MySQL**.
 4. Base de datos (solo la primera vez): ver [`bd/README.md`](bd/README.md)  
    → phpMyAdmin e importar `schema.sql` + `seed.sql`.
-5. Abre la web: [http://localhost/queaire/landing.html](http://localhost/queaire/landing.html)
+5. Abre la web: [http://localhost/queaire/user.html](http://localhost/queaire/user.html)
 
 | Qué | URL |
 |---|---|
-| Web | `http://localhost/queaire/landing.html` |
+| Web | `http://localhost/queaire/user.html` |
 | API | `http://localhost/api/` |
 | phpMyAdmin | `http://localhost/phpmyadmin` |
 

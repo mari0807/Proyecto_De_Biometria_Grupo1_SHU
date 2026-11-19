@@ -4,13 +4,12 @@ const API_BASE = "http://localhost";
 
 /**
  * Logo QuéAire:
- * - sin sesión → landing
- * - usuario → user
- * - admin → admin (su panel)
+ * - sin sesión / usuario → web pública (user)
+ * - admin → panel admin
  */
 export function actualizarLogoInicio(usuarioOAutenticado) {
-  let destino = "landing.html";
-  let etiqueta = "QuéAire, ir a la landing";
+  let destino = "user.html";
+  let etiqueta = "QuéAire, ir al mapa";
 
   if (usuarioOAutenticado && typeof usuarioOAutenticado === "object") {
     if (usuarioOAutenticado.rol === "admin") {
@@ -227,7 +226,7 @@ export async function confirmarBorrarCuenta() {
         return;
       }
       modal.remove();
-      location.assign("landing.html");
+      location.assign("user.html");
       resolve(true);
     };
 

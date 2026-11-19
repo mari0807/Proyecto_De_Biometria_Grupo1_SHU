@@ -337,7 +337,7 @@ document.querySelector("#btn-borrar-cuenta")?.addEventListener("click", () => {
 const sesion = await logicaProxy.comprobarSesion();
 if (!sesion.ok) {
   await logicaProxy.cerrarSesion();
-  location.replace("landing.html");
+  location.replace("user.html");
 } else {
   usuario = { ...sesion.usuario };
   actualizarLogoInicio(usuario);

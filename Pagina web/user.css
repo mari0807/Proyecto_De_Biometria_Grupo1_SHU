@@ -102,6 +102,16 @@ a {
   gap: 10px;
 }
 
+.auth-guest {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.auth-guest[hidden] {
+  display: none;
+}
+
 .carrier {
   padding: 10px 15px;
   border: 1px solid var(--line);
