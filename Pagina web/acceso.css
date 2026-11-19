@@ -346,5 +346,52 @@ a.carrier-submit {
   .carrier-form-card { padding: 17px; }
 }
 
+/* Pantalla grande de registro correcto */
+.registro-exito {
+  position: fixed;
+  inset: 0;
+  z-index: 2000;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  background: linear-gradient(160deg, #0f3a5c 0%, #155b91 45%, #198db1 100%);
+  color: #fff;
+  text-align: center;
+  animation: registro-exito-in 0.35s ease-out;
+}
+
+.registro-exito-card {
+  width: min(640px, 100%);
+  padding: clamp(28px, 6vw, 48px);
+}
+
+.registro-exito-check {
+  width: clamp(72px, 14vw, 110px);
+  height: clamp(72px, 14vw, 110px);
+  margin: 0 auto 22px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: #ffffff22;
+  border: 3px solid #ffffffaa;
+  font-size: clamp(36px, 8vw, 56px);
+  line-height: 1;
+}
+
+.registro-exito h2 {
+  margin: 0 0 12px;
+  font: 800 clamp(28px, 7vw, 48px)/1.15 "Manrope", Arial, sans-serif;
+}
+
+.registro-exito p {
+  margin: 0;
+  color: #e7f5fb;
+  font: 500 clamp(15px, 3.2vw, 20px)/1.45 "DM Sans", Arial, sans-serif;
+}
+
+@keyframes registro-exito-in {
+  from { opacity: 0; transform: scale(0.96); }
+  to { opacity: 1; transform: scale(1); }
+}
 
 

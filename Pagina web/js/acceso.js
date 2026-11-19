@@ -37,6 +37,25 @@ function destinoTrasLogin(rol) {
   return rol === "admin" ? "admin.html" : "user.html";
 }
 
+function mostrarRegistroExito(destino) {
+  document.querySelector("#registro-exito")?.remove();
+  const capa = document.createElement("div");
+  capa.id = "registro-exito";
+  capa.className = "registro-exito";
+  capa.setAttribute("role", "status");
+  capa.setAttribute("aria-live", "polite");
+  capa.innerHTML = `
+    <div class="registro-exito-card">
+      <div class="registro-exito-check" aria-hidden="true">✓</div>
+      <h2>¡Te has registrado con éxito!</h2>
+      <p>Tu cuenta ya está lista. En un momento entramos…</p>
+    </div>
+  `;
+  document.body.appendChild(capa);
+  location.hash = "";
+  setTimeout(() => location.assign(destino), 2200);
+}
+
 const menuPerfil = montarMenuPerfil({
   onCerrarSesion: async () => {
     await logicaProxy.cerrarSesion();
@@ -120,14 +139,16 @@ formRegistro?.addEventListener("submit", async (evento) => {
     return;
   }
   const sesion = await logicaProxy.iniciarSesion(email, password);
-  boton.disabled = false;
-  if (sesion.obsoleta) return;
-  if (!sesion.ok) {
-    mostrar(mensajeRegistro, "Cuenta creada. Inicia sesión para continuar.", true);
-    location.hash = "login";
+  if (sesion.obsoleta) {
+    boton.disabled = false;
     return;
   }
-  location.assign(destinoTrasLogin(sesion.usuario.rol));
+  if (!sesion.ok) {
+    boton.disabled = false;
+    mostrarRegistroExito("user.html#login");
+    return;
+  }
+  mostrarRegistroExito(destinoTrasLogin(sesion.usuario.rol));
 });
 
 pintarSesion(null);
