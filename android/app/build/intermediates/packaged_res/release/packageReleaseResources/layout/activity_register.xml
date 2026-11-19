@@ -1,0 +1,300 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background"
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingStart="24dp"
+        android:paddingTop="16dp"
+        android:paddingEnd="24dp"
+        android:paddingBottom="32dp">
+
+        <!-- Flecha de retroceso del diseño -->
+        <ImageButton
+            android:id="@+id/btn_atras"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="@string/app_name"
+            android:src="@drawable/ic_flecha_atras" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="@string/register_title"
+            android:textColor="@color/ink"
+            android:textSize="26sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:text="@string/register_subtitle"
+            android:textColor="@color/muted"
+            android:textSize="13sp" />
+
+        <!-- Apartados añadidos al diseño: nombre y apellidos -->
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/input_nombre"
+            style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="28dp"
+            android:hint="@string/hint_nombre"
+            app:boxBackgroundColor="@color/campo_fondo"
+            app:boxCornerRadiusBottomEnd="10dp"
+            app:boxCornerRadiusBottomStart="10dp"
+            app:boxCornerRadiusTopEnd="10dp"
+            app:boxCornerRadiusTopStart="10dp"
+            app:boxStrokeColor="@color/campo_borde"
+            app:hintTextColor="@color/muted"
+            app:placeholderText="@string/placeholder_nombre">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/campo_nombre"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textPersonName"
+                android:maxLines="1" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/input_apellidos"
+            style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:hint="@string/hint_apellidos"
+            app:boxBackgroundColor="@color/campo_fondo"
+            app:boxCornerRadiusBottomEnd="10dp"
+            app:boxCornerRadiusBottomStart="10dp"
+            app:boxCornerRadiusTopEnd="10dp"
+            app:boxCornerRadiusTopStart="10dp"
+            app:boxStrokeColor="@color/campo_borde"
+            app:hintTextColor="@color/muted"
+            app:placeholderText="@string/placeholder_apellidos">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/campo_apellidos"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textPersonName"
+                android:maxLines="1" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/input_email"
+            style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:hint="@string/hint_email"
+            app:boxBackgroundColor="@color/campo_fondo"
+            app:boxCornerRadiusBottomEnd="10dp"
+            app:boxCornerRadiusBottomStart="10dp"
+            app:boxCornerRadiusTopEnd="10dp"
+            app:boxCornerRadiusTopStart="10dp"
+            app:boxStrokeColor="@color/campo_borde"
+            app:hintTextColor="@color/muted"
+            app:placeholderText="@string/placeholder_email">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/campo_email"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textEmailAddress"
+                android:maxLines="1" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/input_password"
+            style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:hint="@string/hint_password"
+            app:boxBackgroundColor="@color/campo_fondo"
+            app:boxCornerRadiusBottomEnd="10dp"
+            app:boxCornerRadiusBottomStart="10dp"
+            app:boxCornerRadiusTopEnd="10dp"
+            app:boxCornerRadiusTopStart="10dp"
+            app:boxStrokeColor="@color/campo_borde"
+            app:endIconMode="password_toggle"
+            app:hintTextColor="@color/muted"
+            app:placeholderText="@string/placeholder_password_registro">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/campo_password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textPassword"
+                android:maxLines="1" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!-- Requisitos en vivo, como en la web (.password-reqs.live). -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="@string/password_requisitos"
+            android:textColor="@color/ink"
+            android:textSize="12sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/req_longitud"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/req_longitud"
+            android:textColor="@color/muted"
+            android:textSize="12sp"
+            tools:ignore="HardcodedText" />
+
+        <TextView
+            android:id="@+id/req_mayuscula"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/req_mayuscula"
+            android:textColor="@color/muted"
+            android:textSize="12sp"
+            tools:ignore="HardcodedText" />
+
+        <TextView
+            android:id="@+id/req_minuscula"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/req_minuscula"
+            android:textColor="@color/muted"
+            android:textSize="12sp"
+            tools:ignore="HardcodedText" />
+
+        <TextView
+            android:id="@+id/req_numero"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/req_numero"
+            android:textColor="@color/muted"
+            android:textSize="12sp"
+            tools:ignore="HardcodedText" />
+
+        <TextView
+            android:id="@+id/req_signo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/req_signo"
+            android:textColor="@color/muted"
+            android:textSize="12sp"
+            tools:ignore="HardcodedText" />
+
+        <!-- Apartado añadido: confirmación de contraseña -->
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/input_confirm_password"
+            style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:hint="@string/hint_confirm_password"
+            app:boxBackgroundColor="@color/campo_fondo"
+            app:boxCornerRadiusBottomEnd="10dp"
+            app:boxCornerRadiusBottomStart="10dp"
+            app:boxCornerRadiusTopEnd="10dp"
+            app:boxCornerRadiusTopStart="10dp"
+            app:boxStrokeColor="@color/campo_borde"
+            app:endIconMode="password_toggle"
+            app:hintTextColor="@color/muted">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/campo_confirm_password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textPassword"
+                android:maxLines="1" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!-- Apartado añadido: aceptación de términos de uso -->
+        <CheckBox
+            android:id="@+id/check_terminos"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="@string/check_terminos"
+            android:textColor="@color/ink"
+            android:textSize="13sp" />
+
+        <TextView
+            android:id="@+id/link_terminos"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="34dp"
+            android:padding="4dp"
+            android:text="@string/link_terminos"
+            android:textColor="@color/primary"
+            android:textSize="12sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/text_error_terminos"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_error"
+            android:gravity="center"
+            android:padding="10dp"
+            android:textColor="@color/error"
+            android:textSize="12sp"
+            android:visibility="gone"
+            tools:text="Debes aceptar los términos de uso para continuar" />
+
+        <TextView
+            android:id="@+id/text_error_register"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/bg_error"
+            android:gravity="center"
+            android:padding="10dp"
+            android:textColor="@color/error"
+            android:textSize="13sp"
+            android:visibility="gone"
+            tools:text="error" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_register"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="14dp"
+            android:text="@string/btn_register" />
+
+        <TextView
+            android:id="@+id/link_login"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="18dp"
+            android:padding="8dp"
+            android:text="@string/link_login"
+            android:textColor="@color/primary"
+            android:textSize="13sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="16dp"
+            android:drawableStart="@drawable/ic_candado"
+            android:drawablePadding="6dp"
+            android:text="@string/pie_seguridad"
+            android:textColor="@color/muted"
+            android:textSize="12sp" />
+
+    </LinearLayout>
+</ScrollView>

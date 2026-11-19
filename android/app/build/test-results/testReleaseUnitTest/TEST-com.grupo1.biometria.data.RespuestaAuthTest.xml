@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.grupo1.biometria.data.RespuestaAuthTest" tests="10" skipped="0" failures="0" errors="0" timestamp="2026-11-19T19:57:11.940Z" hostname="DAVID" time="0.003">
+  <properties/>
+  <testcase name="login_sin_respuesta_del_servidor_es_error_de_servidor" classname="com.grupo1.biometria.data.RespuestaAuthTest" time="0.0"/>
+  <testcase name="registro_con_200_devuelve_ok" classname="com.grupo1.biometria.data.RespuestaAuthTest" time="0.001"/>
+  <testcase name="login_con_401_son_credenciales_incorrectas" classname="com.grupo1.biometria.data.RespuestaAuthTest" time="0.0"/>
+  <testcase name="sesion_con_401_es_sesion_invalida" classname="com.grupo1.biometria.data.RespuestaAuthTest" time="0.0"/>
+  <testcase name="sesion_con_200_devuelve_ok_con_usuario" classname="com.grupo1.biometria.data.RespuestaAuthTest" time="0.001"/>
+  <testcase name="login_con_400_son_datos_invalidos" classname="com.grupo1.biometria.data.RespuestaAuthTest" time="0.0"/>
+  <testcase name="login_con_200_devuelve_ok_con_token_y_usuario" classname="com.grupo1.biometria.data.RespuestaAuthTest" time="0.0"/>
+  <testcase name="registro_con_400_es_datos_invalidos" classname="com.grupo1.biometria.data.RespuestaAuthTest" time="0.001"/>
+  <testcase name="fallo_de_red_produce_estado_de_red" classname="com.grupo1.biometria.data.RespuestaAuthTest" time="0.0"/>
+  <testcase name="registro_con_409_es_correo_registrado" classname="com.grupo1.biometria.data.RespuestaAuthTest" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

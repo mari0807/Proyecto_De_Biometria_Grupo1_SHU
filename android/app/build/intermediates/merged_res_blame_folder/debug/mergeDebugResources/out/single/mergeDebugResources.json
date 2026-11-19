@@ -1,0 +1,46 @@
+[
+    {
+        "merged": "com.grupo1.biometria.app-debug-33:/layout_activity_login.xml.flat",
+        "source": "com.grupo1.biometria.app-main-35:/layout/activity_login.xml"
+    },
+    {
+        "merged": "com.grupo1.biometria.app-debug-33:/drawable_ic_flecha_atras.xml.flat",
+        "source": "com.grupo1.biometria.app-main-35:/drawable/ic_flecha_atras.xml"
+    },
+    {
+        "merged": "com.grupo1.biometria.app-debug-33:/drawable_ic_candado.xml.flat",
+        "source": "com.grupo1.biometria.app-main-35:/drawable/ic_candado.xml"
+    },
+    {
+        "merged": "com.grupo1.biometria.app-debug-33:/layout_activity_register.xml.flat",
+        "source": "com.grupo1.biometria.app-main-35:/layout/activity_register.xml"
+    },
+    {
+        "merged": "com.grupo1.biometria.app-debug-33:/mipmap-anydpi-v26_ic_launcher.xml.flat",
+        "source": "com.grupo1.biometria.app-main-35:/mipmap-anydpi-v26/ic_launcher.xml"
+    },
+    {
+        "merged": "com.grupo1.biometria.app-debug-33:/drawable_ic_launcher_foreground.xml.flat",
+        "source": "com.grupo1.biometria.app-main-35:/drawable/ic_launcher_foreground.xml"
+    },
+    {
+        "merged": "com.grupo1.biometria.app-debug-33:/layout_activity_main.xml.flat",
+        "source": "com.grupo1.biometria.app-main-35:/layout/activity_main.xml"
+    },
+    {
+        "merged": "com.grupo1.biometria.app-debug-33:/drawable_bg_tarjeta.xml.flat",
+        "source": "com.grupo1.biometria.app-main-35:/drawable/bg_tarjeta.xml"
+    },
+    {
+        "merged": "com.grupo1.biometria.app-debug-33:/layout_activity_admin.xml.flat",
+        "source": "com.grupo1.biometria.app-main-35:/layout/activity_admin.xml"
+    },
+    {
+        "merged": "com.grupo1.biometria.app-debug-33:/drawable_bg_error.xml.flat",
+        "source": "com.grupo1.biometria.app-main-35:/drawable/bg_error.xml"
+    },
+    {
+        "merged": "com.grupo1.biometria.app-debug-33:/drawable_bg_badge.xml.flat",
+        "source": "com.grupo1.biometria.app-main-35:/drawable/bg_badge.xml"
+    }
+]

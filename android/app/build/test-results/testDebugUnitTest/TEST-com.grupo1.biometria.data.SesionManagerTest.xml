@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.grupo1.biometria.data.SesionManagerTest" tests="9" skipped="0" failures="0" errors="0" timestamp="2026-11-19T19:57:09.391Z" hostname="DAVID" time="0.003">
+  <properties/>
+  <testcase name="actualizar_usuario_con_sesion_activa_persiste_el_cambio" classname="com.grupo1.biometria.data.SesionManagerTest" time="0.001"/>
+  <testcase name="sin_mantener_no_hay_sesion_tras_relanzar" classname="com.grupo1.biometria.data.SesionManagerTest" time="0.0"/>
+  <testcase name="abrir_sin_mantener_no_persiste_pero_sigue_activa" classname="com.grupo1.biometria.data.SesionManagerTest" time="0.0"/>
+  <testcase name="la_sesion_caduca_con_el_paso_del_tiempo" classname="com.grupo1.biometria.data.SesionManagerTest" time="0.001"/>
+  <testcase name="la_sesion_persistida_se_restaura_al_arrancar" classname="com.grupo1.biometria.data.SesionManagerTest" time="0.0"/>
+  <testcase name="un_token_caducado_no_se_restaura" classname="com.grupo1.biometria.data.SesionManagerTest" time="0.0"/>
+  <testcase name="abrir_con_mantener_persiste_en_almacen" classname="com.grupo1.biometria.data.SesionManagerTest" time="0.0"/>
+  <testcase name="cerrar_borra_sesion_memoria_y_almacen" classname="com.grupo1.biometria.data.SesionManagerTest" time="0.0"/>
+  <testcase name="datos_corruptos_en_almacen_no_provocan_excepcion" classname="com.grupo1.biometria.data.SesionManagerTest" time="0.001"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

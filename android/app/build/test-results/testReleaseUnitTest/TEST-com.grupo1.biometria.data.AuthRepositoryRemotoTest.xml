@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.grupo1.biometria.data.AuthRepositoryRemotoTest" tests="11" skipped="0" failures="0" errors="0" timestamp="2026-11-19T19:57:11.919Z" hostname="DAVID" time="0.019">
+  <properties/>
+  <testcase name="login_sin_mantener_no_persiste_la_sesion" classname="com.grupo1.biometria.data.AuthRepositoryRemotoTest" time="0.012"/>
+  <testcase name="comprobar_sesion_valida_actualiza_el_usuario" classname="com.grupo1.biometria.data.AuthRepositoryRemotoTest" time="0.001"/>
+  <testcase name="registro_con_correo_repetido_devuelve_correo_registrado" classname="com.grupo1.biometria.data.AuthRepositoryRemotoTest" time="0.001"/>
+  <testcase name="cerrar_sesion_borra_lo_local_y_avisa_al_servidor" classname="com.grupo1.biometria.data.AuthRepositoryRemotoTest" time="0.001"/>
+  <testcase name="comprobar_sesion_sin_token_devuelve_sesion_invalida" classname="com.grupo1.biometria.data.AuthRepositoryRemotoTest" time="0.0"/>
+  <testcase name="login_con_credenciales_invalidas_no_abre_sesion" classname="com.grupo1.biometria.data.AuthRepositoryRemotoTest" time="0.001"/>
+  <testcase name="login_sin_red_da_error_de_red_y_no_crash" classname="com.grupo1.biometria.data.AuthRepositoryRemotoTest" time="0.001"/>
+  <testcase name="sesion_rechazada_por_el_servidor_se_borra_localmente" classname="com.grupo1.biometria.data.AuthRepositoryRemotoTest" time="0.0"/>
+  <testcase name="login_correcto_llama_a_api_login_y_guarda_sesion" classname="com.grupo1.biometria.data.AuthRepositoryRemotoTest" time="0.001"/>
+  <testcase name="cerrar_sesion_sin_red_igualmente_cierra_lo_local" classname="com.grupo1.biometria.data.AuthRepositoryRemotoTest" time="0.0"/>
+  <testcase name="registro_llama_a_api_registro_con_nombre_y_apellidos" classname="com.grupo1.biometria.data.AuthRepositoryRemotoTest" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

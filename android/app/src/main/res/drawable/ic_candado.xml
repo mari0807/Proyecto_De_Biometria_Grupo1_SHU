@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Candado del aviso "Tus datos se almacenan de forma segura". -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="16dp"
+    android:height="16dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+    <path
+        android:fillColor="@color/muted"
+        android:pathData="M17,9V7A5,5 0 0,0 7,7V9H6A2,2 0 0,0 4,11V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V11A2,2 0 0,0 18,9H17zM9,7A3,3 0 0,1 15,7V9H9V7zM13,16.7V19H11V16.7A2,2 0 1,1 13,16.7z" />
+</vector>
