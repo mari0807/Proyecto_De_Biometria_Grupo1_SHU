@@ -19,12 +19,13 @@ import java.util.List;
 /**
  * --------------------
  * CD: CalorOverlay = ( puntos: [ PuntoMapa ] --> capa: Overlay )
- * CC: Equivale a L.heatLayer con radius 38, blur 26 y maxZoom 15 (mapa.js:100-105).
+ * CC: Equivale a L.heatLayer con radius 38 y blur 26 (mapa.js:100-105). A
+ *     diferencia de la web, se dibuja en todos los niveles de zoom: sin el
+ *     corte de maxZoom los colores no desaparecen al ampliar el mapa.
  * GR: La lista se copia al asignarla; el dibujo ocurre solo en el hilo de la UI.
  * --------------------
  */
 public final class CalorOverlay extends Overlay {
-    private static final int ZOOM_MAXIMO = 15;
 
     private final float radio;
     private final Paint pintura = new Paint();
@@ -45,9 +46,6 @@ public final class CalorOverlay extends Overlay {
     @Override
     public void draw(Canvas canvas, MapView mapa, boolean shadow) {
         if (shadow || puntos.isEmpty() || mapa.getProjection() == null) {
-            return;
-        }
-        if (mapa.getZoomLevelDouble() > ZOOM_MAXIMO) {
             return;
         }
         for (PuntoMapa punto : puntos) {

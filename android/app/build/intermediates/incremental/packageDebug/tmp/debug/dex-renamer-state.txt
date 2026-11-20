@@ -1,4 +1,4 @@
-#Fri Nov 20 01:25:50 CET 2026
+#Fri Nov 20 01:32:40 CET 2026
 base.0=C\:\\Andreu\\Estudis\\Tecnologies Interactives\\4t any\\Biometria\\Repo\\Proyecto_De_Biometria_Grupo1_SHU\\android\\app\\build\\intermediates\\dex\\debug\\mergeExtDexDebug\\classes.dex
 base.1=C\:\\Andreu\\Estudis\\Tecnologies Interactives\\4t any\\Biometria\\Repo\\Proyecto_De_Biometria_Grupo1_SHU\\android\\app\\build\\intermediates\\dex\\debug\\mergeProjectDexDebug\\0\\classes.dex
 base.2=C\:\\Andreu\\Estudis\\Tecnologies Interactives\\4t any\\Biometria\\Repo\\Proyecto_De_Biometria_Grupo1_SHU\\android\\app\\build\\intermediates\\dex\\debug\\mergeProjectDexDebug\\13\\classes.dex
