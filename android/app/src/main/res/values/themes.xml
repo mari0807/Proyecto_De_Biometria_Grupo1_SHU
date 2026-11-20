@@ -1,10 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <style name="Theme.Biometria" parent="Theme.Material3.DayNight.NoActionBar">
+    <style name="Theme.Biometria" parent="Theme.Material3.Light.NoActionBar">
         <item name="colorPrimary">@color/primary</item>
         <item name="colorOnPrimary">@color/on_primary</item>
         <item name="colorSecondary">@color/secondary</item>
         <item name="android:colorBackground">@color/background</item>
         <item name="colorError">@color/error</item>
+        <!-- Diseño claro fijo: aunque el movil este en modo oscuro, los textos
+             de los campos y los dialogos siguen siendo claros. -->
+        <item name="colorSurface">@color/surface</item>
     </style>
 </resources>

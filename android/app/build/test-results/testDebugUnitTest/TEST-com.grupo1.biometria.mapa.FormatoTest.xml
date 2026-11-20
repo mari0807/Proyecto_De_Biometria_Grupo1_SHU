@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.grupo1.biometria.mapa.FormatoTest" tests="3" skipped="0" failures="0" errors="0" timestamp="2026-11-20T00:13:08.979Z" hostname="LAMAKINITA" time="0.015">
+  <properties/>
+  <testcase name="fechaSeMuestraEnUtcComoEnLaWeb" classname="com.grupo1.biometria.mapa.FormatoTest" time="0.006"/>
+  <testcase name="valorRespetaDecimales" classname="com.grupo1.biometria.mapa.FormatoTest" time="0.006"/>
+  <testcase name="maximaFechaSeleccionaLaUltimaMedicion" classname="com.grupo1.biometria.mapa.FormatoTest" time="0.002"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

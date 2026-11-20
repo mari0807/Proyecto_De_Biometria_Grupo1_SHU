@@ -9,6 +9,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
 
 import com.google.android.material.button.MaterialButton;
 import com.grupo1.biometria.R;
@@ -91,6 +93,21 @@ public class MainActivity extends AppCompatActivity {
         actualizacion = findViewById(R.id.mapa_actualizacion);
         cargando = findViewById(R.id.mapa_cargando);
         reintentar = findViewById(R.id.mapa_reintentar);
+
+        // La cabecera queda DEBAJO de la barra de estado (iconos de
+        // notificaciones y cámara del móvil): se aplica como padding el alto
+        // real que informe el sistema en cada dispositivo.
+        View cabecera = findViewById(R.id.mapa_cabecera);
+        ViewCompat.setOnApplyWindowInsetsListener(cabecera, (vista, insets) -> {
+            int barra = insets.getInsets(WindowInsetsCompat.Type.statusBars()).top;
+            vista.setPadding(
+                    vista.getPaddingLeft(),
+                    barra + dp(8),
+                    vista.getPaddingRight(),
+                    vista.getPaddingBottom());
+            return WindowInsetsCompat.CONSUMED;
+        });
+        ViewCompat.requestApplyInsets(cabecera);
 
         mapa.setTileSource(TileSourceFactory.DEFAULT_TILE_SOURCE);
         mapa.setMultiTouchControls(true);
@@ -274,5 +291,10 @@ public class MainActivity extends AppCompatActivity {
         Configuration.getInstance().setOsmdroidBasePath(base);
         Configuration.getInstance().setOsmdroidTileCache(teselas);
         Configuration.getInstance().setUserAgentValue("QueAireMapa/1.0 (Android)");
+    }
+
+    /** -------------------- dp: N --> pixeles: N -------------------- */
+    private int dp(int valor) {
+        return Math.round(valor * getResources().getDisplayMetrics().density);
     }
 }

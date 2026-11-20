@@ -21,7 +21,8 @@ public class PaletaTest {
 
     @Test
     public void intensidadesYEtiquetasCoincidenConLaWeb() {
-        assertEquals(0.25, Paleta.intensidad("buena"), 0.0001);
+        // «buena» es 0.45 (subida desde 0.25) para que el verde se vea en la app.
+        assertEquals(0.45, Paleta.intensidad("buena"), 0.0001);
         assertEquals(0.5, Paleta.intensidad("moderada"), 0.0001);
         assertEquals(0.8, Paleta.intensidad("mala"), 0.0001);
         assertEquals(1.0, Paleta.intensidad("muy_mala"), 0.0001);

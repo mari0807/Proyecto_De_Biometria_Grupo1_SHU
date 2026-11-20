@@ -54,6 +54,9 @@ dependencies {
     // H16: mapa base OpenStreetMap (osmdroid) para la pantalla principal.
     implementation 'org.osmdroid:osmdroid-android:6.1.20'
 
+    // Listado de usuarios del panel de administración.
+    implementation 'androidx.recyclerview:recyclerview:1.3.2'
+
     // org.json real para los tests JVM (en el móvil lo aporta el framework).
     testImplementation 'junit:junit:4.13.2'
     testImplementation 'org.json:json:20240303'

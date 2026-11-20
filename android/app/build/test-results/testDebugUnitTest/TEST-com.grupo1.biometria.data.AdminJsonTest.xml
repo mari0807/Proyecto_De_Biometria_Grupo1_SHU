@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.grupo1.biometria.data.AdminJsonTest" tests="4" skipped="0" failures="0" errors="0" timestamp="2026-11-20T00:13:08.915Z" hostname="LAMAKINITA" time="0.016">
+  <properties/>
+  <testcase name="respuestasDeErrorSeTraducenAMensaje" classname="com.grupo1.biometria.data.AdminJsonTest" time="0.011"/>
+  <testcase name="activoPorDefectoCuandoFalta" classname="com.grupo1.biometria.data.AdminJsonTest" time="0.003"/>
+  <testcase name="extraeLaPasswordTemporal" classname="com.grupo1.biometria.data.AdminJsonTest" time="0.0"/>
+  <testcase name="parseaElListadoDeUsuarios" classname="com.grupo1.biometria.data.AdminJsonTest" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

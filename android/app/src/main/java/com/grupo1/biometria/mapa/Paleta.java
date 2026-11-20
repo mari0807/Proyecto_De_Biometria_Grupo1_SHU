@@ -7,6 +7,8 @@ import java.util.Locale;
  * CD: Categoria = { BUENA, MODERADA, MALA, MUY_MALA, SIN_DATOS }
  *     Paleta = ( categoria: Text --> color: Text, etiqueta: Text, intensidad: R )
  * CC: El color de la API prevalece; si falta se usa UMBRAL (bd/seed.sql:60-76).
+ *     La intensidad de «buena» (0.45, en la web era 0.25) se subió para que el
+ *     verde se distinga en la capa de calor de la app.
  * GR: Clase pura, sin estado y sin dependencias de Android: segura entre hilos.
  * --------------------
  */
@@ -66,7 +68,7 @@ public final class Paleta {
     public static double intensidad(String categoria) {
         switch (normalizar(categoria)) {
             case "buena":
-                return 0.25;
+                return 0.45;
             case "moderada":
                 return 0.5;
             case "mala":

@@ -104,6 +104,13 @@ public final class ClienteMapa {
             conexion.setConnectTimeout(10000);
             conexion.setReadTimeout(10000);
             conexion.setRequestProperty("Accept", "application/json");
+            // TODAS las cabeceras antes de abrir el flujo de salida: tras
+            // getOutputStream() la conexion ya esta abierta y poner otra
+            // cabecera lanza IllegalStateException.
+            String autorizacion = token.get();
+            if (autorizacion != null && !autorizacion.isEmpty()) {
+                conexion.setRequestProperty("Authorization", "Bearer " + autorizacion);
+            }
             if (cuerpo != null) {
                 conexion.setRequestProperty("Content-Type", "application/json; charset=utf-8");
                 conexion.setDoOutput(true);
@@ -111,10 +118,6 @@ public final class ClienteMapa {
                 salida.write(cuerpo.getBytes(StandardCharsets.UTF_8));
                 salida.flush();
                 salida.close();
-            }
-            String autorizacion = token.get();
-            if (autorizacion != null && !autorizacion.isEmpty()) {
-                conexion.setRequestProperty("Authorization", "Bearer " + autorizacion);
             }
 
             int codigo = conexion.getResponseCode();
@@ -154,7 +157,9 @@ public final class ClienteMapa {
             } catch (HttpException e) {
                 notificar(fallo, e.getMessage(), e.codigo == 401);
             } catch (Exception e) {
-                notificar(fallo, "No se ha podido conectar con el servidor.", false);
+                android.util.Log.e("ClienteMapa", "Fallo inesperado en la peticion", e);
+                notificar(fallo, "No se ha podido conectar con el servidor ("
+                        + e.getClass().getSimpleName() + ").", false);
             }
         });
     }

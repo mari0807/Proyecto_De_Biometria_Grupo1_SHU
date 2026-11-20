@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="com.grupo1.biometria.util.ValidadorTest" tests="16" skipped="0" failures="0" errors="0" timestamp="2026-11-19T19:57:09.399Z" hostname="DAVID" time="0.003">
+<testsuite name="com.grupo1.biometria.util.ValidadorTest" tests="16" skipped="0" failures="0" errors="0" timestamp="2026-11-20T00:13:09.017Z" hostname="LAMAKINITA" time="0.01">
   <properties/>
-  <testcase name="requisitos_todos_cumplidos_con_password_valida" classname="com.grupo1.biometria.util.ValidadorTest" time="0.0"/>
+  <testcase name="requisitos_todos_cumplidos_con_password_valida" classname="com.grupo1.biometria.util.ValidadorTest" time="0.002"/>
   <testcase name="password_de_mas_de_72_caracteres" classname="com.grupo1.biometria.util.ValidadorTest" time="0.0"/>
   <testcase name="password_corta_de_8_caracteres" classname="com.grupo1.biometria.util.ValidadorTest" time="0.0"/>
   <testcase name="password_sin_numero" classname="com.grupo1.biometria.util.ValidadorTest" time="0.0"/>
   <testcase name="password_vacia_es_obligatoria" classname="com.grupo1.biometria.util.ValidadorTest" time="0.0"/>
-  <testcase name="correo_mas_largo_de_254_no_es_valido" classname="com.grupo1.biometria.util.ValidadorTest" time="0.0"/>
+  <testcase name="correo_mas_largo_de_254_no_es_valido" classname="com.grupo1.biometria.util.ValidadorTest" time="0.001"/>
   <testcase name="null_o_blanco_es_vacio" classname="com.grupo1.biometria.util.ValidadorTest" time="0.0"/>
   <testcase name="password_sin_minuscula" classname="com.grupo1.biometria.util.ValidadorTest" time="0.0"/>
   <testcase name="requisitos_vacios_no_cumplen_ninguno" classname="com.grupo1.biometria.util.ValidadorTest" time="0.0"/>
   <testcase name="password_sin_mayuscula" classname="com.grupo1.biometria.util.ValidadorTest" time="0.001"/>
-  <testcase name="password_sin_signo_especial" classname="com.grupo1.biometria.util.ValidadorTest" time="0.0"/>
-  <testcase name="correos_invalidos" classname="com.grupo1.biometria.util.ValidadorTest" time="0.0"/>
-  <testcase name="requisitos_se_marcan_individualmente" classname="com.grupo1.biometria.util.ValidadorTest" time="0.0"/>
+  <testcase name="password_sin_signo_especial" classname="com.grupo1.biometria.util.ValidadorTest" time="0.001"/>
+  <testcase name="correos_invalidos" classname="com.grupo1.biometria.util.ValidadorTest" time="0.001"/>
+  <testcase name="requisitos_se_marcan_individualmente" classname="com.grupo1.biometria.util.ValidadorTest" time="0.001"/>
   <testcase name="correos_validos" classname="com.grupo1.biometria.util.ValidadorTest" time="0.0"/>
   <testcase name="con_contenido_no_es_vacio" classname="com.grupo1.biometria.util.ValidadorTest" time="0.0"/>
-  <testcase name="password_cumplida_no_tiene_error" classname="com.grupo1.biometria.util.ValidadorTest" time="0.001"/>
+  <testcase name="password_cumplida_no_tiene_error" classname="com.grupo1.biometria.util.ValidadorTest" time="0.0"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

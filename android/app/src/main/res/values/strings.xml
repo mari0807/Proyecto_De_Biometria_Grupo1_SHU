@@ -86,4 +86,30 @@
     <string name="detalle_cerrar">Cerrar</string>
     <string name="detalle_sin_mediciones">No hay mediciones disponibles para esta zona.</string>
     <string name="detalle_evolucion">Evolución</string>
+
+    <!-- Gestión de usuarios del administrador (equivalente a adminUsuarios.js) -->
+    <string name="admin_gestion">Gestión de usuarios</string>
+    <string name="btn_nuevo_usuario">Nuevo usuario</string>
+    <string name="admin_sin_usuarios">No hay usuarios.</string>
+    <string name="admin_rol">Rol</string>
+    <string name="admin_cuenta_activa">Cuenta activa</string>
+    <string name="admin_alta_subtitulo">Se generará una contraseña temporal al crear la cuenta.</string>
+    <string name="admin_editando_subtitulo">Editando #%1$d · %2$s</string>
+    <string name="btn_crear_usuario">Crear usuario</string>
+    <string name="btn_guardar_cambios">Guardar cambios</string>
+    <string name="btn_generar_password">Generar contraseña</string>
+    <string name="btn_borrar_cuenta">Borrar cuenta</string>
+    <string name="admin_btn_copiar">Copiar</string>
+    <string name="admin_confirmar_guardar_titulo">¿Estás seguro?</string>
+    <string name="admin_confirmar_guardar_texto">¿Aplicar estos cambios al usuario?</string>
+    <string name="admin_confirmar_alta_titulo">¿Crear este usuario?</string>
+    <string name="admin_confirmar_alta_texto">Se dará de alta la cuenta y se generará una contraseña temporal. ¿Continuar?</string>
+    <string name="admin_confirmar_password_titulo">¿Generar contraseña nueva?</string>
+    <string name="admin_confirmar_password_texto">Se creará una contraseña temporal. La anterior no se puede ver (solo hay un hash). ¿Continuar?</string>
+    <string name="admin_confirmar_borrar_titulo">¿Borrar esta cuenta?</string>
+    <string name="admin_confirmar_borrar_texto">Se eliminará el usuario de la base de datos. Esta acción no se puede deshacer. ¿Seguro?</string>
+    <string name="admin_password_titulo">Contraseña temporal</string>
+    <string name="admin_password_aviso">Cópiala ahora: no se volverá a mostrar.</string>
+    <string name="admin_password_copiada">Contraseña copiada al portapapeles.</string>
+    <string name="admin_password_vacio">El servidor no devolvió la contraseña temporal.</string>
 </resources>

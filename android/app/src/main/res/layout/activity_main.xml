@@ -1,18 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
-    <org.osmdroid.views.MapView
-        android:id="@+id/mapa"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
-
-    <!-- Cabecera: título del mapa y cierre de sesión de la cuenta activa. -->
+    <!-- Cabecera: título del mapa y cierre de sesión. El padding superior lo
+         fija MainActivity con el alto real de la barra de estado (notificaciones
+         y cámara del móvil), que cambia según el dispositivo. -->
     <LinearLayout
+        android:id="@+id/mapa_cabecera"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="top"
         android:background="@color/primary_dark"
         android:gravity="center_vertical"
         android:orientation="horizontal"
@@ -54,55 +52,66 @@
             android:textSize="12sp" />
     </LinearLayout>
 
-    <!-- Aviso de error (con botón de reintento debajo). -->
-    <TextView
-        android:id="@+id/mapa_estado"
+    <!-- Mapa con sus capas flotantes. -->
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="top|center_horizontal"
-        android:layout_marginStart="@dimen/espacio"
-        android:layout_marginTop="84dp"
-        android:layout_marginEnd="@dimen/espacio"
-        android:background="@drawable/panel_blanco"
-        android:gravity="center"
-        android:textColor="@color/ink"
-        android:textSize="@dimen/texto_pequeno"
-        android:visibility="gone" />
+        android:layout_height="match_parent">
 
-    <com.grupo1.biometria.mapa.LeyendaView
-        android:id="@+id/mapa_leyenda"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|start"
-        android:layout_marginStart="@dimen/espacio"
-        android:layout_marginBottom="@dimen/espacio"
-        android:background="@drawable/panel_blanco"
-        android:clickable="true"
-        android:focusable="true" />
+        <org.osmdroid.views.MapView
+            android:id="@+id/mapa"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
 
-    <TextView
-        android:id="@+id/mapa_actualizacion"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|center_horizontal"
-        android:layout_marginBottom="@dimen/espacio"
-        android:background="@drawable/panel_blanco"
-        android:textColor="@color/ink"
-        android:textSize="@dimen/texto_pequeno" />
+        <!-- Aviso de error (con botón de reintento debajo). -->
+        <TextView
+            android:id="@+id/mapa_estado"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/espacio"
+            android:layout_marginTop="@dimen/espacio"
+            android:layout_marginEnd="@dimen/espacio"
+            android:background="@drawable/panel_blanco"
+            android:gravity="center"
+            android:textColor="@color/ink"
+            android:textSize="@dimen/texto_pequeno"
+            android:visibility="gone" />
 
-    <ProgressBar
-        android:id="@+id/mapa_cargando"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:visibility="gone" />
+        <!-- Leyenda levantada para que no la tape el mensaje inferior. -->
+        <com.grupo1.biometria.mapa.LeyendaView
+            android:id="@+id/mapa_leyenda"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|start"
+            android:layout_marginStart="@dimen/espacio"
+            android:layout_marginBottom="56dp"
+            android:background="@drawable/panel_blanco"
+            android:clickable="true"
+            android:focusable="true" />
 
-    <Button
-        android:id="@+id/mapa_reintentar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:text="@string/mapa_reintentar"
-        android:visibility="gone" />
+        <TextView
+            android:id="@+id/mapa_actualizacion"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|center_horizontal"
+            android:layout_marginBottom="@dimen/espacio"
+            android:background="@drawable/panel_blanco"
+            android:textColor="@color/ink"
+            android:textSize="@dimen/texto_pequeno" />
 
-</FrameLayout>
+        <ProgressBar
+            android:id="@+id/mapa_cargando"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:visibility="gone" />
+
+        <Button
+            android:id="@+id/mapa_reintentar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/mapa_reintentar"
+            android:visibility="gone" />
+    </FrameLayout>
+
+</LinearLayout>

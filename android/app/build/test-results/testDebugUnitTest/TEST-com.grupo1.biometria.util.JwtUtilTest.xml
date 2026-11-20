@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="com.grupo1.biometria.util.JwtUtilTest" tests="6" skipped="0" failures="0" errors="0" timestamp="2026-11-19T19:57:09.395Z" hostname="DAVID" time="0.001">
+<testsuite name="com.grupo1.biometria.util.JwtUtilTest" tests="6" skipped="0" failures="0" errors="0" timestamp="2026-11-20T00:13:09.007Z" hostname="LAMAKINITA" time="0.003">
   <properties/>
-  <testcase name="token_en_el_limite_de_expiracion_se_caduca" classname="com.grupo1.biometria.util.JwtUtilTest" time="0.0"/>
+  <testcase name="token_en_el_limite_de_expiracion_se_caduca" classname="com.grupo1.biometria.util.JwtUtilTest" time="0.001"/>
   <testcase name="token_sin_exp_devuelve_null" classname="com.grupo1.biometria.util.JwtUtilTest" time="0.0"/>
   <testcase name="devuelve_la_expiracion_en_milisegundos" classname="com.grupo1.biometria.util.JwtUtilTest" time="0.001"/>
   <testcase name="token_vigente_no_se_detecta_caducado" classname="com.grupo1.biometria.util.JwtUtilTest" time="0.0"/>
   <testcase name="token_basura_devuelve_null" classname="com.grupo1.biometria.util.JwtUtilTest" time="0.0"/>
-  <testcase name="token_caducado_se_detecta" classname="com.grupo1.biometria.util.JwtUtilTest" time="0.0"/>
+  <testcase name="token_caducado_se_detecta" classname="com.grupo1.biometria.util.JwtUtilTest" time="0.001"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

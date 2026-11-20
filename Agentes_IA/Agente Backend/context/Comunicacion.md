@@ -79,3 +79,22 @@ Body: `{ "nombre": Text, "apellidos": Text, "email": Text, "password": Text, "fo
 Acierto 200: `{ "ok": true, "mensaje": "Perfil actualizado correctamente.", "usuario": UsuarioPublico }`
 
 Errores: 400 datos inválidos; 401 sesión inválida o contraseña incorrecta; 409 correo ya registrado.
+
+### Gestión de usuarios (solo rol `admin`)
+
+Implementados en `ApiAuth.php` y usados por la web (`adminUsuarios.js`) y por la
+app Android (`ClienteAdmin`). Cabecera en todos: `Authorization: Bearer <token>`
+de una cuenta con rol `admin`; si no, 403 `sin_permiso`.
+
+| Ruta | Método | Body | Acierto | Errores |
+| :--- | :--- | :--- | :--- | :--- |
+| `/api/usuarios` | GET | — | 200 `{ok, mensaje, usuarios: [{id_usuario, nombre, apellidos, email, rol, activo, foto}]}` | 401 sesión, 403 |
+| `/api/usuarios` | POST | `{nombre, apellidos, email, rol}` | 200 `{ok, mensaje, password_temporal, usuario}` | 400 datos, 403, 409 correo |
+| `/api/usuarios/{id}` | PUT | `{nombre, apellidos, email, activo, rol}` | 200 `{ok, mensaje, usuario}` | 400 datos, 403, 409 |
+| `/api/usuarios/{id}` | DELETE | — | 200 `{ok, mensaje}` | 400, 403 |
+| `/api/usuarios/{id}/password` | POST | — | 200 `{ok, mensaje, password_temporal, usuario}` | 400, 403 |
+
+`rol` solo admite `usuario` y `admin`. Autorreglas de `Autenticacion.php`: un
+admin no puede darse de baja (`activo=false`), quitarse su propio rol ni borrar
+su propia cuenta. `password_temporal` solo se devuelve al crear o regenerar:
+no existe recuperación (solo hay hash).

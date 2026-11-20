@@ -10,7 +10,7 @@ cierre de sesión.
 | **H11** — Iniciar sesión | `LoginActivity` | `app/src/main/java/com/grupo1/biometria/ui/LoginActivity.java` |
 | **H29** — Registro | `RegisterActivity` | `app/src/main/java/com/grupo1/biometria/ui/RegisterActivity.java` |
 | **H16** — Mapa de calidad del aire | `MainActivity` + paquete `mapa/` | `app/src/main/java/com/grupo1/biometria/ui/MainActivity.java` |
-| Panel del administrador | `AdminActivity` | `app/src/main/java/com/grupo1/biometria/ui/AdminActivity.java` |
+| **Admin** — Gestión de usuarios | `AdminActivity` + `data/ClienteAdmin` | `app/src/main/java/com/grupo1/biometria/ui/AdminActivity.java` |
 
 ## Requisitos
 
@@ -90,6 +90,7 @@ app/src/main/java/com/grupo1/biometria/
 │   ├── ClienteRest.java            # Interfaz → doble de pruebas en los tests
 │   ├── SesionManager.java          # Sesión en memoria + SharedPreferences
 │   ├── PreferenciasAlmacenSesion.java / AlmacenSesion.java
+│   ├── ClienteAdmin.java / AdminJson.java / UsuarioAdmin.java   # Gestión de usuarios del admin
 │   ├── RespuestaAuth.java / EstadoAuth.java   # Mapeo HTTP → estados de la app
 │   ├── RespuestaHttp.java / Usuario.java
 │   └── Reloj.java                  # Reloj inyectable (tests de caducidad)
@@ -121,6 +122,11 @@ Implementado según `servidor/src/communication/ApiAuth.php`:
 | `/api/login` | POST | `email, password` | 200 `{ok, mensaje, usuario, token}` | 400 datos, 401 credenciales |
 | `/api/logout` | POST | cabecera `Bearer` | 200 | — |
 | `/api/sesion` | GET | cabecera `Bearer` | 200 `{ok, mensaje, usuario}` | 401 sesión inválida |
+| `/api/usuarios` | GET | cabecera `Bearer` (admin) | 200 `{ok, usuarios}` | 401 sesión, 403 no admin |
+| `/api/usuarios` | POST | `nombre, apellidos, email, rol` | 200 `{ok, mensaje, password_temporal, usuario}` | 400 datos, 403 no admin, 409 correo |
+| `/api/usuarios/{id}` | PUT | `nombre, apellidos, email, activo, rol` | 200 `{ok, mensaje, usuario}` | 400 datos (incl. autorreglas), 403, 409 |
+| `/api/usuarios/{id}` | DELETE | cabecera `Bearer` | 200 | 400 (p. ej. propia cuenta), 403 |
+| `/api/usuarios/{id}/password` | POST | cabecera `Bearer` | 200 `{ok, mensaje, password_temporal}` | 400, 403 |
 
 - **Política de contraseña** (idéntica a `password.js`): 8–72 caracteres,
   mayúscula, minúscula, número y signo especial.
@@ -177,7 +183,7 @@ tanto al entrar por login como al restaurar una sesión con «Mantener sesión
 iniciada». `MainActivity` y `AdminActivity` se protegen entre sí para que un
 usuario con el rol equivocado no pueda ver el panel ajeno.
 
-## Tests (66)
+## Tests (70)
 
 | Fichero | Cubre |
 |---|---|
@@ -188,6 +194,7 @@ usuario con el rol equivocado no pueda ver el panel ajeno.
 | `AuthRepositoryRemotoTest` (11) | Rutas y cuerpos de la API, sesión, cierre sin red |
 | `RolTest` (4) | Enrutamiento `admin`/`usuario`, mayúsculas, espacios y valores ausentes |
 | `PaletaTest` (3), `FormatoTest` (3), `MapaJsonTest` (4) | Colores, formatos y parsing del mapa (portados con el H16) |
+| `AdminJsonTest` (4) | Listado de usuarios, contraseña temporal y mensajes de la administración |
 
 ## Comprobación web ↔ app
 
