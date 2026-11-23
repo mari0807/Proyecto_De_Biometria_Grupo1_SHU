@@ -1,45 +1,161 @@
 # LogicaProxy (lógica fake del cliente)
 
 ## ¿Qué es este fichero?
-Aquí se diseña la capa intermedia de la web (también llamada lógica fake / proxy).
+Aquí está el **diseño ya dado** de la capa intermedia de la web.
+La GUI **no** llama al servidor: pasa por esta capa. El agente **no** inventa métodos: implementa según ## Diseño.
+Notación: `Software_Engineering_Spec.md` (mismos tipos que `Logica.md`).
 
-La página web **no** debe llamar al servidor directamente.  
-En medio hay una capa con funciones parecidas a las del backend (por ejemplo `iniciarSesion`).  
-Por fuera parece lógica local; por dentro hace las llamadas HTTP.
-
-## Rúbrica (Arquitectura y lógica — 20%)
-- Debe existir una capa **fake/proxy** que la GUI invoca.
-- Misma interfaz lógica que el backend (puede ser un subconjunto: no hace falta copiarlo todo).
-- La GUI **no** hace HTTP directo; la proxy encapsula la comunicación.
-- De cara a la interfaz, es independiente del detalle de transporte (HTTP, URLs, etc.).
+## Buenas prácticas
+- La GUI solo invoca la proxy; la proxy encapsula el HTTP.
+- Misma interfaz lógica que el backend (subconjunto).
+- De cara a la UI, sin URLs/`fetch`.
 
 ## Cómo debe quedar el código
-- Firmas iguales que en la lógica del backend (nombre, parámetros, retornos).
-- Solo los métodos que use la GUI (subconjunto).
-- Usa la notación de `Software_Engineering_Spec.md`.
-- Cada método con cabecera de diseño entre `--------------------`.
-- Tests de los métodos críticos de la proxy.
-- De cara a la GUI es interfaz limpia de dominio; por debajo encapsula las llamadas al backend (implementación fake/proxy).
-- La GUI nunca hace HTTP/fetch/WebSocket directo.
+- Firmas iguales que el backend en lo expuesto.
+- Cabeceras `--------------------`.
+- Tests de métodos críticos.
 - El código debe coincidir con este diseño.
 
 ## Diseño
 
-Subconjunto de `Autenticacion` que usan las pantallas de H10, H12 y H25.
-Mismos nombres, parámetros y retornos que la lógica del backend. Por dentro llama a
-`POST /api/registro`, `POST /api/login`, `POST /api/logout` y `GET /api/sesion`.
-La GUI no ve URLs ni `fetch`.
+Implementación: `Pagina web/js/logicaProxy.js`.
+Por dentro llama a `Comunicacion.md`. Tipos `UsuarioPublico`, `ResultadoAuth`, etc. = `Logica.md`.
 
 ```text
-nombre: Text, apellidos: Text, email: Text, password: Text --> registrar() --> ResultadoAuth
-email: Text, password: Text --> iniciarSesion() --> ResultadoAuth
-token: Text --> cerrarSesion() --> B
-token: Text --> comprobarSesion() --> ResultadoAuth
-nombre: Text, apellidos: Text, email: Text, password: Text, foto_base64: Text --> actualizarPerfil() --> ResultadoAuth
+ResultadoListaProxy = (
+  ok: B,
+  mensaje: Text,
+  usuarios: [ UsuarioPublico ]
+)
+
+ResultadoPasswordProxy = (
+  ok: B,
+  mensaje: Text,
+  password_temporal: Text,
+  usuario: UsuarioPublico
+)
+
+ResultadoUsuarioProxy = (
+  ok: B,
+  mensaje: Text,
+  usuario: UsuarioPublico
+)
+
+ResultadoOkProxy = (
+  ok: B,
+  mensaje: Text
+)
+
+ResultadoMapaProxy = (
+  ok: B,
+  mensaje: Text,
+  puntos: [ PuntoMapa ]
+)
+
+ResultadoZonaProxy = (
+  ok: B,
+  mensaje: Text,
+  zona: ZonaDetalle
+)
 ```
 
-`iniciarSesion` guarda en el almacenamiento de la pestaña el token y el `UsuarioPublico`.
-`cerrarSesion` borra esa credencial antes de avisar al servidor, y devuelve verdadero
-cuando la credencial local ha quedado eliminada.
-`actualizarPerfil` llama a `PUT /api/perfil` y, si acierta, actualiza el usuario guardado en la sesión local.
-Si otra llamada de autenticación termina después, su respuesta se descarta y no pisa la sesión.
+### LogicaProxy
+
+```text
+                 --------- LogicaProxy ------------------
+                 |
+                 | token: Text
+                 | usuario: UsuarioPublico
+                 |
+                 |
+                 | sesionActual() -->
+usuario: UsuarioPublico <--
+                 |
+                 |
+nombre: Text,
+apellidos: Text,
+email: Text,
+password: Text --> registrar() -->
+resultado: ResultadoAuth <--
+                 |
+                 |
+email: Text,
+password: Text --> iniciarSesion() -->
+resultado: ResultadoAuth <--
+                 |
+                 |
+token: Text   --> cerrarSesion() -->
+ok: B        <--
+                 |
+                 |
+token: Text   --> comprobarSesion() -->
+resultado: ResultadoAuth <--
+                 |
+                 |
+nombre: Text,
+apellidos: Text,
+email: Text,
+password: Text,
+password_nueva: Text,
+foto_base64: Text,
+quitar_foto: B --> actualizarPerfil() -->
+resultado: ResultadoAuth <--
+                 |
+                 |
+password: Text --> borrarCuenta() -->
+resultado: ResultadoAuth <--
+                 |
+                 |
+                 | listarUsuarios() -->
+resultado: ResultadoListaProxy <--
+                 |
+                 |
+nombre: Text,
+apellidos: Text,
+email: Text,
+rol: Text    --> crearUsuarioAdmin() -->
+resultado: ResultadoPasswordProxy <--
+                 |
+                 |
+id_usuario: N,
+nombre: Text,
+apellidos: Text,
+email: Text,
+activo: B,
+rol: Text    --> actualizarUsuarioAdmin() -->
+resultado: ResultadoUsuarioProxy <--
+                 |
+                 |
+id_usuario: N --> borrarUsuarioAdmin() -->
+resultado: ResultadoOkProxy <--
+                 |
+                 |
+id_usuario: N --> generarPasswordAdmin() -->
+resultado: ResultadoPasswordProxy <--
+                 |
+                 |
+                 | obtenerPuntosMapa() -->
+resultado: ResultadoMapaProxy <--
+                 |
+                 |
+id_nodo: N   --> obtenerDetalleZona() -->
+resultado: ResultadoZonaProxy <--
+                 |
+                 |
+ruta: Text   --> urlRecurso() -->
+url: Text    <--
+                 |
+                 --------------------------------------
+```
+
+### Comportamiento
+
+- `iniciarSesion` guarda token + `UsuarioPublico` en `sessionStorage`.
+- `cerrarSesion` / `comprobarSesion` reciben `token` (paridad con backend).
+- `cerrarSesion` borra credencial local antes de avisar al servidor.
+- Admin y mapa usan Bearer de la sesión local.
+- Respuestas de auth obsoletas no pisan la sesión.
+
+### Tests
+
+`Pagina web/js/tests/logicaProxyTest.mjs` — login, sesión, logout, `urlRecurso`.

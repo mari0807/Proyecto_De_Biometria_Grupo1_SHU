@@ -119,19 +119,19 @@ export function crearLogicaProxy({ fetchImpl, almacenamiento, apiBase, ahora = (
 
     /**
      * --------------------
-     * cerrarSesion() --> B
+     * token: Text --> cerrarSesion() --> B
      * --------------------
      * Borra la credencial local antes de avisar al servidor.
      */
-    async cerrarSesion() {
+    async cerrarSesion(token) {
       const id = ++generacion;
-      const sesion = leer();
+      const credencial = typeof token === "string" ? token : "";
       almacenamiento.removeItem(CLAVE);
-      if (sesion?.token) {
+      if (credencial) {
         try {
           await pedir("/api/logout", {
             method: "POST",
-            headers: { Authorization: `Bearer ${sesion.token}` },
+            headers: { Authorization: `Bearer ${credencial}` },
           });
         } catch {
           // La credencial local ya no está.
@@ -142,19 +142,19 @@ export function crearLogicaProxy({ fetchImpl, almacenamiento, apiBase, ahora = (
 
     /**
      * --------------------
-     * comprobarSesion() --> ResultadoAuth
+     * token: Text --> comprobarSesion() --> ResultadoAuth
      * --------------------
      */
-    async comprobarSesion() {
+    async comprobarSesion(token) {
       const id = ++generacion;
-      const sesion = leer();
-      if (!sesion) {
+      const credencial = typeof token === "string" ? token : "";
+      if (!credencial) {
         return { ok: false, mensaje: "No hay sesión.", usuario: null, token: "", obsoleta: false, red: false };
       }
       let datos;
       try {
         datos = await pedir("/api/sesion", {
-          headers: { Authorization: `Bearer ${sesion.token}` },
+          headers: { Authorization: `Bearer ${credencial}` },
         });
       } catch {
         return { ok: false, mensaje: "No se pudo comprobar la sesión.", usuario: null, token: "", obsoleta: id !== generacion, red: true };
@@ -164,8 +164,21 @@ export function crearLogicaProxy({ fetchImpl, almacenamiento, apiBase, ahora = (
         almacenamiento.removeItem(CLAVE);
         return resultado(datos);
       }
-      guardar({ token: sesion.token, usuario: datos.usuario });
-      return { ...resultado(datos), token: sesion.token };
+      guardar({ token: credencial, usuario: datos.usuario });
+      return { ...resultado(datos), token: credencial };
+    },
+
+    /**
+     * --------------------
+     * ruta: Text --> urlRecurso() --> Text
+     * --------------------
+     * Resuelve rutas relativas del API (p. ej. /perfiles/...) sin que la GUI conozca el host.
+     */
+    urlRecurso(ruta) {
+      if (!ruta) return "";
+      const valor = String(ruta);
+      if (valor.startsWith("http") || valor.startsWith("data:")) return valor;
+      return `${apiBase}${valor.startsWith("/") ? "" : "/"}${valor}`;
     },
 
     /**

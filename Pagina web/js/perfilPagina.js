@@ -1,5 +1,5 @@
 import { logicaProxy } from "./logicaProxy.js";
-import { pintarAvatar, leerArchivo, confirmarBorrarCuenta, actualizarLogoInicio } from "./perfilUi.js";
+import { pintarAvatar, leerArchivo, confirmarBorrarCuenta, actualizarLogoInicio, urlFoto } from "./perfilUi.js";
 import {
   validarPassword,
   htmlInfoPassword,
@@ -134,11 +134,7 @@ function abrirModal(campo) {
     const mini = modalCampo.querySelector("#foto-mini-preview");
     const bloqueConfirm = modalCampo.querySelector("#foto-confirm");
     const estado = modalCampo.querySelector("#foto-estado");
-    const urlActual = usuario?.foto
-      ? (usuario.foto.startsWith("http") || usuario.foto.startsWith("data:")
-        ? usuario.foto
-        : `http://localhost${usuario.foto}`)
-      : "";
+    const urlActual = urlFoto(usuario);
 
     pintarMiniPreview(mini, urlActual);
 
@@ -326,7 +322,7 @@ formModal.addEventListener("submit", async (evento) => {
 });
 
 document.querySelector("#btn-cerrar-sesion")?.addEventListener("click", async () => {
-  await logicaProxy.cerrarSesion();
+  await logicaProxy.cerrarSesion(logicaProxy.sesionActual()?.token || "");
   location.assign(volverUrl);
 });
 
@@ -334,9 +330,10 @@ document.querySelector("#btn-borrar-cuenta")?.addEventListener("click", () => {
   confirmarBorrarCuenta();
 });
 
-const sesion = await logicaProxy.comprobarSesion();
+const tokenLocal = logicaProxy.sesionActual()?.token || "";
+const sesion = await logicaProxy.comprobarSesion(tokenLocal);
 if (!sesion.ok) {
-  await logicaProxy.cerrarSesion();
+  await logicaProxy.cerrarSesion(tokenLocal);
   location.replace("user.html");
 } else {
   usuario = { ...sesion.usuario };

@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace QueAire\Communication;
 
-use QueAire\BusinessLogic\Autenticacion;
+use QueAire\BusinessLogic\Logica;
 
 final class ApiAuth
 {
-    public function __construct(private Autenticacion $autenticacion)
+    public function __construct(private Logica $logica)
     {
     }
 
@@ -30,7 +30,7 @@ final class ApiAuth
             return $this->login($cuerpo ?? []);
         }
         if ($metodo === 'POST' && $ruta === '/api/logout') {
-            $this->autenticacion->cerrarSesion($this->token($autorizacion));
+            $this->logica->cerrarSesion($this->token($autorizacion));
 
             return [200, ['ok' => true, 'mensaje' => 'Sesión cerrada.']];
         }
@@ -68,7 +68,7 @@ final class ApiAuth
      */
     private function registro(array $cuerpo): array
     {
-        $resultado = $this->autenticacion->registrar(
+        $resultado = $this->logica->registrar(
             $this->texto($cuerpo, 'nombre'),
             $this->texto($cuerpo, 'apellidos'),
             $this->texto($cuerpo, 'email'),
@@ -86,7 +86,7 @@ final class ApiAuth
      */
     private function login(array $cuerpo): array
     {
-        $resultado = $this->autenticacion->iniciarSesion(
+        $resultado = $this->logica->iniciarSesion(
             $this->texto($cuerpo, 'email'),
             $this->texto($cuerpo, 'password')
         );
@@ -99,7 +99,7 @@ final class ApiAuth
      */
     private function sesion(?string $autorizacion): array
     {
-        $resultado = $this->autenticacion->comprobarSesion($this->token($autorizacion));
+        $resultado = $this->logica->comprobarSesion($this->token($autorizacion));
         $json = $resultado->aJson();
         unset($json['token']);
 
@@ -122,7 +122,7 @@ final class ApiAuth
             }
         }
 
-        $resultado = $this->autenticacion->actualizarPerfil(
+        $resultado = $this->logica->actualizarPerfil(
             $token,
             $this->texto($cuerpo, 'nombre'),
             $this->texto($cuerpo, 'apellidos'),
@@ -144,7 +144,7 @@ final class ApiAuth
      */
     private function borrarCuenta(array $cuerpo, ?string $autorizacion): array
     {
-        $resultado = $this->autenticacion->borrarCuenta(
+        $resultado = $this->logica->borrarCuenta(
             $this->token($autorizacion),
             $this->texto($cuerpo, 'password')
         );
@@ -159,7 +159,7 @@ final class ApiAuth
      */
     private function listarUsuarios(?string $autorizacion): array
     {
-        $resultado = $this->autenticacion->listarUsuarios($this->token($autorizacion));
+        $resultado = $this->logica->listarUsuarios($this->token($autorizacion));
 
         return [$this->estado($resultado['codigo']), [
             'ok' => $resultado['ok'],
@@ -174,7 +174,7 @@ final class ApiAuth
      */
     private function crearUsuarioAdmin(array $cuerpo, ?string $autorizacion): array
     {
-        $resultado = $this->autenticacion->crearUsuarioAdmin(
+        $resultado = $this->logica->crearUsuarioAdmin(
             $this->token($autorizacion),
             $this->texto($cuerpo, 'nombre'),
             $this->texto($cuerpo, 'apellidos'),
@@ -197,7 +197,7 @@ final class ApiAuth
     private function actualizarUsuarioAdmin(int $idUsuario, array $cuerpo, ?string $autorizacion): array
     {
         $activo = $cuerpo['activo'] ?? true;
-        $resultado = $this->autenticacion->actualizarUsuarioAdmin(
+        $resultado = $this->logica->actualizarUsuarioAdmin(
             $this->token($autorizacion),
             $idUsuario,
             $this->texto($cuerpo, 'nombre'),
@@ -217,7 +217,7 @@ final class ApiAuth
      */
     private function borrarUsuarioAdmin(int $idUsuario, ?string $autorizacion): array
     {
-        $resultado = $this->autenticacion->borrarUsuarioAdmin($this->token($autorizacion), $idUsuario);
+        $resultado = $this->logica->borrarUsuarioAdmin($this->token($autorizacion), $idUsuario);
         $json = $resultado->aJson();
         unset($json['token']);
 
@@ -229,7 +229,7 @@ final class ApiAuth
      */
     private function generarPasswordAdmin(int $idUsuario, ?string $autorizacion): array
     {
-        $resultado = $this->autenticacion->generarPasswordAdmin($this->token($autorizacion), $idUsuario);
+        $resultado = $this->logica->generarPasswordAdmin($this->token($autorizacion), $idUsuario);
 
         return [$this->estado($resultado['codigo']), [
             'ok' => $resultado['ok'],
@@ -259,7 +259,7 @@ final class ApiAuth
             return false;
         }
 
-        $sesion = $this->autenticacion->comprobarSesion($token);
+        $sesion = $this->logica->comprobarSesion($token);
         if (!$sesion->ok) {
             return false;
         }

@@ -2,8 +2,7 @@
 
 declare(strict_types=1);
 
-use QueAire\BusinessLogic\Autenticacion;
-use QueAire\BusinessLogic\Mapa;
+use QueAire\BusinessLogic\Logica;
 use QueAire\Communication\ApiAuth;
 use QueAire\Communication\ApiMapa;
 use QueAire\Database\Conexion;
@@ -18,8 +17,7 @@ require dirname(__DIR__) . '/src/database/UsuarioRepositorio.php';
 require dirname(__DIR__) . '/src/database/MedicionRepositorio.php';
 require dirname(__DIR__) . '/src/business_logic/ResultadoAuth.php';
 require dirname(__DIR__) . '/src/business_logic/Token.php';
-require dirname(__DIR__) . '/src/business_logic/Autenticacion.php';
-require dirname(__DIR__) . '/src/business_logic/Mapa.php';
+require dirname(__DIR__) . '/src/business_logic/Logica.php';
 require dirname(__DIR__) . '/src/communication/ApiAuth.php';
 require dirname(__DIR__) . '/src/communication/ApiMapa.php';
 
@@ -57,13 +55,15 @@ try {
     exit;
 }
 
-$autenticacion = new Autenticacion(
+$logica = new Logica(
     new UsuarioRepositorio($pdo),
     $config['auth_secreto'],
-    $config['token_ttl']
+    $config['token_ttl'],
+    null,
+    new MedicionRepositorio($pdo)
 );
-$api = new ApiAuth($autenticacion);
-$apiMapa = new ApiMapa($autenticacion, new Mapa(new MedicionRepositorio($pdo)));
+$api = new ApiAuth($logica);
+$apiMapa = new ApiMapa($logica);
 
 
 $ruta = parse_url($_SERVER['REQUEST_URI'] ?? '/', PHP_URL_PATH);

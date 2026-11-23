@@ -5,14 +5,15 @@ import { montarPanelAdmin } from "./adminPanel.js";
 
 const menuPerfil = montarMenuPerfil({
   onCerrarSesion: async () => {
-    await logicaProxy.cerrarSesion();
+    await logicaProxy.cerrarSesion(logicaProxy.sesionActual()?.token || "");
     location.replace("user.html");
   },
 });
 
-const sesion = await logicaProxy.comprobarSesion();
+const tokenLocal = logicaProxy.sesionActual()?.token || "";
+const sesion = await logicaProxy.comprobarSesion(tokenLocal);
 if (!sesion.ok) {
-  await logicaProxy.cerrarSesion();
+  await logicaProxy.cerrarSesion(tokenLocal);
   location.replace("user.html#login");
 } else if (sesion.usuario.rol !== "admin") {
   location.replace("user.html");

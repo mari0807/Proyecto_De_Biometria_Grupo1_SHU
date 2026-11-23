@@ -1,33 +1,50 @@
 # Arquitectura Backend
 
 ## ¿Qué es este fichero?
-Aquí se explica cómo está organizado el servidor: qué capas hay, qué carpetas hay y quién puede llamar a quién.
+Aquí está el **diseño ya dado** de capas y dependencias del servidor.
+El agente **no** inventa capas: implementa según ## Diseño.
 
-## Rúbrica (Arquitectura y lógica — 20%)
+## Buenas prácticas
 - Capas: `communication` → `business_logic` → `database`.
-- La **lógica de negocio** es quien accede a la BBDD.
-- La lógica es **independiente** de cómo la invocan (REST u otro canal; no sabe si es acceso local o remoto).
-- La arquitectura debe ser coherente en toda la aplicación y estar alineada con la implementación.
-- Se usan los patrones estándar de la asignatura.
-
-## Idea del flujo
-```
-Móvil / Web  →  communication (API)  →  business_logic  →  database
-```
-
-- `communication`: recibe HTTP y llama a la lógica. No escribe SQL.
-- `business_logic`: reglas del dominio y acceso a BBDD. Sin HTTP.
-- `database`: schema / SQL.
-
-## Carpetas típicas
-- `src/communication/`
-- `src/business_logic/`
-- `src/database/`
+- La lógica es quien accede a la BBDD.
+- La lógica no conoce HTTP ni frameworks web.
 
 ## Cómo debe quedar el código
-- Dependencias solo hacia abajo: communication → business_logic → database.
-- La lógica con **cero** dependencias de communication / frameworks web.
-- La implementación debe coincidir con el diseño de cada capa.
+- Dependencias solo hacia abajo.
+- Cero imports de communication en business_logic.
 
 ## Diseño
-(Completar aquí el mapa de capas y carpetas del servidor.)
+
+```text
+cliente (Web | Android)
+        |
+        v
+--------- communication ------------------
+|
+| ApiAuth
+| ApiMapa
+|
+| (HTTP in / out; llama a lógica; no SQL)
+|
+------------------------------------------
+        |
+        v
+--------- business_logic ------------------
+|
+| Logica
+|
+| (dominio + BBDD; sin HTTP)
+|
+------------------------------------------
+        |
+        v
+--------- database ------------------
+|
+| schema / SQL  (BBDD.md)
+|
+--------------------------------------
+```
+
+Carpetas: `servidor/src/communication/`, `servidor/src/business_logic/`, `bd/` (schema + seed).
+
+Diseños de cada capa: `Comunicacion.md`, `Logica.md`, `BBDD.md`.

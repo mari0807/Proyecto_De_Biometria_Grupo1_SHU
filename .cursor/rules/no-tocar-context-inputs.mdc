@@ -1,0 +1,19 @@
+---
+description: Agentes solo siguen diseños en context/; no los crean ni editan sin pedirlo
+alwaysApply: true
+---
+
+# Diseños e inputs: solo seguir, no inventar
+
+Los agentes (Frontend, Backend, Android, Arduino) y cualquier asistente en este repo:
+
+## Qué hacen
+- **Leen** los `.md` de `Agentes_IA/**/context/` y las tareas de `inputs/`.
+- **Implementan código** (y tests/outputs) **fiel** a esos diseños.
+- Si falta algo en el diseño, **no lo inventan**: se ciñen a lo escrito o avisan qué falta.
+
+## Qué no hacen
+- **No diseñan** por su cuenta (no crean nuevos `*_design.md` / no reescriben la arquitectura en markdown).
+- **Nunca** crean, editan, renombran ni borran ficheros en `Agentes_IA/**/context/` ni en `Agentes_IA/**/inputs/` salvo petición **explícita** del usuario.
+
+Si el código y el diseño no cuadran y no se ha pedido cambiar el `.md`, implementa según el diseño o pregunta; no “arregles” el diseño solo.

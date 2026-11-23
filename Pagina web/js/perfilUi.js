@@ -1,7 +1,5 @@
 import { logicaProxy } from "./logicaProxy.js";
 
-const API_BASE = "http://localhost";
-
 /**
  * Logo QuéAire:
  * - sin sesión / usuario → web pública (user)
@@ -38,8 +36,7 @@ export function iniciales(usuario) {
 
 export function urlFoto(usuario) {
   if (!usuario?.foto) return "";
-  if (usuario.foto.startsWith("http") || usuario.foto.startsWith("data:")) return usuario.foto;
-  return `${API_BASE}${usuario.foto.startsWith("/") ? "" : "/"}${usuario.foto}`;
+  return logicaProxy.urlRecurso(usuario.foto);
 }
 
 export function pintarAvatar(nodo, usuario) {

@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-use QueAire\BusinessLogic\Autenticacion;
+use QueAire\BusinessLogic\Logica;
 use QueAire\Communication\ApiAuth;
 
 require dirname(__DIR__) . '/src/database/CorreoYaRegistrado.php';
 require dirname(__DIR__) . '/src/database/RepositorioUsuarios.php';
 require dirname(__DIR__) . '/src/business_logic/ResultadoAuth.php';
 require dirname(__DIR__) . '/src/business_logic/Token.php';
-require dirname(__DIR__) . '/src/business_logic/Autenticacion.php';
+require dirname(__DIR__) . '/src/business_logic/Logica.php';
 require dirname(__DIR__) . '/src/communication/ApiAuth.php';
 require __DIR__ . '/RepositorioMemoria.php';
 
@@ -27,9 +27,9 @@ function afirmar(bool $condicion, string $mensaje): void
     fwrite(STDERR, "FALLO  $mensaje\n");
 }
 
-function auth(RepositorioMemoria $repo, ?callable $reloj = null): Autenticacion
+function auth(RepositorioMemoria $repo, ?callable $reloj = null): Logica
 {
-    return new Autenticacion($repo, 'secreto-test', 3600, $reloj);
+    return new Logica($repo, 'secreto-test', 3600, $reloj);
 }
 
 $repo = new RepositorioMemoria();
@@ -165,7 +165,7 @@ afirmar(!isset($repo->usuarios[$idLuis]), 'borrar cuenta propia elimina la fila'
 $sesionTrasBaja = $servicio->comprobarSesion($tokenPerfil);
 afirmar($sesionTrasBaja->codigo === 'sesion_invalida', 'tras borrar, la sesión deja de valer');
 
-$logica = (string) file_get_contents(dirname(__DIR__) . '/src/business_logic/Autenticacion.php');
+$logica = (string) file_get_contents(dirname(__DIR__) . '/src/business_logic/Logica.php');
 $comunicacion = (string) file_get_contents(dirname(__DIR__) . '/src/communication/ApiAuth.php');
 afirmar(!preg_match('/HttpRequest|HttpResponse|\bPDO\b|SELECT |INSERT |UPDATE /', $logica), 'la lógica no depende de HTTP ni de SQL');
 afirmar(!preg_match('/SELECT |INSERT |UPDATE |DELETE FROM/', $comunicacion), 'la comunicación no escribe SQL');

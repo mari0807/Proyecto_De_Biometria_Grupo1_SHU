@@ -58,7 +58,7 @@ function mostrarRegistroExito(destino) {
 
 const menuPerfil = montarMenuPerfil({
   onCerrarSesion: async () => {
-    await logicaProxy.cerrarSesion();
+    await logicaProxy.cerrarSesion(logicaProxy.sesionActual()?.token || "");
     pintarSesion(null);
     location.hash = "";
     location.reload();
@@ -155,7 +155,7 @@ pintarSesion(null);
 const local = logicaProxy.sesionActual();
 if (local) {
   pintarSesion(local);
-  const remoto = await logicaProxy.comprobarSesion();
+  const remoto = await logicaProxy.comprobarSesion(local.token || "");
   if (remoto.obsoleta) {
     /* ignore */
   } else if (remoto.red) {
@@ -163,7 +163,7 @@ if (local) {
   } else if (remoto.ok && remoto.usuario) {
     pintarSesion(remoto.usuario);
   } else {
-    await logicaProxy.cerrarSesion();
+    await logicaProxy.cerrarSesion(local.token || "");
     pintarSesion(null);
   }
 }

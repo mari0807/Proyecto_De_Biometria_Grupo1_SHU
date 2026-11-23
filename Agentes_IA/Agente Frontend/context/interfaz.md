@@ -1,48 +1,148 @@
 # Interfaz web (GUI)
 
 ## ¿Qué es este fichero?
-Aquí se describe el diseño de las pantallas de la web: qué se ve, qué se puede hacer y cómo encaja con la identidad visual del producto.
+Aquí está el **diseño ya dado** de las pantallas de la web.
+El agente **no** inventa pantallas: implementa según ## Diseño.
+Notación lógica: `Software_Engineering_Spec.md`. La GUI solo llama a `LogicaProxy`.
 
-## Qué debe incluir
-- Lista de pantallas (login, registro, mapa, panel de administración, etc.)
-- Contenido de cada pantalla (campos, botones, tablas, mapa…)
-- Identidad visual: nombre del producto, logo, tipografía, paleta de colores
-- Comportamiento a alto nivel (qué pasa al pulsar cada botón)
-- Diseño responsive si aplica (móvil / escritorio)
-
-## Cómo debe quedar el código de la interfaz
-- La interfaz **no** llama al PHP/API directamente.
-- La interfaz pide datos y acciones a través de `LogicaProxy`.
-- El código de pantallas **no** debe contener HTTP/fetch/WebSocket directo.
-- Debe respetarse la identidad visual del producto.
+## Buenas prácticas
+- Sin HTTP/`fetch` en pantallas.
+- Identidad visual del producto.
 - El código debe coincidir con este diseño.
+
+## Cómo debe quedar el código
+- Pantallas → `LogicaProxy` → API.
 
 ## Diseño
 
-Identidad ya existente en `Pagina web`: QuéAire, logo, DM Sans / Manrope, paleta de `index.css`.
-Estas tres historias solo usan pantallas que ya están: el acceso de portadores en `index.html`
-y el panel `admin.html`. No se añade otra página.
+Identidad: QuéAire, logo, DM Sans / Manrope, `#155b91` / `#198db1`.
+Entrada: `index.html` / `landing.html` redirigen a `user.html`.
 
-La cabecera de `index.html` abre el acceso con el botón **Login**.
+### PaginaUsuario (`user.html`)
 
-### Login (`index.html#portadores`)
+```text
+                 --------- PaginaUsuario ------------------
+                 |
+                 | proxy: LogicaProxy
+                 |
+                 |
+                 | mostrar_acceso() -->
+                 |
+                 |
+email: Text,
+password: Text --> iniciar_sesion() -->
+                 |
+                 |
+nombre: Text,
+apellidos: Text,
+email: Text,
+password: Text --> registrar() -->
+                 |
+                 |
+                 | mostrar_exito_registro() -->
+                 |
+                 |
+                 | mostrar_recuperacion() -->
+                 |
+                 |
+                 | abrir_menu_perfil() -->
+                 |
+                 |
+                 | ir_a_perfil() -->
+                 |
+                 |
+token: Text   --> cerrar_sesion() -->
+                 |
+                 |
+                 | obtener_puntos_mapa() -->
+                 |
+                 |
+id_nodo: N   --> obtener_detalle_zona() -->
+                 |
+                 |
+                 | ir_a_admin() -->
+                 |
+                 --------------------------------------
+```
 
-Dos formularios:
+Login OK → `admin.html` si rol `admin`, si no sigue en `user.html`.
+Registro OK → pantalla «¡Te has registrado con éxito!» y entra.
+Recuperar: solo aviso a soporte (sin API). Biometría visible, no autentica.
 
-- **Iniciar sesión :** correo electrónico y contraseña. Al enviar, la GUI llama a `iniciarSesion`. Si falla, el mensaje de error queda en el formulario. Si acierta, redirige según el rol devuelto. Roles de producto: `admin` y `usuario`.
-  - `admin` → `admin.html`
-  - `usuario` → `user.html`
-- **Crear cuenta :** nombre, apellidos, correo y contraseña. La GUI avisa si falta un obligatorio o el correo no tiene forma de email, y enseña el mensaje del servidor si el correo ya existe o el registro se confirma. No inicia sesión sola.
+### PaginaPerfil (`perfil.html`)
 
-El botón de biometría del prototipo no forma parte de estas historias y no autentica.
+```text
+                 --------- PaginaPerfil ------------------
+                 |
+                 | proxy: LogicaProxy
+                 | desde: Text
+                 |
+                 |
+                 | cargar() -->
+                 |
+                 |
+nombre: Text,
+apellidos: Text,
+email: Text,
+password: Text,
+password_nueva: Text,
+foto_base64: Text,
+quitar_foto: B --> guardar() -->
+                 |
+                 |
+password: Text --> borrar_cuenta() -->
+                 |
+                 |
+token: Text   --> cerrar_sesion() -->
+                 |
+                 |
+                 | volver() -->
+                 |
+                 --------------------------------------
+```
 
-### Sesión abierta 
+Exige sesión. `desde` = `user` | `admin`.
 
-Con sesión, admin y usuario ven en la cabecera un **menú de perfil** (avatar y nombre, más grande y con borde azul; sin el rol). Al abrirlo aparecen:
-- **Editar perfil** (implementado): popup con foto, nombre, apellidos, correo y confirmación con contraseña actual.
-- **Mis notificaciones** (solo visible, aún no desarrollado).
-- **Cerrar sesión**.
+### PaginaAdmin (`admin.html`)
 
-Si el rol es `admin`, en la vista ciudadana también aparece el botón **Volver al panel →**. En `admin.html` queda el botón **Ver página ciudadana →**. Ambos usan el azul de acento de la paleta (`#198db1`). No se muestra el texto «Panel de administración» en la cabecera.
+```text
+                 --------- PaginaAdmin ------------------
+                 |
+                 | proxy: LogicaProxy
+                 |
+                 |
+token: Text   --> comprobar_acceso() -->
+                 |
+                 |
+                 | listar_usuarios() -->
+                 |
+                 |
+nombre: Text,
+apellidos: Text,
+email: Text,
+rol: Text    --> crear_usuario() -->
+                 |
+                 |
+id_usuario: N,
+nombre: Text,
+apellidos: Text,
+email: Text,
+activo: B,
+rol: Text    --> actualizar_usuario() -->
+                 |
+                 |
+id_usuario: N --> borrar_usuario() -->
+                 |
+                 |
+id_usuario: N --> generar_password() -->
+                 |
+                 |
+                 | ver_pagina_ciudadana() -->
+                 |
+                 |
+token: Text   --> cerrar_sesion() -->
+                 |
+                 --------------------------------------
+```
 
-`admin.html` no se muestra si `comprobarSesion` falla o si el rol no es `admin`: se vuelve al inicio de sesión. Un `usuario` que abra esa URL vuelve a `user.html` sin perder su sesión.
+Solo rol `admin`; si no → `user.html#login` o `user.html`.

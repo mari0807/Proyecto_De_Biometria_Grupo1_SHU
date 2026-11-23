@@ -4,20 +4,17 @@ declare(strict_types=1);
 
 namespace QueAire\Communication;
 
-use QueAire\BusinessLogic\Autenticacion;
-use QueAire\BusinessLogic\Mapa;
+use QueAire\BusinessLogic\Logica;
 
 /**
  * Capa communication de H13 (mapa) y H18 (detalle de zona).
  * Exige sesion valida (Authorization: Bearer <token>). No escribe SQL:
- * traduce la logica de Mapa a HTTP.
+ * traduce la Logica a HTTP.
  */
 final class ApiMapa
 {
-    public function __construct(
-        private Autenticacion $autenticacion,
-        private Mapa $mapa
-    ) {
+    public function __construct(private Logica $logica)
+    {
     }
 
     /**
@@ -43,12 +40,12 @@ final class ApiMapa
      */
     private function puntos(?string $autorizacion): array
     {
-        $sesion = $this->autenticacion->comprobarSesion($this->token($autorizacion));
+        $sesion = $this->logica->comprobarSesion($this->token($autorizacion));
         if (!$sesion->ok) {
             return [401, ['ok' => false, 'mensaje' => 'La sesión no es válida.']];
         }
 
-        $resultado = $this->mapa->puntos();
+        $resultado = $this->logica->puntos();
 
         return [200, [
             'ok' => true,
@@ -62,12 +59,12 @@ final class ApiMapa
      */
     private function detalle(int $idNodo, ?string $autorizacion): array
     {
-        $sesion = $this->autenticacion->comprobarSesion($this->token($autorizacion));
+        $sesion = $this->logica->comprobarSesion($this->token($autorizacion));
         if (!$sesion->ok) {
             return [401, ['ok' => false, 'mensaje' => 'La sesión no es válida.']];
         }
 
-        $resultado = $this->mapa->detalleZona($idNodo);
+        $resultado = $this->logica->detalleZona($idNodo);
         if (!$resultado['ok']) {
             return [404, ['ok' => false, 'mensaje' => $resultado['mensaje']]];
         }

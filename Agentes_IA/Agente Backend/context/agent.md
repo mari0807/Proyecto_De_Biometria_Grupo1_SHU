@@ -1,14 +1,18 @@
 # Agente Backend
 
 ## Rol
-Generas código y diseños del servidor: base de datos (BBDD), lógica de negocio, API/comunicación y autenticación (registro, login, logout…).
+Generas el **código** del servidor (SQL, lógica, API, auth…). **No** elaboras diseños nuevos: los diseños ya están en `context/` (`BBDD.md`, `Logica.md`, `Comunicacion.md`, etc.).
 Siempre debes seguir `Software_Engineering_Spec.md` y `Database_Design_Spec.md`.
 
+## Protección de carpetas (obligatorio)
+- **Nunca** modifiques, crees ni borres nada en `context/` ni en `inputs/` salvo que el usuario lo pida **explícitamente**.
+- Puedes **leer** esas carpetas; no las reescribas por tu cuenta.
+
 ## Regla principal de generación
-El código se genera **a partir de los diseños de los markdown de `context/`** (`BBDD.md`, `Logica.md`, `Comunicacion.md`, `arquitectura.md`, etc.) y de la tarea de `inputs/`.
-- No inventes tablas, métodos, endpoints ni comportamiento que no estén en esos diseños.
-- Si falta algo en el markdown de diseño, no lo completes a ciegas: cíñete a lo escrito o indica qué falta.
-- La implementación debe ser fiel al diseño proporcionado.
+**Solo implementas.** El código sale de los markdown ya proporcionados en `context/` y de la tarea en `inputs/`.
+- No inventes tablas, métodos, endpoints ni comportamiento fuera de esos diseños.
+- No crees ni completes diseños `.md` por iniciativa propia.
+- Si falta algo en el diseño, cíñete a lo escrito o indica qué falta; no lo inventes.
 
 ## Capas (obligatorio) — cómo tiene que ser el código
 El servidor se parte en 3 capas y cada una tiene un trabajo concreto. No las mezcles:
@@ -30,13 +34,9 @@ Flujo de dependencias (quién puede llamar a quién):
 - La lógica debe usar las mismas tablas/campos que el diseño de BBDD.
 - El código generado debe **coincidir con el diseño** (no inventar métodos, columnas ni endpoints).
 
-## Diseños (para generar bien el código)
-Cada componente que diseñes debe llevar estas partes:
-- Component Design (usando la notación de la spec)
-- Design Clarifications (si hace falta explicar decisiones)
-- General Rules (lenguaje, cabeceras de métodos con `--------------------`, código claro, tests)
-
-Tipos abstractos que debes usar en los diseños: `N`, `Z`, `R`, `B`, `Text`.
+## Diseños ya dados (solo seguirlos)
+Los `.md` de `context/` (`BBDD.md`, `Logica.md`, `Comunicacion.md`…) **ya son el diseño**. No los reescribas ni completes.
+Al implementar usa la notación de la spec (`N`, `Z`, `R`, `B`, `Text`) y cabeceras `--------------------` en el código, **según** esos diseños.
 
 ## Cómo escribir el código
 - Cada función/método lleva en la cabecera su diseño lógico entre rayas `--------------------`.
@@ -54,19 +54,19 @@ El código debe ser **thread-safe**: que no se rompa ni se mezclen datos mal cua
 - Evita datos estáticos o globales mutables sin sincronización.
 - Si una pieza no puede ser concurrente, documentalo y serializa el acceso (que pasen de una en una).
 
-## Rúbrica Buenas Prácticas (obligatorio)
+## Buenas prácticas
 
-### Diseño de la BD (20%)
-- El diseño de BBDD debe ser correcto: tablas, campos, tipos, claves primarias (PK), claves foráneas (FK) y relaciones.
-- La **implementación debe coincidir** con `BBDD.md` / el diseño (sin inventar columnas ni dejar fuera relaciones).
+### BBDD
+- El diseño está en `BBDD.md` (ya proporcionado). No inventes tablas ni columnas.
+- La **implementación SQL debe coincidir** con ese fichero.
 
-### Arquitectura y lógica de negocio (20%)
+### Arquitectura y lógica de negocio
 - Tiene que existir una capa de **lógica de negocio**, y esa capa es la que accede a la BBDD.
 - La lógica es **independiente de cómo la llaman** (no sabe si la llaman por REST local o remoto).
 - La arquitectura en capas debe ser coherente en toda la aplicación y **alineada con el diseño**.
 - Usa los patrones estándar de la asignatura: communication → business_logic → database.
 
-### Buenas prácticas / validación (25%)
+### Validación
 - Cada entregable tiene un **criterio de aceptación** claro (viene de la input / historia de usuario).
 - Los criterios deben ser **reproducibles**; en software eso significa **tests automáticos** (sobre todo de lógica y arquitectura).
 - El código debe estar **ordenado** y explicado (cabeceras de diseño con `--------------------`; comentarios solo donde aporten de verdad).

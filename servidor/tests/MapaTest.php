@@ -2,8 +2,7 @@
 
 declare(strict_types=1);
 
-use QueAire\BusinessLogic\Autenticacion;
-use QueAire\BusinessLogic\Mapa;
+use QueAire\BusinessLogic\Logica;
 use QueAire\Communication\ApiMapa;
 
 require dirname(__DIR__) . '/src/database/CorreoYaRegistrado.php';
@@ -11,8 +10,7 @@ require dirname(__DIR__) . '/src/database/RepositorioUsuarios.php';
 require dirname(__DIR__) . '/src/database/RepositorioMediciones.php';
 require dirname(__DIR__) . '/src/business_logic/ResultadoAuth.php';
 require dirname(__DIR__) . '/src/business_logic/Token.php';
-require dirname(__DIR__) . '/src/business_logic/Autenticacion.php';
-require dirname(__DIR__) . '/src/business_logic/Mapa.php';
+require dirname(__DIR__) . '/src/business_logic/Logica.php';
 require dirname(__DIR__) . '/src/communication/ApiMapa.php';
 require __DIR__ . '/RepositorioMemoria.php';
 require __DIR__ . '/RepositorioMedicionesMemoria.php';
@@ -57,16 +55,17 @@ $mediciones->mediciones[] = ['id_nodo' => 1, 'valor' => 1650.0, 'categoria' => '
 $mediciones->mediciones[] = ['id_nodo' => 2, 'valor' => 310.0, 'categoria' => 'muy_mala', 'color' => '#E74C3C', 'fecha_hora' => '2026-11-19 09:00:00', 'latitud' => 38.974800, 'longitud' => -0.165500];
 $mediciones->mediciones[] = ['id_nodo' => 4, 'valor' => 40.0, 'categoria' => 'buena', 'color' => '#2ECC71', 'fecha_hora' => '2026-11-19 09:00:00', 'latitud' => 38.98, 'longitud' => -0.16];
 
-$mapa = new Mapa($mediciones);
+$repoUsuarios = new RepositorioMemoria();
+$logica = new Logica($repoUsuarios, 'secreto-test', 3600, null, $mediciones);
 
-$puntos = $mapa->puntos();
+$puntos = $logica->puntos();
 afirmar($puntos['ok'] && count($puntos['puntos']) === 2, 'H13 devuelve solo nodos activos con datos');
 afirmar($puntos['puntos'][0]['id_nodo'] === 1 && $puntos['puntos'][0]['categoria'] === 'mala', 'H13 usa la ultima medicion del nodo');
 afirmar($puntos['puntos'][0]['color'] === '#E67E22' && $puntos['puntos'][0]['unidad'] === 'ppm', 'H13 incluye color y unidad');
 afirmar($puntos['puntos'][1]['id_nodo'] === 2 && $puntos['puntos'][1]['categoria'] === 'muy_mala', 'H13 clasifica cada punto por su contaminante');
 afirmar($puntos['puntos'][0]['latitud'] === 38.996460 && $puntos['puntos'][0]['longitud'] === -0.166030, 'H13 incluye coordenadas');
 
-$detalle = $mapa->detalleZona(1);
+$detalle = $logica->detalleZona(1);
 afirmar($detalle['ok'] && $detalle['zona']['actual']['valor'] === 1650.0, 'H18 devuelve el valor actual de la zona');
 afirmar(count($detalle['zona']['historial']) === 2, 'H18 devuelve el historial completo');
 afirmar(
@@ -76,18 +75,16 @@ afirmar(
 );
 afirmar($detalle['zona']['unidad'] === 'ppm' && $detalle['zona']['contaminante'] === 'CO2', 'H18 incluye unidad y contaminante');
 
-$sinDatos = $mapa->detalleZona(3);
+$sinDatos = $logica->detalleZona(3);
 afirmar($sinDatos['ok'] && $sinDatos['zona']['actual'] === null && $sinDatos['zona']['historial'] === [], 'H18 informa cuando no hay mediciones');
 
-$inexistente = $mapa->detalleZona(99);
+$inexistente = $logica->detalleZona(99);
 afirmar(!$inexistente['ok'] && $inexistente['codigo'] === 'no_encontrado', 'H18 avisa de zona inexistente');
 
-$repoUsuarios = new RepositorioMemoria();
-$autenticacion = new Autenticacion($repoUsuarios, 'secreto-test', 3600);
-$autenticacion->registrar('Ana', 'Pérez', 'ana@correo.com', 'Test1234!');
-$token = $autenticacion->iniciarSesion('ana@correo.com', 'Test1234!')->token;
+$logica->registrar('Ana', 'Pérez', 'ana@correo.com', 'Test1234!');
+$token = $logica->iniciarSesion('ana@correo.com', 'Test1234!')->token;
 
-$api = new ApiMapa($autenticacion, $mapa);
+$api = new ApiMapa($logica);
 
 [$sinToken, ] = $api->manejar('GET', '/api/mapa', null, null);
 afirmar($sinToken === 401, 'H13 exige token en /api/mapa');
@@ -104,9 +101,9 @@ afirmar($detalle404 === 404, 'H18 responde 404 si la zona no existe');
 [$detalleSinToken, ] = $api->manejar('GET', '/api/mapa/zona/1', null, null);
 afirmar($detalleSinToken === 401, 'H18 exige token en el detalle');
 
-$logica = (string) file_get_contents(dirname(__DIR__) . '/src/business_logic/Mapa.php');
+$codigoLogica = (string) file_get_contents(dirname(__DIR__) . '/src/business_logic/Logica.php');
 $comunicacion = (string) file_get_contents(dirname(__DIR__) . '/src/communication/ApiMapa.php');
-afirmar(!preg_match('/HttpRequest|HttpResponse|\bPDO\b|SELECT |INSERT |UPDATE /', $logica), 'la logica del mapa no depende de HTTP ni de SQL');
+afirmar(!preg_match('/HttpRequest|HttpResponse|\bPDO\b|SELECT |INSERT |UPDATE /', $codigoLogica), 'la logica no depende de HTTP ni de SQL');
 afirmar(!preg_match('/SELECT |INSERT |UPDATE |DELETE FROM/', $comunicacion), 'la comunicacion del mapa no escribe SQL');
 
 if ($fallos > 0) {

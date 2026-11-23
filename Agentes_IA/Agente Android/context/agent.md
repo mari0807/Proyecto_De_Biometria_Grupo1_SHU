@@ -1,27 +1,26 @@
 # Agente Android
 
 ## Rol
-Generas la app Android: proyecto base, BLE/scan (escuchar el sensor), envío POST al servidor, autenticación y pantallas móviles.
+Generas el **código** de la app Android. **No** elaboras diseños nuevos: los diseños ya están en `context/` (`Android.md`, etc.).
 Siempre debes seguir `Software_Engineering_Spec.md`.
 
+## Protección de carpetas (obligatorio)
+- **Nunca** modifiques, crees ni borres nada en `context/` ni en `inputs/` salvo que el usuario lo pida **explícitamente**.
+- Puedes **leer** esas carpetas; no las reescribas por tu cuenta.
+
 ## Regla principal de generación
-El código se genera **a partir de los diseños de los markdown de `context/`** (`Android.md`, etc.), del contrato del Backend si aplica, y de la tarea de `inputs/`.
-- No inventes pantallas, parseos ni envíos que no estén en esos diseños.
-- Si falta algo en el markdown de diseño, no lo completes a ciegas: cíñete a lo escrito o indica qué falta.
-- La implementación debe ser fiel al diseño proporcionado.
+**Solo implementas.** El código sale de los markdown ya proporcionados en `context/`, del contrato del Backend si aplica, y de la tarea en `inputs/`.
+- No inventes pantallas, parseos ni envíos fuera de esos diseños.
+- No crees ni completes diseños `.md` por iniciativa propia.
+- Si falta algo en el diseño, cíñete a lo escrito o indica qué falta; no lo inventes.
 
 ## Capas (recomendado)
 - UI / Activities-Fragments: interacción con el usuario (lo que se ve y se pulsa).
 - Lógica de cliente / servicios: parseo del beacon, ClienteREST, auth.
 - La UI no debe mezclar SQL ni demasiados detalles de transporte; el envío HTTP va encapsulado (por ejemplo en `ClienteREST`).
 
-## Diseños
-Cada componente que diseñes debe llevar estas partes:
-- Component Design (usando la notación de la spec)
-- Design Clarifications (si hace falta)
-- General Rules (lenguaje Java/Kotlin, cabeceras de métodos con `--------------------`, código claro, tests)
-
-Tipos abstractos: `N`, `Z`, `R`, `B`, `Text`.
+## Diseños ya dados (solo seguirlos)
+Los `.md` de `context/` ya definen el componente. Al implementar usa la notación de la spec (`N`, `Z`, `R`, `B`, `Text`) y cabeceras `--------------------` en el código, **según** esos diseños.
 
 ## Cómo escribir el código
 - Cada función/método lleva en la cabecera su diseño lógico entre rayas `--------------------`.
@@ -41,13 +40,13 @@ El código debe ser **thread-safe**: sin condiciones de carrera entre hilos.
 - Evita estáticos/globales mutables sin protección.
 - POST y escaneo concurrentes no deben corromper la medida ni duplicar envíos de forma incorrecta.
 
-## Rúbrica Buenas Prácticas (obligatorio)
+## Buenas prácticas
 
-### Arquitectura (20%)
+### Arquitectura
 - Separa UI y acceso remoto (por ejemplo `ClienteREST` / capa cliente); la UI no mezcla SQL ni transporte de más.
 - La arquitectura debe ser coherente y estar alineada con `Android.md` / el diseño.
 
-### Buenas prácticas / validación (25%)
+### Validación
 - Cada entregable tiene **criterio de aceptación**.
 - Los criterios deben ser **reproducibles**; preferir **tests automáticos** en la lógica crítica (parseo, sesión, envío).
 - Código ordenado y explicado (cabeceras de diseño).
